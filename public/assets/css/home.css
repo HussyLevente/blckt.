@@ -269,6 +269,8 @@
 .slider-viewport {
     flex: 1;
     overflow: hidden;
+    padding: 20px 0;
+    margin: -20px 0;
 }
 
 .slider-items {
@@ -281,24 +283,42 @@
 
 .slider-item {
     flex: 0 0 calc((100% - 40px) / 3);
+    aspect-ratio: 468 / 627;
+    box-sizing: border-box;
+}
+
+.websites-section .slider-item {
     background: #fff;
-    border: 1px solid #eee;
     border-radius: 5px;
     padding: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .slider-item img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
+}
+
+.websites-section .slider-item img {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Kép körüli fehér kártya - a paradise slider kivételével */
+.slider-image {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 5px;
+    padding: 40px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
 .slider-item.placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1;
     background: repeating-linear-gradient(45deg, #f7f7f7, #f7f7f7 10px, #eeeeee 10px, #eeeeee 20px);
     color: #999;
     font-size: 13px;

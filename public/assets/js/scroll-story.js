@@ -19,7 +19,7 @@ function initScrollStory() {
     const heroSection = document.querySelector('.hero-section');
     const manifestoPins = Array.from(document.querySelectorAll('.manifesto-pin'));
 
-    if (!heroPin || !heroSection) return;
+    if ((!heroPin || !heroSection) && manifestoPins.length === 0) return;
 
     const MAX_BLUR = 25;
     const FADE_IN_END = 0.35;
@@ -28,20 +28,23 @@ function initScrollStory() {
     let ticking = false;
 
     function render() {
-        const heroProgress = pinProgress(heroPin);
-        const heroBlur = heroProgress * MAX_BLUR;
-        heroSection.style.filter = heroBlur > 0.1 ? `blur(${heroBlur}px)` : '';
-        heroSection.style.opacity = String(1 - heroProgress);
+        if (heroPin && heroSection) {
+            const heroProgress = pinProgress(heroPin);
+            const heroBlur = heroProgress * MAX_BLUR;
+            heroSection.style.filter = heroBlur > 0.1 ? `blur(${heroBlur}px)` : '';
+            heroSection.style.opacity = String(1 - heroProgress);
+        }
 
-        manifestoPins.forEach((pin) => {
+        manifestoPins.forEach((pin, index) => {
             const content = pin.querySelector('.manifesto-content');
             if (!content) return;
 
             const progress = pinProgress(pin);
+            const isOpeningPin = index === 0 && !heroPin;
             let opacity = 1;
             let blur = 0;
 
-            if (progress <= FADE_IN_END) {
+            if (!isOpeningPin && progress <= FADE_IN_END) {
                 opacity = progress / FADE_IN_END;
             } else if (progress >= FADE_OUT_START) {
                 const t = (progress - FADE_OUT_START) / (1 - FADE_OUT_START);

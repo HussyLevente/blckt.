@@ -1,30 +1,46 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>blckt. | Professzionális Weboldalak</title>
+    <title>{{ __('blckt. | Professional Websites') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/cursor.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
     @stack('styles')
 </head>
-<body>
+<body class="is-loading">
+
+    <div id="page-loader" class="page-loader">
+        <div class="page-loader-inner">
+            <span class="page-loader-text">blckt.</span>
+            <div class="page-loader-bar"><span></span></div>
+        </div>
+    </div>
 
     <header id="blckt-navbar" class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <a href="/">blckt.</a>
             </div>
-            <nav class="nav-links">
-                <a href="/clothing" class="active">clothing</a>
-                <a href="/websites">websites</a>
-                <a href="/contact">contact</a>
-                <a href="/about">about</a>
-            </nav>
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <a href="/clothing" class="active">{{ __('clothing') }}</a>
+                    <a href="/websites">{{ __('websites') }}</a>
+                    <a href="/contact">{{ __('contact') }}</a>
+                    <a href="/about">{{ __('about') }}</a>
+                </nav>
+                <div class="lang-switcher">
+                    <a href="{{ route('lang.switch', 'en') }}" class="lang-option {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">EN</a>
+                    <span class="lang-divider">/</span>
+                    <a href="{{ route('lang.switch', 'hu') }}" class="lang-option {{ app()->getLocale() === 'hu' ? 'is-active' : '' }}">HU</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -32,7 +48,7 @@
         @yield('content')
     </main>
 
-    <a href="/contact" class="get-in-touch">Get in touch <span class="info-icon">&#9432;</span></a>
+    <a href="/contact" class="get-in-touch">{{ __('Get in touch') }} <span class="info-icon">&#9432;</span></a>
 
     <footer class="footer">
         <div class="footer-container">
@@ -41,25 +57,61 @@
             </div>
             <div class="footer-columns">
                 <div class="col">
-                    <h3>clothing</h3>
-                    <a href="#">all items</a>
+                    <h3>{{ __('clothing') }}</h3>
+                    <a href="#">{{ __('blckt. collection') }}</a>
                 </div>
                 <div class="col">
-                    <h3>websites</h3>
-                    <a href="#">all websites</a>
+                    <h3>{{ __('websites') }}</h3>
+                    <a href="#">{{ __('all websites') }}</a>
                 </div>
                 <div class="col">
-                    <h3>contact</h3>
-                    <a href="#">contact@blckt.com</a>
-                    <a href="#">06 30 255 2426</a>
+                    <h3>{{ __('contact') }}</h3>
+                    <a href="#">blckt.websites@gmail.com</a>
+                    <a href="#">+36 30 255 2432</a>
                 </div>
                 <div class="col">
-                    <h3>about</h3>
-                    <a href="#">blckt.</a>
+                    <h3>{{ __('about') }}</h3>
+                    <a href="#">{{ __('about') }}</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <div class="lightbox" id="site-lightbox">
+        <div class="lightbox-toolbar">
+            <button type="button" class="lightbox-btn lightbox-zoom-out" aria-label="{{ __('Zoom out') }}">&minus;</button>
+            <button type="button" class="lightbox-btn lightbox-zoom-in" aria-label="{{ __('Zoom in') }}">&plus;</button>
+            <button type="button" class="lightbox-btn lightbox-close" aria-label="{{ __('Close') }}">&times;</button>
+        </div>
+        <div class="lightbox-stage">
+            <img src="" alt="" class="lightbox-image">
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var MIN_DISPLAY_MS = 500;
+            var start = Date.now();
+            var loader = document.getElementById('page-loader');
+
+            function hideLoader() {
+                var remaining = Math.max(0, MIN_DISPLAY_MS - (Date.now() - start));
+                setTimeout(function () {
+                    loader.classList.add('is-hidden');
+                    document.body.classList.remove('is-loading');
+                    loader.addEventListener('transitionend', function () {
+                        loader.remove();
+                    }, { once: true });
+                }, remaining);
+            }
+
+            if (document.readyState === 'complete') {
+                hideLoader();
+            } else {
+                window.addEventListener('load', hideLoader);
+            }
+        })();
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -78,6 +130,9 @@
             });
         });
     </script>
+
+    <script src="{{ asset('assets/js/cursor.js') }}"></script>
+    <script src="{{ asset('assets/js/lightbox.js') }}"></script>
 
     @stack('scripts')
 </body>
