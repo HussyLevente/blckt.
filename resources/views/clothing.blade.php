@@ -20,7 +20,7 @@
             <div class="collection-left">
                 <h2 class="collection-title">{{ __('blckt. collection') }}</h2>
                 <p class="collection-text">{{ __('Standard issue is dead. blckt. engineers premium apparel designed to outlast the hype. No compromises. No cutting corners. Just top-tier quality that speaks for itself. Drop the dead weight and elevate your uniform.') }}</p>
-                <a href="#" class="btn-pill">{{ __('check out blckt.') }}</a>
+                <a href="{{ route('clothing.collection') }}" class="btn-pill">{{ __('check out blckt.') }}</a>
             </div>
             <div class="collection-right">
                 <img src="{{ asset('assets/imgs/blckt_coll_main.png') }}" alt="blckt. collection" class="collection-image">

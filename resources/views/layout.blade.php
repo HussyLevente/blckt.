@@ -50,6 +50,10 @@
 
     <a href="/contact" class="get-in-touch">{{ __('Get in touch') }} <span class="info-icon">&#9432;</span></a>
 
+    <button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="{{ __('Back to top') }}">
+        <img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="">
+    </button>
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
@@ -129,6 +133,24 @@
                 lastScrollY = window.scrollY;
             });
         });
+    </script>
+
+    <script>
+        (function () {
+            var btn = document.getElementById('scroll-top-btn');
+            var SHOW_AFTER = 500;
+
+            function toggleVisibility() {
+                btn.classList.toggle('is-visible', window.scrollY > SHOW_AFTER);
+            }
+
+            window.addEventListener('scroll', toggleVisibility, { passive: true });
+            toggleVisibility();
+
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
     </script>
 
     <script src="{{ asset('assets/js/cursor.js') }}"></script>

@@ -19,9 +19,9 @@
     <section class="content-section project-overview-section reveal">
         <div class="project-overview-grid">
             <div class="project-overview-left">
+                <a href="/websites" class="project-back-btn">&larr; {{ __('all websites') }}</a>
                 <img src="{{ asset($project['logo']) }}" alt="{{ $project['name'] }}" class="project-logo">
                 <p class="project-summary">{!! $project['summary'] !!}</p>
-                <a href="/websites" class="btn-pill project-back-btn">&larr; {{ __('all websites') }}</a>
             </div>
             <div class="project-overview-right">
                 <div class="project-meta-item">

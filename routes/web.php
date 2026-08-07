@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClothingProductController;
 use App\Http\Controllers\WebsiteProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 Route::view('/clothing', 'clothing');
+Route::get('/clothing/collection', [ClothingProductController::class, 'index'])->name('clothing.collection');
+Route::get('/clothing/collection/{product}', [ClothingProductController::class, 'show'])->name('clothing.show');
 Route::view('/websites', 'websites');
 Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->name('websites.show');
 Route::view('/about', 'about');

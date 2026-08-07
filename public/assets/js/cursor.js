@@ -11,9 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var label = cursor.querySelector('.custom-cursor-label');
     var interactiveSelector = 'a, button, input, textarea, select, label, [role="button"], .btn-pill, .slider-btn, .slider-item img';
 
-    document.addEventListener('mousemove', function (e) {
+    var pointerX = 0;
+    var pointerY = 0;
+    var lastTarget = null;
+    var frameRequested = false;
+
+    function render() {
+        frameRequested = false;
         cursor.classList.add('is-visible');
-        cursor.style.transform = 'translate3d(' + e.clientX + 'px, ' + e.clientY + 'px, 0)';
+        cursor.style.transform = 'translate3d(' + pointerX + 'px, ' + pointerY + 'px, 0)';
 
         if (document.body.classList.contains('is-image-dragging')) {
             cursor.classList.add('is-draggable', 'is-dragging');
@@ -22,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        var draggableImg = e.target.closest('.lightbox-image.is-draggable');
+        var draggableImg = lastTarget && lastTarget.closest ? lastTarget.closest('.lightbox-image.is-draggable') : null;
         if (draggableImg) {
             cursor.classList.add('is-draggable');
             cursor.classList.remove('is-dragging', 'is-interactive');
@@ -31,10 +37,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         cursor.classList.remove('is-draggable', 'is-dragging');
-        var interactive = e.target.closest(interactiveSelector);
+        var interactive = lastTarget && lastTarget.closest ? lastTarget.closest(interactiveSelector) : null;
         cursor.classList.toggle('is-interactive', !!interactive);
         label.textContent = interactive ? 'select' : '';
-    });
+    }
+
+    function scheduleRender() {
+        if (!frameRequested) {
+            frameRequested = true;
+            requestAnimationFrame(render);
+        }
+    }
+
+    document.addEventListener('mousemove', function (e) {
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+        lastTarget = e.target;
+        scheduleRender();
+    }, { passive: true });
 
     document.addEventListener('mouseleave', function () {
         cursor.classList.remove('is-visible');

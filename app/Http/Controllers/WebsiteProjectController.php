@@ -108,6 +108,38 @@ class WebsiteProjectController extends Controller
                 ],
                 'price' => '520 000 Ft',
             ],
+            'kepszakadas' => [
+                'slug' => 'kepszakadas',
+                'name' => 'Képszakadás',
+                'logo' => 'assets/imgs/kepszakadas_logo.png',
+                'tagline' => [
+                    'en' => 'Your ultimate arsenal for escalating the night.',
+                    'hu' => 'A végső fegyvertárad az este feldobásához.',
+                ],
+                'summary' => [
+                    'en' => 'Képszakadás Drinking Game is your ultimate arsenal for escalating the night with your crew. Featuring a sleek, modern design, this expanded collection of drinking card games and minigames delivers everything your squad needs to keep the party moving. Optimized for a flawless mobile experience directly from your browser—zero downloads required, instant deployment. Fill your glasses. Let\'s get to work.',
+                    'hu' => 'A Képszakadás Ivós Játék a végső fegyvertárad, hogy feldobd az estét a bandáddal. Letisztult, modern dizájnnal ez a bővített ivós kártyajáték- és minijáték-gyűjtemény mindent tartalmaz, amire a csapatodnak szüksége van, hogy pörögjön a buli. Tökéletesen optimalizálva mobilra, egyenesen a böngészőből — nulla letöltés, azonnali indulás. Töltsd meg a poharakat. Kezdődjön a meló.',
+                ],
+                'gallery' => [
+                    ['src' => 'assets/imgs/kepszakadas_minis1.png', 'alt' => ['en' => 'Képszakadás home screen', 'hu' => 'Képszakadás kezdőképernyő']],
+                    ['src' => 'assets/imgs/kepszakadas_minis2.png', 'alt' => ['en' => 'Képszakadás card game view', 'hu' => 'Képszakadás kártyajáték nézet']],
+                    ['src' => 'assets/imgs/kepszakadas_minis3.png', 'alt' => ['en' => 'Képszakadás minigame selection', 'hu' => 'Képszakadás minijáték választó']],
+                ],
+                'duration' => [
+                    'en' => '2 weeks',
+                    'hu' => '2 hét',
+                ],
+                'tools' => ['Figma', 'Laravel', 'JavaScript', 'VS Code'],
+                'expectation' => [
+                    'en' => 'A basic digital version of a party card game — a few screens, a shuffle button, done.',
+                    'hu' => 'Egy alap digitális verzió egy party kártyajátékból — pár képernyő, egy keverés gomb, kész.',
+                ],
+                'outcome' => [
+                    'en' => 'A full drinking-game platform with dozens of minigames, built mobile-first so it plays perfectly straight from a browser — no app store, no install, no excuses not to play.',
+                    'hu' => 'Egy teljes ivós játék platform tucatnyi minijátékkal, mobil-first felépítéssel, hogy tökéletesen fusson egyenesen a böngészőből — nincs app store, nincs telepítés, nincs kifogás, hogy ne játsszatok.',
+                ],
+                'price' => '280 000 Ft',
+            ],
         ];
     }
 }

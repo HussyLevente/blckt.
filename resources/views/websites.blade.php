@@ -45,6 +45,21 @@
         </div>
     </section>
 
+    <section class="content-section site-section reveal">
+        <div class="site-grid">
+            <div class="site-left">
+                <img src="{{ asset('assets/imgs/kepszakadas_logo.png') }}" alt="Képszakadás" class="site-logo">
+                <p class="site-text">{{ __('Képszakadás Drinking Game is your ultimate arsenal for escalating the night with your crew. Featuring a sleek, modern design, this expanded collection of drinking card games and minigames delivers everything your squad needs to keep the party moving. Optimized for a flawless mobile experience directly from your browser—zero downloads required, instant deployment. Fill your glasses. Let’s get to work.') }}</p>
+                <a href="{{ route('websites.show', 'kepszakadas') }}" class="btn-pill">{{ __('check out') }}</a>
+            </div>
+            <div class="site-right">
+                <img src="{{ asset('assets/imgs/kepszakadas_minis1.png') }}" alt="Képszakadás preview 1" class="site-mini site-mini-1">
+                <img src="{{ asset('assets/imgs/kepszakadas_minis2.png') }}" alt="Képszakadás preview 2" class="site-mini site-mini-2">
+                <img src="{{ asset('assets/imgs/kepszakadas_minis3.png') }}" alt="Képszakadás preview 3" class="site-mini site-mini-3">
+            </div>
+        </div>
+    </section>
+
     <section class="content-section contact-cta-section reveal">
         <div class="contact-grid">
             <div class="contact-left">
