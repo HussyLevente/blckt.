@@ -28,7 +28,7 @@
             <div class="logo">
                 <a href="/">blckt.</a>
             </div>
-            <div class="nav-right">
+            <div class="nav-right" id="nav-right">
                 <nav class="nav-links">
                     <a href="/clothing" class="active">{{ __('clothing') }}</a>
                     <a href="/websites">{{ __('websites') }}</a>
@@ -41,8 +41,13 @@
                     <a href="{{ route('lang.switch', 'hu') }}" class="lang-option {{ app()->getLocale() === 'hu' ? 'is-active' : '' }}">HU</a>
                 </div>
             </div>
+            <button type="button" id="nav-toggle" class="nav-toggle" aria-label="{{ __('Menu') }}" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
+
+    <div class="nav-backdrop" id="nav-backdrop"></div>
 
     <main>
         @yield('content')
@@ -149,6 +154,49 @@
 
             btn.addEventListener('click', function () {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            var toggle = document.getElementById('nav-toggle');
+            var navRight = document.getElementById('nav-right');
+            var backdrop = document.getElementById('nav-backdrop');
+            if (!toggle || !navRight || !backdrop) return;
+
+            function closeMenu() {
+                toggle.classList.remove('is-active');
+                navRight.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('no-scroll');
+            }
+
+            function openMenu() {
+                toggle.classList.add('is-active');
+                navRight.classList.add('is-open');
+                backdrop.classList.add('is-open');
+                toggle.setAttribute('aria-expanded', 'true');
+                document.body.classList.add('no-scroll');
+            }
+
+            toggle.addEventListener('click', function () {
+                if (navRight.classList.contains('is-open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+
+            backdrop.addEventListener('click', closeMenu);
+
+            navRight.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', closeMenu);
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) closeMenu();
             });
         })();
     </script>

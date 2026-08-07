@@ -32,7 +32,7 @@
                 <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Prev"></button>
                 <div class="slider-viewport">
                     <div class="slider-items">
-                        <div class="slider-item"><div class="slider-image" style="padding: 150px"><img src="{{ asset('assets/imgs/blckt_coll_promo_hollyweed.png') }}" alt="Hollyweed"></div></div>
+                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/blckt_coll_promo_hollyweed.png') }}" alt="Hollyweed"></div></div>
                         <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/blckt_coll_promo_ratio.png') }}" alt="Ratio"></div></div>
                         <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/blckt_coll_promo_agapiti.png') }}" alt="Agapiti"></div></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>

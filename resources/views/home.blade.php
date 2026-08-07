@@ -53,7 +53,7 @@
                 <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Next"></button>
             </div>
             <div class="center-button">
-                <a href="#" class="btn-pill">{{ __('all websites') }}</a>
+                <a href="/websites" class="btn-pill">{{ __('all websites') }}</a>
             </div>
         </div>
     </section>
@@ -97,7 +97,7 @@
                 <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Next"></button>
             </div>
             <div class="center-button">
-                <a href="#" class="btn-pill">{{ __('all clothing') }}</a>
+                <a href="/clothing" class="btn-pill">{{ __('all clothing') }}</a>
             </div>
         </div>
     </section>

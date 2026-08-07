@@ -213,4 +213,22 @@
     .site-right {
         min-height: 280px;
     }
+
+    .contact-right {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-title {
+        font-size: 28px;
+    }
+
+    .site-logo {
+        max-width: 160px;
+    }
+
+    .contact-right {
+        padding: 20px;
+    }
 }

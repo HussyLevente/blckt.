@@ -315,6 +315,11 @@
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* A ruha képek ne legyenek levágva - a teljes kép látszódjon */
+.slider-image img {
+    object-fit: contain;
+}
+
 .slider-item.placeholder {
     display: flex;
     align-items: center;
@@ -334,6 +339,105 @@
 @media (max-width: 640px) {
     .slider-item {
         flex-basis: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    .content-section {
+        padding: 0 24px;
+    }
+
+    .hero-text {
+        font-size: 160px;
+        letter-spacing: -4px;
+    }
+
+    .hero-image {
+        height: 420px;
+    }
+
+    .manifesto-text {
+        font-size: 34px;
+        max-width: 100%;
+    }
+
+    .manifesto-brand {
+        font-size: 24px;
+    }
+
+    .text-and-logos {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+    }
+
+    .text-content {
+        max-width: 100%;
+    }
+
+    .text-content p {
+        font-size: 24px;
+    }
+
+    .floating-logos {
+        width: 260px;
+        height: 260px;
+        align-self: center;
+    }
+
+    .logo-figma,
+    .logo-vscode,
+    .logo-js {
+        width: 100px;
+    }
+
+    .logo-vscode {
+        top: 33px;
+    }
+
+    .logo-js {
+        left: 33px;
+    }
+
+    .floating-clothing {
+        width: 260px;
+        height: 195px;
+        align-self: center;
+    }
+
+    .floating-clothing img {
+        width: 130px;
+    }
+
+    .clothing-1 { right: 98px; top: 13px; }
+    .clothing-2 { right: 52px; top: 39px; }
+    .clothing-3 { right: 0; top: 65px; }
+}
+
+@media (max-width: 480px) {
+    .hero-text {
+        font-size: 92px;
+        letter-spacing: -2px;
+    }
+
+    .hero-image {
+        height: 260px;
+    }
+
+    .manifesto-text {
+        font-size: 26px;
+    }
+
+    .manifesto-brand {
+        font-size: 19px;
+    }
+
+    .text-content p {
+        font-size: 19px;
+    }
+
+    .scroll-indicator {
+        display: none;
     }
 }
 

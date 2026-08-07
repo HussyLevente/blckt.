@@ -149,6 +149,15 @@ body.no-scroll {
 }
 
 @media (max-width: 640px) {
+    .lightbox {
+        padding: 20px;
+    }
+
+    .lightbox-stage {
+        width: min(94vw, 1400px);
+        height: 75vh;
+    }
+
     .lightbox-toolbar {
         top: 16px;
         right: 16px;

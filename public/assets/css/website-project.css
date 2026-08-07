@@ -232,3 +232,13 @@
         margin-top: 20px;
     }
 }
+
+@media (max-width: 480px) {
+    .project-compare-card {
+        padding: 24px;
+    }
+
+    .project-section-title {
+        font-size: 26px;
+    }
+}

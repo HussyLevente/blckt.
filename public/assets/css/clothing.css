@@ -62,3 +62,13 @@
         border-bottom: 1px solid #ddd;
     }
 }
+
+@media (max-width: 480px) {
+    .collection-title {
+        font-size: 30px;
+    }
+
+    .collection-text {
+        font-size: 16px;
+    }
+}
