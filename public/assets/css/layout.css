@@ -1,3 +1,71 @@
+/* Design tokenek - világos mód (alapértelmezett) */
+:root {
+    color-scheme: light;
+
+    --bg: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-subtle: #fafafa;
+    --bg-muted: #f5f5f5;
+    --surface-rgb: 255, 255, 255;
+
+    --text: #000000;
+    --text-secondary: #333333;
+    --text-muted: #5c5c5c;
+    --text-faint: #888888;
+
+    --border: #eeeeee;
+    --border-strong: #dddddd;
+
+    --dot-color: #e5e5e5;
+    --dot-spotlight-color: #767676;
+
+    --invert-bg: #000000;
+    --invert-text: #ffffff;
+    --logo-invert: 0;
+    --logo-invert-alt: 1;
+
+    --stripe-a: #f7f7f7;
+    --stripe-b: #eeeeee;
+
+    --selection-bg: #94efff;
+    --selection-text: #000000;
+
+    --theme-transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, fill 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Design tokenek - sötét mód */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg: #0c0c0d;
+    --bg-elevated: #19191b;
+    --bg-subtle: #151516;
+    --bg-muted: #202022;
+    --surface-rgb: 20, 20, 22;
+
+    --text: #f2f2f0;
+    --text-secondary: #c9c9c7;
+    --text-muted: #9c9c9a;
+    --text-faint: #838381;
+
+    --border: #2b2b2d;
+    --border-strong: #3d3d40;
+
+    --dot-color: #1e1e20;
+    --dot-spotlight-color: #48484c;
+
+    --invert-bg: #f2f2f0;
+    --invert-text: #0c0c0d;
+    --logo-invert: 1;
+    --logo-invert-alt: 0;
+
+    --stripe-a: #161617;
+    --stripe-b: #202022;
+
+    --selection-bg: #0f5b66;
+    --selection-text: #f2f2f0;
+}
+
 /* Globális beállítások */
 * {
     margin: 0;
@@ -5,6 +73,7 @@
     box-sizing: border-box;
     font-family: 'Afacad Flux', sans-serif;
     font-weight: 100;
+    transition: var(--theme-transition);
 }
 
 p {
@@ -12,12 +81,12 @@ p {
 }
 
 body {
-    background-color: #ffffff;
+    background-color: var(--bg);
     /* Pöttyös rács effektus a minta alapján - fixen a viewporthoz, hogy illeszkedjen a kurzor-spotlighthoz */
-    background-image: radial-gradient(#e5e5e5 1.5px, transparent 1.5px);
+    background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
     background-size: 25px 25px;
     background-attachment: fixed;
-    color: #000000;
+    color: var(--text);
     overflow-x: hidden;
 }
 
@@ -28,13 +97,13 @@ a {
 
 /* Kijelölés színe */
 ::selection {
-    background-color: #94efff;
-    color: #000000;
+    background-color: var(--selection-bg);
+    color: var(--selection-text);
 }
 
 ::-moz-selection {
-    background-color: #94efff;
-    color: #000000;
+    background-color: var(--selection-bg);
+    color: var(--selection-text);
 }
 
 /* Betöltő képernyő */
@@ -49,8 +118,8 @@ body.is-loading {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    background-color: var(--bg);
+    transition: opacity 0.6s ease, visibility 0.6s ease, background-color 0.35s ease;
 }
 
 .page-loader.is-hidden {
@@ -76,7 +145,7 @@ body.is-loading {
 .page-loader-bar {
     width: 120px;
     height: 2px;
-    background-color: #eee;
+    background-color: var(--border);
     border-radius: 2px;
     overflow: hidden;
 }
@@ -85,7 +154,7 @@ body.is-loading {
     display: block;
     width: 40%;
     height: 100%;
-    background-color: #000;
+    background-color: var(--text);
     animation: loader-bar-slide 1.1s ease-in-out infinite;
 }
 
@@ -162,6 +231,62 @@ body.is-loading {
     font-size: 12px;
 }
 
+/* Sötét mód kapcsoló */
+.theme-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background-color: var(--bg-elevated);
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 0.35s ease, border-color 0.35s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+    border-color: var(--text);
+    transform: scale(1.08);
+}
+
+.theme-toggle:active {
+    transform: scale(0.9);
+}
+
+.theme-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+}
+
+.theme-icon-sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.theme-icon-moon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.4);
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.4);
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
 .nav-links {
     display: flex;
     gap: 30px;
@@ -211,8 +336,8 @@ body.is-loading {
     display: block;
     width: 100%;
     height: 2px;
-    background-color: #000;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    background-color: var(--text);
+    transition: transform 0.25s ease, opacity 0.25s ease, background-color 0.35s ease;
 }
 
 .nav-toggle.is-active span:nth-child(1) {
@@ -262,14 +387,14 @@ body.is-loading {
         right: 0;
         height: 100vh;
         width: min(78vw, 320px);
-        background-color: #fff;
+        background-color: var(--bg-elevated);
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
         gap: 40px;
         padding: 40px;
         transform: translateX(100%);
-        transition: transform 0.35s ease;
+        transition: transform 0.35s ease, background-color 0.35s ease;
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.08);
         z-index: 999;
     }
@@ -317,15 +442,15 @@ body.is-loading {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid #ddd;
-    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-strong);
+    background-color: rgba(var(--surface-rgb), 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transform: translateY(12px);
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease, border-color 0.35s ease;
 }
 
 .scroll-top-btn.is-visible {
@@ -335,17 +460,18 @@ body.is-loading {
 }
 
 .scroll-top-btn:hover {
-    background-color: #000;
+    background-color: var(--invert-bg);
 }
 
 .scroll-top-btn img {
     width: 16px;
     transform: rotate(-90deg);
     transition: filter 0.2s ease;
+    filter: invert(var(--logo-invert));
 }
 
 .scroll-top-btn:hover img {
-    filter: invert(1);
+    filter: invert(var(--logo-invert-alt));
 }
 
 @media (max-width: 640px) {
@@ -370,9 +496,9 @@ body.is-loading {
 
 /* Lábléc */
 .footer {
-    background-color: #ffffff;
+    background-color: var(--bg);
     padding: 80px 40px 40px 40px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
     margin-top: 300px;
 }
 
@@ -393,9 +519,9 @@ body.is-loading {
 .footer-columns {
     display: flex;
     justify-content: center;
-    gap: 150px;
+    gap: 90px;
     width: 100%;
-    max-width: 800px;
+    max-width: 960px;
     margin: 0 auto 200px;
 }
 
@@ -413,13 +539,13 @@ body.is-loading {
 
 .footer-columns a {
     font-size: 20px;
-    color: #555;
+    color: var(--text-muted);
     transition: color 0.2s;
     font-weight: 300;
 }
 
 .footer-columns a:hover {
-    color: #000;
+    color: var(--text);
 }
 
 @media (max-width: 768px) {

@@ -5,7 +5,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: #999;
+    color: var(--text-faint);
     margin-bottom: 18px;
 }
 
@@ -26,7 +26,7 @@
 .about-hero-subtitle {
     font-size: 20px;
     font-style: italic;
-    color: #666;
+    color: var(--text-muted);
     line-height: 1.6;
     max-width: 480px;
 }
@@ -35,7 +35,7 @@
 .about-origin-section {
     margin-top: 160px;
     padding-top: 60px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
 }
 
 .origin-grid {
@@ -53,7 +53,7 @@
 .origin-text p {
     font-size: 16px;
     line-height: 1.7;
-    color: #444;
+    color: var(--text-secondary);
     margin-bottom: 18px;
 }
 
@@ -81,7 +81,7 @@
 .stats-grid-divided .stat-item {
     align-items: flex-start;
     padding-right: 40px;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--border);
 }
 
 .stats-grid-divided .stat-item:last-child {
@@ -103,7 +103,7 @@
 .stat-label {
     margin-top: 10px;
     font-size: 15px;
-    color: #666;
+    color: var(--text-muted);
 }
 
 /* Munkáink - kártyák */
@@ -121,10 +121,11 @@
     position: relative;
     display: block;
     overflow: hidden;
-    background: #fff;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .work-card:hover {
@@ -149,7 +150,7 @@
     top: 20px;
     left: 20px;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(var(--surface-rgb), 0.9);
     padding: 6px 14px;
     border-radius: 50px;
     font-size: 12px;
@@ -171,7 +172,7 @@
 
 .work-card-body p {
     font-size: 15px;
-    color: #666;
+    color: var(--text-muted);
     line-height: 1.6;
     margin-bottom: 20px;
 }
@@ -212,11 +213,11 @@
 }
 
 .values-accordion {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
 }
 
 .accordion-item {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
 }
 
 .accordion-trigger {
@@ -235,7 +236,7 @@
 .accordion-icon {
     font-weight: 400;
     font-size: 22px;
-    color: #999;
+    color: var(--text-faint);
     transition: transform 0.25s ease;
 }
 
@@ -254,7 +255,7 @@
     padding-bottom: 22px;
     font-size: 15px;
     line-height: 1.65;
-    color: #555;
+    color: var(--text-muted);
     max-width: 480px;
 }
 
@@ -275,7 +276,7 @@
 
 .team-member {
     padding-top: 24px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
 }
 
 .team-avatar {
@@ -299,7 +300,7 @@
 
 .team-avatar-logos {
     position: relative;
-    background-color: #f5f5f5;
+    background-color: var(--bg-muted);
 }
 
 .team-floating-logos {
@@ -321,7 +322,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #999;
+    color: var(--text-faint);
     margin-bottom: 8px;
 }
 
@@ -334,7 +335,7 @@
 .team-member p {
     font-size: 14px;
     line-height: 1.6;
-    color: #666;
+    color: var(--text-muted);
 }
 
 /* Záró CTA */
@@ -381,7 +382,7 @@
 
     .stats-grid-divided .stat-item {
         border-right: none;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--border);
         padding-right: 0;
         padding-bottom: 20px;
     }

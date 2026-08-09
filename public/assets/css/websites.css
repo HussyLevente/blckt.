@@ -21,27 +21,30 @@
     padding-right: 60px;
 }
 
+/* A legtöbb logó fekete, átlátszó háttérre tervezve - sötét módban invertálva látszik */
 .site-logo {
     max-width: 220px;
     height: auto;
     margin-bottom: 24px;
+    filter: invert(var(--logo-invert));
+    transition: filter 0.35s ease;
 }
 
-/* Néhány márka logója fehér, sötét háttérre tervezve - a mi (fehér) oldalunkon invertálva látszik */
+/* Néhány márka logója (pl. Juiced) fehér, sötét háttérre tervezve - világos módban invertálva látszik, sötét módban natívan */
 .site-logo-invert {
-    filter: invert(1);
+    filter: invert(var(--logo-invert-alt));
 }
 
 .site-text {
     font-size: 18px;
     font-weight: 400;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-secondary);
     margin-bottom: 30px;
 }
 
 .site-text.placeholder-text {
-    color: #999;
+    color: var(--text-faint);
     font-style: italic;
 }
 
@@ -116,7 +119,7 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-secondary);
     margin-bottom: 30px;
 }
 
@@ -127,15 +130,17 @@
 }
 
 .contact-response {
-    color: #666;
+    color: var(--text-muted);
     margin-top: 6px;
 }
 
 .contact-right {
-    background: #fff;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 40px;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .contact-form {
@@ -160,16 +165,17 @@
     font-size: 16px;
     font-weight: 400;
     padding: 12px 16px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-strong);
     border-radius: 6px;
-    background: #fafafa;
-    color: #000;
+    background: var(--bg-subtle);
+    color: var(--text);
+    transition: border-color 0.2s ease, background-color 0.35s ease, color 0.35s ease;
 }
 
 .form-field input:focus,
 .form-field textarea:focus {
     outline: none;
-    border-color: #000;
+    border-color: var(--text);
 }
 
 .form-field textarea {
@@ -192,7 +198,7 @@
     position: absolute;
     right: 16px;
     font-size: 16px;
-    color: #666;
+    color: var(--text-muted);
     pointer-events: none;
 }
 

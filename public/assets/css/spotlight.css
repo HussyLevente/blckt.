@@ -4,7 +4,7 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-image: radial-gradient(#767676 1.5px, transparent 1.5px);
+    background-image: radial-gradient(var(--dot-spotlight-color) 1.5px, transparent 1.5px);
     background-size: 25px 25px;
     -webkit-mask-image: radial-gradient(circle 180px at var(--spot-x, -9999px) var(--spot-y, -9999px), black 0%, black 35%, transparent 100%);
     mask-image: radial-gradient(circle 180px at var(--spot-x, -9999px) var(--spot-y, -9999px), black 0%, black 35%, transparent 100%);

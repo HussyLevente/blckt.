@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('blckt-theme');
+                var theme = (stored === 'dark' || stored === 'light') ? stored : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
     <title>{{ __('blckt. | Professional Websites') }}</title>
 
     <link rel="icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
@@ -47,6 +56,22 @@
                     <span class="lang-divider">/</span>
                     <a href="{{ route('lang.switch', 'hu') }}" class="lang-option {{ app()->getLocale() === 'hu' ? 'is-active' : '' }}">HU</a>
                 </div>
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{ __('Toggle dark mode') }}" aria-pressed="false">
+                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <line x1="12" y1="2" x2="12" y2="4.5"></line>
+                        <line x1="12" y1="19.5" x2="12" y2="22"></line>
+                        <line x1="4.22" y1="4.22" x2="5.94" y2="5.94"></line>
+                        <line x1="18.06" y1="18.06" x2="19.78" y2="19.78"></line>
+                        <line x1="2" y1="12" x2="4.5" y2="12"></line>
+                        <line x1="19.5" y1="12" x2="22" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.94" y2="18.06"></line>
+                        <line x1="18.06" y1="5.94" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
             </div>
             <button type="button" id="nav-toggle" class="nav-toggle" aria-label="{{ __('Menu') }}" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -68,26 +93,37 @@
 
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-logo">
+            <a href="/" class="footer-logo">
                 <h2>blckt.</h2>
-            </div>
+            </a>
             <div class="footer-columns">
                 <div class="col">
                     <h3>{{ __('clothing') }}</h3>
-                    <a href="#">{{ __('blckt. collection') }}</a>
+                    <a href="{{ route('clothing.collection') }}">{{ __('blckt. collection') }}</a>
+                    <a href="{{ route('clothing.show', 'ratio') }}">Ratio</a>
+                    <a href="{{ route('clothing.show', 'hollyweed') }}">Hollyweed</a>
+                    <a href="{{ route('clothing.show', 'agapiti') }}">Agapití Skópelos</a>
+                    <a href="{{ route('clothing.show', 'prodigy') }}">Prodigy.</a>
+                    <a href="{{ route('clothing.show', 'miamivice') }}">Miami Vice</a>
                 </div>
                 <div class="col">
                     <h3>{{ __('websites') }}</h3>
-                    <a href="#">{{ __('all websites') }}</a>
+                    <a href="/websites">{{ __('all websites') }}</a>
+                    <a href="{{ route('websites.show', 'paradise') }}">Paradise</a>
+                    <a href="{{ route('websites.show', 'palesso') }}">Palesso</a>
+                    <a href="{{ route('websites.show', 'kepszakadas') }}">Képszakadás</a>
+                    <a href="{{ route('websites.show', 'juiced') }}">Juiced</a>
                 </div>
                 <div class="col">
                     <h3>{{ __('contact') }}</h3>
-                    <a href="#">blckt.websites@gmail.com</a>
-                    <a href="#">+36 30 255 2432</a>
+                    <a href="/contact">{{ __('Get in touch') }}</a>
+                    <a href="mailto:blckt.websites@gmail.com">blckt.websites@gmail.com</a>
+                    <a href="tel:+36302552432">+36 30 255 2432</a>
                 </div>
                 <div class="col">
                     <h3>{{ __('about') }}</h3>
-                    <a href="#">{{ __('about') }}</a>
+                    <a href="/">{{ __('Home') }}</a>
+                    <a href="/about">{{ __('about') }}</a>
                 </div>
             </div>
         </div>
@@ -208,6 +244,7 @@
         })();
     </script>
 
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('assets/js/cursor.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
 

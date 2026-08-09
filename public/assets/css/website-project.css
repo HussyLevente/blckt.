@@ -21,16 +21,22 @@
     margin-bottom: 28px;
 }
 
-/* Néhány márka logója fehér, sötét háttérre tervezve - a mi (fehér) oldalunkon invertálva látszik */
+/* A legtöbb logó fekete, átlátszó háttérre tervezve - sötét módban invertálva látszik */
+.project-logo {
+    filter: invert(var(--logo-invert));
+    transition: filter 0.35s ease;
+}
+
+/* Néhány márka logója (pl. Juiced) fehér, sötét háttérre tervezve - világos módban invertálva látszik, sötét módban natívan */
 .project-logo-invert {
-    filter: invert(1);
+    filter: invert(var(--logo-invert-alt));
 }
 
 .project-summary {
     font-size: 18px;
     font-weight: 400;
     line-height: 1.7;
-    color: #333;
+    color: var(--text-secondary);
 }
 
 .project-back-btn {
@@ -40,12 +46,12 @@
     margin-bottom: 24px;
     font-size: 14px;
     font-weight: 500;
-    color: #777;
+    color: var(--text-faint);
     transition: color 0.2s ease;
 }
 
 .project-back-btn:hover {
-    color: #000;
+    color: var(--text);
 }
 
 .project-overview-right {
@@ -60,10 +66,10 @@
     align-items: baseline;
     gap: 20px;
     padding: 20px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.35s ease;
 }
 
 .project-overview-section.is-visible .project-meta-item {
@@ -87,7 +93,7 @@
 
 .project-meta-value {
     font-size: 15px;
-    color: #555;
+    color: var(--text-muted);
     text-align: right;
 }
 
@@ -116,9 +122,10 @@
     border: none;
     border-radius: 10px;
     overflow: hidden;
-    background: #fff;
+    background: var(--bg-elevated);
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.08);
     aspect-ratio: 4 / 3;
+    transition: background-color 0.35s ease;
 }
 
 .project-gallery-item img {
@@ -154,8 +161,8 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: #fff;
-    color: #000;
+    background: var(--bg-elevated);
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -183,9 +190,9 @@
 .project-compare-card {
     padding: 40px;
     border-radius: 10px;
-    background-color: #fafafa;
-    border: 1px solid #eee;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .project-compare-card:hover {
@@ -209,9 +216,9 @@
 }
 
 .project-compare-card-outcome {
-    background-color: #000;
-    color: #fff;
-    border-color: #000;
+    background-color: var(--invert-bg);
+    color: var(--invert-text);
+    border-color: var(--invert-bg);
 }
 
 /* Kapcsolatfelvételi űrlap ezen az oldalon */

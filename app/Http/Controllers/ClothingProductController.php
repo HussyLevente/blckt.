@@ -17,7 +17,7 @@ class ClothingProductController extends Controller
 
         return view('clothing.index', [
             'products' => $products,
-            'placeholderCount' => 5,
+            'placeholderCount' => 3,
         ]);
     }
 
@@ -109,6 +109,48 @@ class ClothingProductController extends Controller
                     'assets/imgs/clothing/agapiti/agapiti_ps_back.png',
                     'assets/imgs/clothing/agapiti/agapiti_showroom_front.png',
                     'assets/imgs/clothing/agapiti/agapiti_showroom_back.png',
+                ],
+            ],
+            'prodigy' => [
+                'slug' => 'prodigy',
+                'name' => 'PRODIGY.',
+                'subtitle' => [
+                    'en' => 'Unisex Photo Print T-shirt',
+                    'hu' => 'Unisex fotónyomott póló',
+                ],
+                'price' => '14.99€',
+                'is_new' => true,
+                'color' => [
+                    'en' => 'White',
+                    'hu' => 'Fehér',
+                ],
+                'thumbnail' => 'assets/imgs/clothing/prodigy/prodigy_showroom_back.png',
+                'images' => [
+                    'assets/imgs/clothing/prodigy/prodigy_ps_front.png',
+                    'assets/imgs/clothing/prodigy/prodigy_ps_back.png',
+                    'assets/imgs/clothing/prodigy/prodigy_showroom_front.png',
+                    'assets/imgs/clothing/prodigy/prodigy_showroom_back.png',
+                ],
+            ],
+            'miamivice' => [
+                'slug' => 'miamivice',
+                'name' => 'MIAMI VICE',
+                'subtitle' => [
+                    'en' => 'Unisex Retro Poster T-shirt',
+                    'hu' => 'Unisex retro poszteres póló',
+                ],
+                'price' => '14.99€',
+                'is_new' => true,
+                'color' => [
+                    'en' => 'White',
+                    'hu' => 'Fehér',
+                ],
+                'thumbnail' => 'assets/imgs/clothing/miamivice/miamivice_showroom_front.png',
+                'images' => [
+                    'assets/imgs/clothing/miamivice/miamivice_ps_front.png',
+                    'assets/imgs/clothing/miamivice/miamivice_ps_back.png',
+                    'assets/imgs/clothing/miamivice/miamivice_showroom_front.png',
+                    'assets/imgs/clothing/miamivice/miamivice_showroom_back.png',
                 ],
             ],
         ];
