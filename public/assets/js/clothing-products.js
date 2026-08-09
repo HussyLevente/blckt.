@@ -51,17 +51,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    var buyBtn = document.querySelector('.buy-btn');
-    if (buyBtn) {
-        var resetTimer = null;
-        buyBtn.addEventListener('click', function () {
-            clearTimeout(resetTimer);
-            buyBtn.textContent = buyBtn.dataset.confirmLabel;
-            buyBtn.classList.add('is-confirmed');
-            resetTimer = setTimeout(function () {
-                buyBtn.textContent = buyBtn.dataset.defaultLabel;
-                buyBtn.classList.remove('is-confirmed');
-            }, 2000);
-        });
-    }
 });

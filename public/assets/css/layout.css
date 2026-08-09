@@ -7,6 +7,10 @@
     font-weight: 100;
 }
 
+p {
+    font-weight: 400;
+}
+
 body {
     background-color: #ffffff;
     /* Pöttyös rács effektus a minta alapján - fixen a viewporthoz, hogy illeszkedjen a kurzor-spotlighthoz */
@@ -191,6 +195,8 @@ body.is-loading {
 /* Hamburger menü gomb - csak mobilon */
 .nav-toggle {
     display: none;
+    position: relative;
+    z-index: 1001;
     flex-direction: column;
     justify-content: center;
     gap: 5px;

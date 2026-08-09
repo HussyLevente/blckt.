@@ -56,10 +56,25 @@
     }
 
     .collection-left {
-        padding-right: 0;
-        padding-bottom: 40px;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
+        display: contents;
+    }
+
+    .collection-title {
+        order: 1;
+    }
+
+    .collection-right {
+        order: 2;
+        margin-bottom: 24px;
+    }
+
+    .collection-text {
+        order: 3;
+    }
+
+    .collection-left .btn-pill {
+        order: 4;
+        justify-self: center;
     }
 }
 

@@ -223,8 +223,10 @@
 }
 
 .arrow-icon {
-    font-size: 14px;
+    width: 16px;
+    height: auto;
     vertical-align: middle;
+    display: inline-block;
 }
 
 .slider-wrapper {
@@ -347,13 +349,17 @@
         padding: 0 24px;
     }
 
+    .manifesto-section {
+        padding: 0 24px;
+    }
+
     .hero-text {
-        font-size: 160px;
+        font-size: 190px;
         letter-spacing: -4px;
     }
 
     .hero-image {
-        height: 420px;
+        height: 296px;
     }
 
     .manifesto-text {
@@ -383,6 +389,7 @@
         width: 260px;
         height: 260px;
         align-self: center;
+        order: -1;
     }
 
     .logo-figma,
@@ -416,12 +423,12 @@
 
 @media (max-width: 480px) {
     .hero-text {
-        font-size: 92px;
-        letter-spacing: -2px;
+        font-size: 130px;
+        letter-spacing: -3px;
     }
 
     .hero-image {
-        height: 260px;
+        height: 202px;
     }
 
     .manifesto-text {

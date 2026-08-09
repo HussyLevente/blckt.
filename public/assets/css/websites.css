@@ -209,14 +209,32 @@
         grid-template-columns: 1fr;
     }
 
-    .site-left,
     .contact-left {
         padding-right: 0;
         padding-bottom: 40px;
     }
 
+    .site-left {
+        display: contents;
+    }
+
+    .site-logo {
+        order: 1;
+    }
+
     .site-right {
         min-height: 280px;
+        order: 2;
+        margin-bottom: 24px;
+    }
+
+    .site-text {
+        order: 3;
+    }
+
+    .site-left .btn-pill {
+        order: 4;
+        justify-self: center;
     }
 
     .contact-right {

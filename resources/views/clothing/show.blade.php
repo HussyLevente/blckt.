@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <button type="button" class="btn-pill buy-btn" data-default-label="{{ __('buy') }}" data-confirm-label="{{ __('Added to cart') }}">{{ __('buy') }}</button>
+            <button type="button" class="btn-pill buy-btn" disabled>{{ __('Coming soon') }}</button>
         </div>
     </section>
 @endsection

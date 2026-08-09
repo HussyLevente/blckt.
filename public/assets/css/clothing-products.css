@@ -129,7 +129,8 @@ a.product-card:hover {
 
 @media (max-width: 560px) {
     .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
     }
 }
 
@@ -321,26 +322,24 @@ a.product-card:hover {
     width: 100%;
     text-align: center;
     border: none;
-    cursor: pointer;
     padding: 16px;
     font-size: 15px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
 }
 
-.buy-btn.is-confirmed {
-    background-color: #000;
-    color: #fff;
-    transform: scale(0.98);
+.buy-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.buy-btn:disabled:hover {
+    background-color: #f5f5f5;
+    color: #000;
 }
 
 @media (max-width: 640px) {
     .product-detail-gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .product-detail-gallery .project-gallery-item:nth-child(1),
-    .product-detail-gallery .project-gallery-item:nth-child(2) {
-        aspect-ratio: 4 / 3;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
     }
 
     .product-info-card {

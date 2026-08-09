@@ -37,7 +37,7 @@
         </div>
 
         <div class="slider-container">
-            <h3 class="slider-title">Paradise <span class="arrow-icon">▶</span></h3>
+            <h3 class="slider-title">Paradise <img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="" class="arrow-icon"></h3>
             <div class="slider-wrapper">
                 <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev"></button>
                 <div class="slider-viewport">
@@ -81,7 +81,7 @@
         </div>
 
         <div class="slider-container">
-            <h3 class="slider-title">{{ __('blckt. collection') }} <span class="arrow-icon">▶</span></h3>
+            <h3 class="slider-title">{{ __('blckt. collection') }} <img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="" class="arrow-icon"></h3>
             <div class="slider-wrapper">
                 <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev"></button>
                 <div class="slider-viewport">
