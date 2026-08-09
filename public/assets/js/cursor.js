@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
     cursor.innerHTML = '<span class="custom-cursor-ring"></span><span class="custom-cursor-label"></span>';
     document.body.appendChild(cursor);
 
+    var spotlight = document.getElementById('dot-spotlight');
+    var root = document.documentElement;
     var label = cursor.querySelector('.custom-cursor-label');
     var interactiveSelector = 'a, button, input, textarea, select, label, [role="button"], .btn-pill, .slider-btn, .slider-item img';
 
@@ -20,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
         frameRequested = false;
         cursor.classList.add('is-visible');
         cursor.style.transform = 'translate3d(' + pointerX + 'px, ' + pointerY + 'px, 0)';
+
+        if (spotlight) {
+            root.style.setProperty('--spot-x', pointerX + 'px');
+            root.style.setProperty('--spot-y', pointerY + 'px');
+            spotlight.classList.add('is-visible');
+        }
 
         if (document.body.classList.contains('is-image-dragging')) {
             cursor.classList.add('is-draggable', 'is-dragging');
@@ -58,5 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('mouseleave', function () {
         cursor.classList.remove('is-visible');
+        if (spotlight) spotlight.classList.remove('is-visible');
     });
 });

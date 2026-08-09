@@ -16,9 +16,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/cursor.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/spotlight.css') }}">
     @stack('styles')
 </head>
 <body class="is-loading">
+
+    <div class="dot-spotlight" id="dot-spotlight"></div>
 
     <div id="page-loader" class="page-loader">
         <div class="page-loader-inner">

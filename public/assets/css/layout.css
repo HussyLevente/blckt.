@@ -9,9 +9,10 @@
 
 body {
     background-color: #ffffff;
-    /* Pöttyös rács effektus a minta alapján */
+    /* Pöttyös rács effektus a minta alapján - fixen a viewporthoz, hogy illeszkedjen a kurzor-spotlighthoz */
     background-image: radial-gradient(#e5e5e5 1.5px, transparent 1.5px);
     background-size: 25px 25px;
+    background-attachment: fixed;
     color: #000000;
     overflow-x: hidden;
 }

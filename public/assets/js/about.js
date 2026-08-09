@@ -34,4 +34,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.4 });
 
     counters.forEach(function (el) { observer.observe(el); });
+
+    var accordionTriggers = document.querySelectorAll('.accordion-trigger');
+    accordionTriggers.forEach(function (trigger) {
+        var item = trigger.closest('.accordion-item');
+        var panel = item.querySelector('.accordion-panel');
+
+        trigger.addEventListener('click', function () {
+            var isOpen = item.classList.contains('is-open');
+            if (isOpen) {
+                panel.style.maxHeight = '0px';
+                item.classList.remove('is-open');
+            } else {
+                item.classList.add('is-open');
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+        });
+    });
 });
