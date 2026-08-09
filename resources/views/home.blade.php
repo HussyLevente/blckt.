@@ -9,7 +9,7 @@
         <section class="hero-section">
             <div class="hero-content">
                 <span class="hero-text">blckt.</span>
-                <img src="{{ asset('assets/imgs/blckt_mainpage_hero_image.png') }}" alt="blckt hero" class="hero-image">
+                <img src="{{ asset('assets/imgs/brand/blckt_mainpage_hero_image.png') }}" alt="blckt hero" class="hero-image">
             </div>
         </section>
     </div>
@@ -30,27 +30,27 @@
                 <p style="margin-top:150px">{{ __('Here is the most recent one we did.') }}</p>
             </div>
             <div class="floating-logos">
-                <img src="{{ asset('assets/imgs/figma_logo.png') }}" alt="Figma" class="logo-figma">
-                <img src="{{ asset('assets/imgs/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
-                <img src="{{ asset('assets/imgs/js_logo.png') }}" alt="JavaScript" class="logo-js">
+                <img src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma">
+                <img src="{{ asset('assets/imgs/tools/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
+                <img src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js">
             </div>
         </div>
 
         <div class="slider-container">
             <h3 class="slider-title">Paradise <span class="arrow-icon">▶</span></h3>
             <div class="slider-wrapper">
-                <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Prev"></button>
+                <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev"></button>
                 <div class="slider-viewport">
                     <div class="slider-items">
-                        <div class="slider-item"><img src="{{ asset('assets/imgs/paradise_promo_1.png') }}" alt="Paradise 1"></div>
-                        <div class="slider-item"><img src="{{ asset('assets/imgs/paradise_promo_2.png') }}" alt="Paradise 2"></div>
-                        <div class="slider-item"><img src="{{ asset('assets/imgs/paradise_promo_3.png') }}" alt="Paradise 3"></div>
+                        <div class="slider-item"><img src="{{ asset('assets/imgs/websites/paradise/paradise_promo_1.jpg') }}" alt="Paradise 1"></div>
+                        <div class="slider-item"><img src="{{ asset('assets/imgs/websites/paradise/paradise_promo_2.jpg') }}" alt="Paradise 2"></div>
+                        <div class="slider-item"><img src="{{ asset('assets/imgs/websites/paradise/paradise_promo_3.jpg') }}" alt="Paradise 3"></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
                     </div>
                 </div>
-                <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Next"></button>
+                <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Next"></button>
             </div>
             <div class="center-button">
                 <a href="/websites" class="btn-pill">{{ __('all websites') }}</a>
@@ -74,27 +74,27 @@
                 <p class="mt-4">{{ __('Here are some of the recommend. Click "all clothing" to see more.') }}</p>
             </div>
             <div class="floating-clothing">
-                <img src="{{ asset('assets/imgs/blckt_coll_promo_hollyweed.png') }}" alt="Hollyweed" class="clothing-1">
-                <img src="{{ asset('assets/imgs/blckt_coll_promo_ratio.png') }}" alt="Ratio" class="clothing-2">
-                <img src="{{ asset('assets/imgs/blckt_coll_promo_agapiti.png') }}" alt="Agapiti" class="clothing-3">
+                <img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_hollyweed.png') }}" alt="Hollyweed" class="clothing-1">
+                <img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_ratio.png') }}" alt="Ratio" class="clothing-2">
+                <img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_agapiti.png') }}" alt="Agapiti" class="clothing-3">
             </div>
         </div>
 
         <div class="slider-container">
             <h3 class="slider-title">{{ __('blckt. collection') }} <span class="arrow-icon">▶</span></h3>
             <div class="slider-wrapper">
-                <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Prev"></button>
+                <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev"></button>
                 <div class="slider-viewport">
                     <div class="slider-items">
-                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/blckt_coll_promo3d_agapiti1.png') }}" alt="Agapiti 1"></div></div>
-                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/blckt_coll_promo3d_agapiti2.png') }}" alt="Agapiti 2"></div></div>
-                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/blckt_coll_promo3d_agapiti3.png') }}" alt="Agapiti 3"></div></div>
+                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo3d_agapiti1.png') }}" alt="Agapiti 1"></div></div>
+                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo3d_agapiti2.png') }}" alt="Agapiti 2"></div></div>
+                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo3d_agapiti3.png') }}" alt="Agapiti 3"></div></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
                         <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
                     </div>
                 </div>
-                <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="Next"></button>
+                <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Next"></button>
             </div>
             <div class="center-button">
                 <a href="/clothing" class="btn-pill">{{ __('all clothing') }}</a>

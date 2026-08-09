@@ -27,12 +27,51 @@ class WebsiteProjectController extends Controller
         $project['expectation'] = $pick($project['expectation']);
         $project['outcome'] = $pick($project['outcome']);
 
+        $images = $this->gallery($project['slug']);
+
         $project['gallery'] = array_map(
-            fn (array $image) => ['src' => $image['src'], 'alt' => $pick($image['alt'])],
-            $project['gallery']
+            fn (string $src, int $index) => [
+                'src' => $src,
+                'alt' => $project['name'] . ' — ' . $index,
+            ],
+            $images,
+            range(1, count($images))
         );
 
         return $project;
+    }
+
+    /**
+     * Every website's gallery images follow the {slug}_whole{n}.{ext} convention.
+     * Discover however many exist on disk rather than hard-coding a list.
+     * Checks each extension per index so PNG and JPG can be mixed freely.
+     *
+     * @return string[]
+     */
+    private function gallery(string $slug, int $max = 20): array
+    {
+        $images = [];
+
+        for ($n = 1; $n <= $max; $n++) {
+            $found = null;
+
+            foreach (['jpg', 'jpeg', 'png'] as $ext) {
+                $relative = "assets/imgs/websites/{$slug}/{$slug}_whole{$n}.{$ext}";
+
+                if (file_exists(public_path($relative))) {
+                    $found = $relative;
+                    break;
+                }
+            }
+
+            if ($found === null) {
+                break;
+            }
+
+            $images[] = $found;
+        }
+
+        return $images;
     }
 
     /**
@@ -44,7 +83,7 @@ class WebsiteProjectController extends Controller
             'paradise' => [
                 'slug' => 'paradise',
                 'name' => 'Paradise',
-                'logo' => 'assets/imgs/paradise_logo.png',
+                'logo' => 'assets/imgs/websites/paradise/paradise_logo.png',
                 'tagline' => [
                     'en' => 'Your ultimate portal to the planet\'s most breathtaking destinations.',
                     'hu' => 'A bolygó legkápráztatóbb úti céljainak kapuja.',
@@ -52,14 +91,6 @@ class WebsiteProjectController extends Controller
                 'summary' => [
                     'en' => 'Paradise came to us with a booking site that looked like a spreadsheet with a hero image bolted on. We rebuilt it from the ground up: a fast, image-led browsing experience, a booking flow that does not fight the user, and a visual language that actually feels like the trips it is selling. Every section was designed to move — parallax destination cards, a cruise showcase that unfolds as you scroll, and a mobile experience trimmed down to exactly what matters.',
                     'hu' => 'A Paradise egy olyan foglalási oldallal keresett meg minket, ami leginkább egy táblázatra hasonlított, rátéve egy nagy képpel. Az alapoktól építettük újra: gyors, képalapú böngészési élményt, olyan foglalási folyamatot, ami nem küzd a felhasználóval, és egy vizuális nyelvet, ami tényleg úgy hat, mint az utazások, amiket elad. Minden szekció mozgásra lett tervezve — parallax úti cél kártyák, egy hajóbemutató, ami görgetés közben bontakozik ki, és egy mobil élmény, amit pontosan a lényegre húztunk le.',
-                ],
-                'gallery' => [
-                    ['src' => 'assets/imgs/paradise_promo_1.png', 'alt' => ['en' => 'Paradise destinations homepage', 'hu' => 'Paradise úti célok – kezdőlap']],
-                    ['src' => 'assets/imgs/paradise_promo_2.png', 'alt' => ['en' => 'Paradise Royal Caribbean cruise page', 'hu' => 'Paradise Royal Caribbean hajóoldal']],
-                    ['src' => 'assets/imgs/paradise_promo_3.png', 'alt' => ['en' => 'Paradise destination explorer', 'hu' => 'Paradise úti cél böngésző']],
-                    ['src' => 'assets/imgs/paradise_minis1.png', 'alt' => ['en' => 'Paradise mobile screen 1', 'hu' => 'Paradise mobil képernyő 1']],
-                    ['src' => 'assets/imgs/paradise_minis2.png', 'alt' => ['en' => 'Paradise mobile screen 2', 'hu' => 'Paradise mobil képernyő 2']],
-                    ['src' => 'assets/imgs/paradise_minis3.png', 'alt' => ['en' => 'Paradise mobile screen 3', 'hu' => 'Paradise mobil képernyő 3']],
                 ],
                 'duration' => [
                     'en' => '3 weeks',
@@ -79,7 +110,7 @@ class WebsiteProjectController extends Controller
             'palesso' => [
                 'slug' => 'palesso',
                 'name' => 'Palesso',
-                'logo' => 'assets/imgs/palesso_logo.png',
+                'logo' => 'assets/imgs/websites/palesso/palesso_logo.png',
                 'tagline' => [
                     'en' => 'Premium fashion and curated lifestyle pieces, presented like it.',
                     'hu' => 'Prémium divat és válogatott életmód-darabok, ahogy azt megérdemlik.',
@@ -87,11 +118,6 @@ class WebsiteProjectController extends Controller
                 'summary' => [
                     'en' => 'Palesso needed a storefront that matched the price tag of what it was selling. We built a quiet, editorial layout that gets out of the way of the product photography, a personalization flow for made-to-order pieces, and a checkout that does not feel like an afterthought. No stock theme, no cookie-cutter grid — every detail was placed on purpose.',
                     'hu' => 'A Palessónak egy olyan webáruházra volt szüksége, ami illik az általa árult termékek árcédulájához. Egy visszafogott, szerkesztői elrendezést építettünk, ami háttérbe húzódik a termékfotók mögött, egy személyre szabási folyamatot az egyedi rendelésekhez, és egy fizetési folyamatot, ami nem tűnik utólagos toldaléknak. Nincs sablon téma, nincs gyári rács — minden részlet tudatosan került a helyére.',
-                ],
-                'gallery' => [
-                    ['src' => 'assets/imgs/palesso_minis1.png', 'alt' => ['en' => 'Palesso storefront', 'hu' => 'Palesso webáruház kezdőlap']],
-                    ['src' => 'assets/imgs/palesso_minis2.png', 'alt' => ['en' => 'Palesso featured collection', 'hu' => 'Palesso kiemelt kollekció']],
-                    ['src' => 'assets/imgs/palesso_minis3.png', 'alt' => ['en' => 'Palesso personalisation service', 'hu' => 'Palesso személyre szabási szolgáltatás']],
                 ],
                 'duration' => [
                     'en' => '4 weeks',
@@ -111,7 +137,7 @@ class WebsiteProjectController extends Controller
             'kepszakadas' => [
                 'slug' => 'kepszakadas',
                 'name' => 'Képszakadás',
-                'logo' => 'assets/imgs/kepszakadas_logo.png',
+                'logo' => 'assets/imgs/websites/kepszakadas/kepszakadas_logo.png',
                 'tagline' => [
                     'en' => 'Your ultimate arsenal for escalating the night.',
                     'hu' => 'A végső fegyvertárad az este feldobásához.',
@@ -119,11 +145,6 @@ class WebsiteProjectController extends Controller
                 'summary' => [
                     'en' => 'Képszakadás Drinking Game is your ultimate arsenal for escalating the night with your crew. Featuring a sleek, modern design, this expanded collection of drinking card games and minigames delivers everything your squad needs to keep the party moving. Optimized for a flawless mobile experience directly from your browser—zero downloads required, instant deployment. Fill your glasses. Let\'s get to work.',
                     'hu' => 'A Képszakadás Ivós Játék a végső fegyvertárad, hogy feldobd az estét a bandáddal. Letisztult, modern dizájnnal ez a bővített ivós kártyajáték- és minijáték-gyűjtemény mindent tartalmaz, amire a csapatodnak szüksége van, hogy pörögjön a buli. Tökéletesen optimalizálva mobilra, egyenesen a böngészőből — nulla letöltés, azonnali indulás. Töltsd meg a poharakat. Kezdődjön a meló.',
-                ],
-                'gallery' => [
-                    ['src' => 'assets/imgs/kepszakadas_minis1.png', 'alt' => ['en' => 'Képszakadás home screen', 'hu' => 'Képszakadás kezdőképernyő']],
-                    ['src' => 'assets/imgs/kepszakadas_minis2.png', 'alt' => ['en' => 'Képszakadás card game view', 'hu' => 'Képszakadás kártyajáték nézet']],
-                    ['src' => 'assets/imgs/kepszakadas_minis3.png', 'alt' => ['en' => 'Képszakadás minigame selection', 'hu' => 'Képszakadás minijáték választó']],
                 ],
                 'duration' => [
                     'en' => '2 weeks',
@@ -139,6 +160,34 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Egy teljes ivós játék platform tucatnyi minijátékkal, mobil-first felépítéssel, hogy tökéletesen fusson egyenesen a böngészőből — nincs app store, nincs telepítés, nincs kifogás, hogy ne játsszatok.',
                 ],
                 'price' => '280 000 Ft',
+            ],
+            'juiced' => [
+                'slug' => 'juiced',
+                'name' => 'Juiced',
+                'logo' => 'assets/imgs/websites/juiced/juiced_logo.png',
+                'logo_invert' => true,
+                'tagline' => [
+                    'en' => 'Where taste meets productivity.',
+                    'hu' => 'Ahol az íz találkozik a produktivitással.',
+                ],
+                'summary' => [
+                    'en' => 'Juiced sells flavour on a page that used to feel like a spec sheet. We rebuilt the storefront around the product itself: bold, full-bleed flavour sections that change colour with every drink, a sticks-vs-drinks toggle that actually feels instant, and a browsing experience built mobile-first since that is where the whole catalogue gets shopped. No stock theme, no beige e-commerce grid — every flavour gets its own moment.',
+                    'hu' => 'A Juicednek egy olyan oldalra volt szüksége, ami az ízt adja el, nem egy termékkatalógust. A bolti felületet magára a termékre építettük újra: merész, teljes szélességű íz-szekciók, amik minden itallal színt váltanak, egy szívószálak-vs-italok váltó, ami tényleg azonnalinak érződik, és egy mobil-first böngészési élmény, hiszen ott vásárolják végig a teljes kínálatot. Nincs sablon téma, nincs unalmas webáruház-rács — minden íznek saját pillanata van.',
+                ],
+                'duration' => [
+                    'en' => '3 weeks',
+                    'hu' => '3 hét',
+                ],
+                'tools' => ['Figma', 'Laravel', 'JavaScript', 'VS Code'],
+                'expectation' => [
+                    'en' => 'A standard drinks e-commerce catalogue — flavour list, add to cart, checkout.',
+                    'hu' => 'Egy hétköznapi ital webáruház-katalógus — íz lista, kosárba tesz, fizetés.',
+                ],
+                'outcome' => [
+                    'en' => 'A full-bleed, colour-shifting storefront that sells the flavour before the ingredient list ever loads — and a flavour-sticks line that outsells the bottles two to one.',
+                    'hu' => 'Egy teljes szélességű, színt váltó webáruház, ami már az összetevőlista betöltése előtt eladja az ízt — és egy szívószál-termékvonal, ami kétszer annyit ad el, mint a palackos termékek.',
+                ],
+                'price' => '390 000 Ft',
             ],
         ];
     }

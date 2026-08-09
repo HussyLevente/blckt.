@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('blckt. | Professional Websites') }}</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -56,7 +60,7 @@
     <a href="/contact" class="get-in-touch">{{ __('Get in touch') }} <span class="info-icon">&#9432;</span></a>
 
     <button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="{{ __('Back to top') }}">
-        <img src="{{ asset('assets/imgs/slider_arrow_blckt.png') }}" alt="">
+        <img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="">
     </button>
 
     <footer class="footer">

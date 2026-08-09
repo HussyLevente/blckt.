@@ -21,6 +21,11 @@
     margin-bottom: 28px;
 }
 
+/* Néhány márka logója fehér, sötét háttérre tervezve - a mi (fehér) oldalunkon invertálva látszik */
+.project-logo-invert {
+    filter: invert(1);
+}
+
 .project-summary {
     font-size: 18px;
     font-weight: 400;

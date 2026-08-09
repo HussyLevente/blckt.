@@ -24,9 +24,9 @@
                 <p>{{ __('Every project gets the same obsession, whether it ships as a t-shirt or a website: no filler, no shortcuts, just the thing done right.') }}</p>
             </div>
             <div class="floating-logos about-floating-logos">
-                <img src="{{ asset('assets/imgs/figma_logo.png') }}" alt="Figma" class="logo-figma">
-                <img src="{{ asset('assets/imgs/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
-                <img src="{{ asset('assets/imgs/js_logo.png') }}" alt="JavaScript" class="logo-js">
+                <img src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma">
+                <img src="{{ asset('assets/imgs/tools/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
+                <img src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js">
             </div>
         </div>
     </section>
@@ -64,14 +64,14 @@
     <section class="content-section about-work-section reveal">
         <div class="work-grid">
             <a href="/clothing" class="work-card">
-                <img src="{{ asset('assets/imgs/blckt_coll_main.png') }}" alt="blckt. clothing">
+                <img src="{{ asset('assets/imgs/brand/blckt_coll_main.png') }}" alt="blckt. clothing">
                 <div class="work-card-body">
                     <h3>{{ __('Clothing') }}</h3>
                     <p>{{ __('Premium apparel engineered to outlast the hype.') }}</p>
                 </div>
             </a>
             <a href="/websites" class="work-card">
-                <img src="{{ asset('assets/imgs/paradise_promo_1.png') }}" alt="blckt. websites">
+                <img src="{{ asset('assets/imgs/websites/paradise/paradise_promo_1.jpg') }}" alt="blckt. websites">
                 <div class="work-card-body">
                     <h3>{{ __('Websites') }}</h3>
                     <p>{{ __('Precision-built sites that actually convert.') }}</p>

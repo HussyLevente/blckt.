@@ -20,7 +20,7 @@
         <div class="project-overview-grid">
             <div class="project-overview-left">
                 <a href="/websites" class="project-back-btn">&larr; {{ __('all websites') }}</a>
-                <img src="{{ asset($project['logo']) }}" alt="{{ $project['name'] }}" class="project-logo">
+                <img src="{{ asset($project['logo']) }}" alt="{{ $project['name'] }}" class="project-logo {{ !empty($project['logo_invert']) ? 'project-logo-invert' : '' }}">
                 <p class="project-summary">{!! $project['summary'] !!}</p>
             </div>
             <div class="project-overview-right">
