@@ -1,5 +1,8 @@
 @extends('layout')
 
+@section('title', __('About | blckt. — Levente Hussy, Budapest'))
+@section('meta_description', __('I’m Levente Hussy, a 21-year-old solo web designer and developer based in Budapest, studying Economic Informatics at BGE.'))
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/websites.css') }}">
@@ -47,7 +50,7 @@
         <div class="work-grid">
             <a href="/clothing" class="work-card">
                 <span class="work-card-index">01 — {{ __('Clothing') }}</span>
-                <img src="{{ asset('assets/imgs/brand/blckt_coll_main.png') }}" alt="blckt. clothing">
+                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/brand/blckt_coll_main.png') }}" alt="blckt. clothing">
                 <div class="work-card-body">
                     <h3>{{ __('Apparel that actually says something.') }}</h3>
                     <p>{{ __('blckt. clothing started as a personal project and became a micro-collection of premium oversized tees. Graphic-led, culture-literate, Hungarian-made. Every piece is designed in-house — no outsourced taste.') }}</p>
@@ -56,7 +59,7 @@
             </a>
             <a href="/websites" class="work-card">
                 <span class="work-card-index">02 — {{ __('Websites') }}</span>
-                <img src="{{ asset('assets/imgs/websites/juiced/juiced_whole1.jpg') }}" alt="blckt. websites">
+                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/juiced/juiced_whole1.jpg') }}" alt="blckt. websites">
                 <div class="work-card-body">
                     <h3>{{ __('Websites people actually want to visit.') }}</h3>
                     <p>{{ __('I design and build custom websites for brands that care about the details. No templates, no bloat. I use Figma to design, write real code to build, and hand over something you’re proud to share.') }}</p>
@@ -99,9 +102,9 @@
             <div class="team-member">
                 <div class="team-avatar team-avatar-logos">
                     <div class="floating-logos team-floating-logos">
-                        <img src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma">
-                        <img src="{{ asset('assets/imgs/tools/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
-                        <img src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js">
+                        <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma">
+                        <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/tools/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
+                        <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js">
                     </div>
                 </div>
                 <span class="team-role">{{ __('Founder') }}</span>

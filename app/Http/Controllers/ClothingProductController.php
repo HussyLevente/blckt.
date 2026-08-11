@@ -32,6 +32,14 @@ class ClothingProductController extends Controller
         ]);
     }
 
+    /**
+     * @return string[]
+     */
+    public function slugs(): array
+    {
+        return array_keys($this->products());
+    }
+
     private function resolveLocale(array $product, string $locale): array
     {
         $pick = fn (array $values) => $values[$locale] ?? $values['en'];

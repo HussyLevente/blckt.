@@ -1,5 +1,8 @@
 @extends('layout')
 
+@section('title', __('Contact | blckt. — Get a Quote for Your Website'))
+@section('meta_description', __('Tell me about your project and I’ll get back to you within 24 hours. No bots, no runaround.'))
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/websites.css') }}">
@@ -20,7 +23,8 @@
             <div class="contact-left">
                 <h2 class="contact-title">{{ __('Let’s get in touch.') }}</h2>
                 <p class="contact-text">{{ __('Whether it’s a t-shirt drop or a full site build, tell me what you’re after and I’ll take it from there. No bots, no runaround — just me reading your message and getting back to you.') }}</p>
-                <p class="contact-email">{{ __('Email: blckt.websites@gmail.com') }}</p>
+                <a href="mailto:blckt.websites@gmail.com" class="contact-email">{{ __('Email: blckt.websites@gmail.com') }}</a>
+                <a href="https://wa.me/36302552432" target="_blank" rel="noopener" class="contact-email contact-whatsapp">{{ __('Message on WhatsApp') }}</a>
                 <p class="contact-response">{{ __('Response time: 24 Hours') }}</p>
             </div>
             <div class="contact-right">

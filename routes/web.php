@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClothingProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WebsiteProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ Route::view('/websites', 'websites');
 Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->name('websites.show');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware('throttle:5,1')

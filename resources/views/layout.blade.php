@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @stack('preload')
     <script>
         (function () {
             try {
@@ -12,7 +13,34 @@
             } catch (e) {}
         })();
     </script>
-    <title>{{ __('blckt. | Professional Websites') }}</title>
+    @php
+        // @section('x', $value) inline form already HTML-escapes $value via e(),
+        // so the yielded content below must be echoed raw (not re-escaped) to
+        // avoid double-encoding entities like "&" -> "&amp;amp;".
+        $metaTitle = trim($__env->yieldContent('title')) ?: e(__('blckt. | Custom Websites & Clothing Design, Budapest'));
+        $metaDescription = trim($__env->yieldContent('meta_description')) ?: e(__('I design and build custom websites and premium streetwear from Budapest. No templates, real code, one person start to finish.'));
+        $metaImagePath = trim($__env->yieldContent('meta_image')) ?: 'assets/imgs/brand/blckt_mainpage_hero_image.webp';
+        $ogLocale = app()->getLocale() === 'hu' ? 'hu_HU' : 'en_US';
+        $ogLocaleAlt = app()->getLocale() === 'hu' ? 'en_US' : 'hu_HU';
+    @endphp
+
+    <title>{!! $metaTitle !!}</title>
+    <meta name="description" content="{!! $metaDescription !!}">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="blckt.">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{!! $metaTitle !!}">
+    <meta property="og:description" content="{!! $metaDescription !!}">
+    <meta property="og:image" content="{{ asset($metaImagePath) }}">
+    <meta property="og:locale" content="{{ $ogLocale }}">
+    <meta property="og:locale:alternate" content="{{ $ogLocaleAlt }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{!! $metaTitle !!}">
+    <meta name="twitter:description" content="{!! $metaDescription !!}">
+    <meta name="twitter:image" content="{{ asset($metaImagePath) }}">
 
     <link rel="icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
@@ -28,7 +56,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spotlight.css') }}">
     @stack('styles')
 </head>
-<body class="is-loading">
+<body class="is-loading{{ request()->is('websites') ? ' page-websites' : '' }}">
 
     <div class="dot-spotlight" id="dot-spotlight"></div>
 
@@ -85,10 +113,10 @@
         @yield('content')
     </main>
 
-    <a href="/contact" class="get-in-touch">{{ __('Get in touch') }} <span class="info-icon">&#9432;</span></a>
+    <a href="/contact" class="get-in-touch">{{ __('Get in touch') }} <span class="action-icon" aria-hidden="true">&#8594;</span></a>
 
     <button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="{{ __('Back to top') }}">
-        <img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="">
+        <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="">
     </button>
 
     <footer class="footer">
@@ -119,6 +147,7 @@
                     <a href="/contact">{{ __('Get in touch') }}</a>
                     <a href="mailto:blckt.websites@gmail.com">blckt.websites@gmail.com</a>
                     <a href="tel:+36302552432">+36 30 255 2432</a>
+                    <a href="https://wa.me/36302552432" target="_blank" rel="noopener">{{ __('WhatsApp') }}</a>
                 </div>
                 <div class="col">
                     <h3>{{ __('about') }}</h3>

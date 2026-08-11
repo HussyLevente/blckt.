@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title', $project['name'].' | blckt. Websites')
+@section('meta_description', $project['tagline'])
+@section('meta_image', $project['gallery'][0]['src'] ?? 'assets/imgs/brand/blckt_mainpage_hero_image.webp')
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/websites.css') }}">
@@ -20,7 +24,7 @@
         <div class="project-overview-grid">
             <div class="project-overview-left">
                 <a href="/websites" class="project-back-btn">&larr; {{ __('all websites') }}</a>
-                <img src="{{ asset($project['logo']) }}" alt="{{ $project['name'] }}" class="project-logo {{ !empty($project['logo_invert']) ? 'project-logo-invert' : '' }}">
+                <img loading="lazy" decoding="async" src="{{ asset($project['logo']) }}" alt="{{ $project['name'] }}" class="project-logo {{ !empty($project['logo_invert']) ? 'project-logo-invert' : '' }}">
                 <p class="project-summary">{!! $project['summary'] !!}</p>
             </div>
             <div class="project-overview-right">
@@ -45,7 +49,7 @@
         <div class="project-gallery-grid">
             @foreach ($project['gallery'] as $image)
                 <button type="button" class="project-gallery-item">
-                    <img src="{{ asset($image['src']) }}" alt="{{ $image['alt'] }}" loading="lazy">
+                    <img src="{{ asset($image['src']) }}" alt="{{ $image['alt'] }}" loading="lazy" decoding="async">
                     <span class="project-gallery-expand">&#10530;</span>
                 </button>
             @endforeach

@@ -17,6 +17,14 @@ class WebsiteProjectController extends Controller
         ]);
     }
 
+    /**
+     * @return string[]
+     */
+    public function slugs(): array
+    {
+        return array_keys($this->projects());
+    }
+
     private function resolveLocale(array $project, string $locale): array
     {
         $pick = fn (array $values) => $values[$locale] ?? $values['en'];

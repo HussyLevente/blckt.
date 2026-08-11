@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title', $product['name'].' — '.$product['subtitle'].' | blckt. Clothing')
+@section('meta_description', __(':name — :subtitle. :price. Premium oversized tee, designed in-house and made in Hungary.', ['name' => $product['name'], 'subtitle' => $product['subtitle'], 'price' => $product['price']]))
+@section('meta_image', $product['thumbnail'])
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/website-project.css') }}">
@@ -18,7 +22,7 @@
         <div class="project-gallery-grid product-detail-gallery">
             @foreach ($product['images'] as $image)
                 <button type="button" class="project-gallery-item">
-                    <img src="{{ asset($image) }}" alt="{{ $product['name'] }}" loading="lazy">
+                    <img src="{{ asset($image) }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async">
                     <span class="project-gallery-expand">&#10530;</span>
                 </button>
             @endforeach
@@ -44,7 +48,7 @@
                 <h3 class="product-section-title">{{ __('Available colors') }}</h3>
                 <div class="color-swatches">
                     <div class="color-swatch-item">
-                        <img src="{{ asset($product['thumbnail']) }}" alt="{{ $product['color'] }}" class="color-swatch is-selected">
+                        <img loading="lazy" decoding="async" src="{{ asset($product['thumbnail']) }}" alt="{{ $product['color'] }}" class="color-swatch is-selected">
                         <span class="color-swatch-label">{{ __('Selected') }}: {{ $product['color'] }}</span>
                     </div>
                 </div>

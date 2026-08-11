@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title', __('Shop the Collection | blckt. Clothing'))
+@section('meta_description', __('Browse the full blckt. clothing collection — premium oversized tees, graphic-led and Hungarian-made.'))
+@section('meta_image', 'assets/imgs/brand/blckt_coll_main.webp')
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/clothing-products.css') }}">
@@ -24,7 +28,7 @@
                         <span class="product-badge">{{ __('NEW') }}</span>
                     @endif
                     <div class="product-card-image">
-                        <img src="{{ asset($product['thumbnail']) }}" alt="{{ $product['name'] }}" loading="lazy">
+                        <img src="{{ asset($product['thumbnail']) }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async">
                     </div>
                     <span class="product-card-price">{{ $product['price'] }}</span>
                 </a>

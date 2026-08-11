@@ -129,6 +129,20 @@
     font-weight: 500;
 }
 
+.contact-email {
+    display: block;
+    width: fit-content;
+}
+
+.contact-email:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.contact-whatsapp {
+    margin-top: 4px;
+}
+
 .contact-response {
     color: var(--text-muted);
     margin-top: 6px;
@@ -248,6 +262,44 @@
 
 .form-status.is-error {
     color: var(--error);
+}
+
+.sticky-cta-bar {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .sticky-cta-bar {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        background: var(--bg-elevated);
+        border-top: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .sticky-cta-bar .btn-pill {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+        background-color: var(--invert-bg);
+        color: var(--invert-text);
+        border-color: var(--invert-bg);
+    }
+
+    .page-websites .get-in-touch {
+        display: none;
+    }
+
+    .page-websites .footer {
+        padding-bottom: 80px;
+    }
 }
 
 @media (max-width: 900px) {
