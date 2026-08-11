@@ -17,7 +17,7 @@
     <div class="manifesto-pin">
         <section class="manifesto-section">
             <div class="manifesto-content">
-                <h2 class="manifesto-text">{{ __('We build your future so you don’t have to.') }}</h2>
+                <h2 class="manifesto-text">{{ __('I build your future so you don’t have to.') }}</h2>
                 <span class="manifesto-brand">blckt.&trade;</span>
             </div>
         </section>
@@ -26,8 +26,8 @@
     <section class="content-section websites-section reveal">
         <div class="text-and-logos">
             <div class="text-content">
-                <p>{{ __('We are not only designing your websites but actually make them with precision and functionality.') }}</p>
-                <p style="margin-top:150px">{{ __('Here is the most recent one we did.') }}</p>
+                <p>{{ __('I am not only designing your websites but actually make them with precision and functionality.') }}</p>
+                <p style="margin-top:150px">{{ __('Here is the most recent one I did.') }}</p>
             </div>
             <div class="floating-logos">
                 <img src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma">
@@ -70,7 +70,7 @@
     <section class="content-section clothing-section reveal">
         <div class="text-and-logos">
             <div class="text-content">
-                <p class="mt-4">{{ __('That\'s why we make high quality clothes that function for long time. No matter your everywhere clothing.') }}</p>
+                <p class="mt-4">{{ __('That\'s why I make high quality clothes that function for long time. No matter your everywhere clothing.') }}</p>
                 <p class="mt-4">{{ __('Here are some of the recommend. Click "all clothing" to see more.') }}</p>
             </div>
             <div class="floating-clothing">

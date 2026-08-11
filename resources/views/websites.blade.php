@@ -9,7 +9,7 @@
     <div class="manifesto-pin">
         <section class="manifesto-section">
             <div class="manifesto-content">
-                <h2 class="manifesto-text">{{ __('All our websites listed below for you to check out.') }}</h2>
+                <h2 class="manifesto-text">{{ __('All my websites listed below for you to check out.') }}</h2>
                 <span class="manifesto-brand">{{ __('Take a closer look.') }}</span>
             </div>
         </section>
@@ -79,7 +79,7 @@
         <div class="contact-grid">
             <div class="contact-left">
                 <h2 class="contact-title">{{ __('Ready to own something remarkable?') }}</h2>
-                <p class="contact-text">{{ __('Tell us about your industry, budget, and timeline. We’ll match you with the right site — or scope something new from the ground up.') }}</p>
+                <p class="contact-text">{{ __('Tell me about your industry, budget, and timeline. I’ll match you with the right site — or scope something new from the ground up.') }}</p>
                 <p class="contact-email">{{ __('Email: blckt.websites@gmail.com') }}</p>
                 <p class="contact-response">{{ __('Response time: 24 Hours') }}</p>
             </div>

@@ -115,4 +115,15 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Form Recipient
+    |--------------------------------------------------------------------------
+    |
+    | The inbox that receives submissions from the site's contact forms.
+    |
+    */
+
+    'contact_to' => env('MAIL_CONTACT_TO', 'blckt.websites@gmail.com'),
+
 ];

@@ -9,8 +9,8 @@
 @section('content')
     <section class="content-section about-hero-section reveal">
         <span class="section-eyebrow">{{ __('About') }}</span>
-        <h1 class="about-hero-title">{{ __('We are blckt.') }}</h1>
-        <p class="about-hero-subtitle">{{ __('A two-headed studio from Hungary building clothes and websites that don’t apologize for existing.') }}</p>
+        <h1 class="about-hero-title">{{ __('I am blckt.') }}</h1>
+        <p class="about-hero-subtitle">{{ __('A solo studio from Hungary building clothes and websites that don’t apologize for existing.') }}</p>
     </section>
 
     <section class="content-section about-origin-section reveal">
@@ -18,8 +18,8 @@
         <div class="origin-grid">
             <h2 class="origin-title">{{ __('Started in a bedroom. Still feels that way.') }}</h2>
             <div class="origin-text">
-                <p>{{ __('blckt. launched in 2024 as an experiment — what happens if you apply the same obsessive attention to detail to a t-shirt that you’d apply to a software product?') }}</p>
-                <p>{{ __('The answer turned out to be: something people actually want. So we kept going. The clothing led to the websites. The websites led back to better clothing. Now it’s both, permanently, by design.') }}</p>
+                <p>{{ __('blckt. launched in 2026 as an experiment — what happens if you apply the same obsessive attention to detail to a t-shirt that you’d apply to a software product?') }}</p>
+                <p>{{ __('The answer turned out to be: something people actually want. So I kept going. The clothing led to the websites. The websites led back to better clothing. Now it’s both, permanently, by design.') }}</p>
                 <p>{{ __('The name blckt. is intentionally stripped. No vowels, no fuss. A mark, not a word.') }}</p>
             </div>
         </div>
@@ -28,12 +28,12 @@
     <section class="content-section about-stats-section reveal">
         <div class="stats-grid stats-grid-divided">
             <div class="stat-item">
-                <span class="stat-number" data-target="2024" data-suffix="">0</span>
+                <span class="stat-number" data-target="2026" data-suffix="">0</span>
                 <span class="stat-label">{{ __('founded') }}</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number" data-target="12" data-suffix="+">0</span>
-                <span class="stat-label">{{ __('websites delivered') }}</span>
+                <span class="stat-label">{{ __('websites designed') }}</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number" data-target="8" data-suffix="">0</span>
@@ -43,7 +43,7 @@
     </section>
 
     <section class="content-section about-work-section reveal">
-        <span class="section-eyebrow">{{ __('What we do') }}</span>
+        <span class="section-eyebrow">{{ __('What I do') }}</span>
         <div class="work-grid">
             <a href="/clothing" class="work-card">
                 <span class="work-card-index">01 — {{ __('Clothing') }}</span>
@@ -59,8 +59,8 @@
                 <img src="{{ asset('assets/imgs/websites/juiced/juiced_whole1.jpg') }}" alt="blckt. websites">
                 <div class="work-card-body">
                     <h3>{{ __('Websites people actually want to visit.') }}</h3>
-                    <p>{{ __('We design and build custom websites for brands that care about the details. No templates, no bloat. We use Figma to design, write real code to build, and hand over something you’re proud to share.') }}</p>
-                    <span class="btn-pill work-card-btn">{{ __('see our work') }}</span>
+                    <p>{{ __('I design and build custom websites for brands that care about the details. No templates, no bloat. I use Figma to design, write real code to build, and hand over something you’re proud to share.') }}</p>
+                    <span class="btn-pill work-card-btn">{{ __('see my work') }}</span>
                 </div>
             </a>
         </div>
@@ -69,7 +69,7 @@
     <section class="content-section about-values-section reveal">
         <span class="section-eyebrow">{{ __('Values') }}</span>
         <div class="values-grid">
-            <h2 class="values-title">{{ __('Three things we won’t compromise on.') }}</h2>
+            <h2 class="values-title">{{ __('Three things I won’t compromise on.') }}</h2>
             <div class="values-accordion">
                 <div class="accordion-item">
                     <button type="button" class="accordion-trigger">{{ __('No filler.') }} <span class="accordion-icon">+</span></button>
@@ -80,13 +80,13 @@
                 <div class="accordion-item">
                     <button type="button" class="accordion-trigger">{{ __('Built to last.') }} <span class="accordion-icon">+</span></button>
                     <div class="accordion-panel">
-                        <p>{{ __('Heavyweight cotton. Real code, not page-builder duct tape. We design for the fifth wash and the fifth deploy, not just the first screenshot.') }}</p>
+                        <p>{{ __('Heavyweight cotton. Real code, not page-builder duct tape. I design for the fifth wash and the fifth deploy, not just the first screenshot.') }}</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button type="button" class="accordion-trigger">{{ __('Small on purpose.') }} <span class="accordion-icon">+</span></button>
                     <div class="accordion-panel">
-                        <p>{{ __('We turn down more work than we take. Every project gets our full attention because there is never five other projects competing for it.') }}</p>
+                        <p>{{ __('I turn down more work than I take. Every project gets my full attention because there is never five other projects competing for it.') }}</p>
                     </div>
                 </div>
             </div>
@@ -94,16 +94,8 @@
     </section>
 
     <section class="content-section about-team-section reveal">
-        <span class="section-eyebrow">{{ __('The team') }}</span>
+        <span class="section-eyebrow">{{ __('The founder') }}</span>
         <div class="team-grid">
-            <div class="team-member">
-                <div class="team-avatar team-avatar-image">
-                    <img src="{{ asset('assets/imgs/clothing/ratio/ratio_showroom_back.png') }}" alt="{{ __('Design & Clothing') }}">
-                </div>
-                <span class="team-role">{{ __('Design & Clothing') }}</span>
-                <h3 class="team-title">{{ __('Creative direction') }}</h3>
-                <p>{{ __('Visual language, garment design, brand identity. Every graphic starts here.') }}</p>
-            </div>
             <div class="team-member">
                 <div class="team-avatar team-avatar-logos">
                     <div class="floating-logos team-floating-logos">
@@ -112,17 +104,9 @@
                         <img src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js">
                     </div>
                 </div>
-                <span class="team-role">{{ __('Development') }}</span>
-                <h3 class="team-title">{{ __('Engineering') }}</h3>
-                <p>{{ __('Frontend, Figma-to-code, CMS integration. If it runs in a browser, this is where it gets built.') }}</p>
-            </div>
-            <div class="team-member">
-                <div class="team-avatar team-avatar-image">
-                    <img src="{{ asset('assets/imgs/websites/paradise/paradise_whole1.jpg') }}" alt="{{ __('Strategy') }}">
-                </div>
-                <span class="team-role">{{ __('Strategy') }}</span>
-                <h3 class="team-title">{{ __('Client work') }}</h3>
-                <p>{{ __('Scoping, timelines, client communication. We keep projects moving and expectations honest.') }}</p>
+                <span class="team-role">{{ __('Founder') }}</span>
+                <h3 class="team-title">Levente Hussy</h3>
+                <p>{{ __('21 years old, studying Economic Informatics at Budapest Business School (BGE). Design, code, clothing, and websites — all one person, on purpose.') }}</p>
             </div>
         </div>
     </section>

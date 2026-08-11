@@ -19,7 +19,7 @@
         <div class="contact-grid">
             <div class="contact-left">
                 <h2 class="contact-title">{{ __('Let’s get in touch.') }}</h2>
-                <p class="contact-text">{{ __('Whether it’s a t-shirt drop or a full site build, tell us what you’re after and we’ll take it from there. No bots, no runaround — just us reading your message and getting back to you.') }}</p>
+                <p class="contact-text">{{ __('Whether it’s a t-shirt drop or a full site build, tell me what you’re after and I’ll take it from there. No bots, no runaround — just me reading your message and getting back to you.') }}</p>
                 <p class="contact-email">{{ __('Email: blckt.websites@gmail.com') }}</p>
                 <p class="contact-response">{{ __('Response time: 24 Hours') }}</p>
             </div>

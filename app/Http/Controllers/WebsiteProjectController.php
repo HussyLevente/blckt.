@@ -89,8 +89,8 @@ class WebsiteProjectController extends Controller
                     'hu' => 'A bolygó legkápráztatóbb úti céljainak kapuja.',
                 ],
                 'summary' => [
-                    'en' => 'Paradise came to us with a booking site that looked like a spreadsheet with a hero image bolted on. We rebuilt it from the ground up: a fast, image-led browsing experience, a booking flow that does not fight the user, and a visual language that actually feels like the trips it is selling. Every section was designed to move — parallax destination cards, a cruise showcase that unfolds as you scroll, and a mobile experience trimmed down to exactly what matters.',
-                    'hu' => 'A Paradise egy olyan foglalási oldallal keresett meg minket, ami leginkább egy táblázatra hasonlított, rátéve egy nagy képpel. Az alapoktól építettük újra: gyors, képalapú böngészési élményt, olyan foglalási folyamatot, ami nem küzd a felhasználóval, és egy vizuális nyelvet, ami tényleg úgy hat, mint az utazások, amiket elad. Minden szekció mozgásra lett tervezve — parallax úti cél kártyák, egy hajóbemutató, ami görgetés közben bontakozik ki, és egy mobil élmény, amit pontosan a lényegre húztunk le.',
+                    'en' => 'Paradise came to me with a booking site that looked like a spreadsheet with a hero image bolted on. I rebuilt it from the ground up: a fast, image-led browsing experience, a booking flow that does not fight the user, and a visual language that actually feels like the trips it is selling. Every section was designed to move — parallax destination cards, a cruise showcase that unfolds as you scroll, and a mobile experience trimmed down to exactly what matters.',
+                    'hu' => 'A Paradise egy olyan foglalási oldallal keresett meg engem, ami leginkább egy táblázatra hasonlított, rátéve egy nagy képpel. Az alapoktól építettem újra: gyors, képalapú böngészési élményt, olyan foglalási folyamatot, ami nem küzd a felhasználóval, és egy vizuális nyelvet, ami tényleg úgy hat, mint az utazások, amiket elad. Minden szekció mozgásra lett tervezve — parallax úti cél kártyák, egy hajóbemutató, ami görgetés közben bontakozik ki, és egy mobil élmény, amit pontosan a lényegre húztam le.',
                 ],
                 'duration' => [
                     'en' => '3 weeks',
@@ -116,8 +116,8 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Prémium divat és válogatott életmód-darabok, ahogy azt megérdemlik.',
                 ],
                 'summary' => [
-                    'en' => 'Palesso needed a storefront that matched the price tag of what it was selling. We built a quiet, editorial layout that gets out of the way of the product photography, a personalization flow for made-to-order pieces, and a checkout that does not feel like an afterthought. No stock theme, no cookie-cutter grid — every detail was placed on purpose.',
-                    'hu' => 'A Palessónak egy olyan webáruházra volt szüksége, ami illik az általa árult termékek árcédulájához. Egy visszafogott, szerkesztői elrendezést építettünk, ami háttérbe húzódik a termékfotók mögött, egy személyre szabási folyamatot az egyedi rendelésekhez, és egy fizetési folyamatot, ami nem tűnik utólagos toldaléknak. Nincs sablon téma, nincs gyári rács — minden részlet tudatosan került a helyére.',
+                    'en' => 'Palesso needed a storefront that matched the price tag of what it was selling. I built a quiet, editorial layout that gets out of the way of the product photography, a personalization flow for made-to-order pieces, and a checkout that does not feel like an afterthought. No stock theme, no cookie-cutter grid — every detail was placed on purpose.',
+                    'hu' => 'A Palessónak egy olyan webáruházra volt szüksége, ami illik az általa árult termékek árcédulájához. Egy visszafogott, szerkesztői elrendezést építettem, ami háttérbe húzódik a termékfotók mögött, egy személyre szabási folyamatot az egyedi rendelésekhez, és egy fizetési folyamatot, ami nem tűnik utólagos toldaléknak. Nincs sablon téma, nincs gyári rács — minden részlet tudatosan került a helyére.',
                 ],
                 'duration' => [
                     'en' => '4 weeks',
@@ -171,8 +171,8 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Ahol az íz találkozik a produktivitással.',
                 ],
                 'summary' => [
-                    'en' => 'Juiced sells flavour on a page that used to feel like a spec sheet. We rebuilt the storefront around the product itself: bold, full-bleed flavour sections that change colour with every drink, a sticks-vs-drinks toggle that actually feels instant, and a browsing experience built mobile-first since that is where the whole catalogue gets shopped. No stock theme, no beige e-commerce grid — every flavour gets its own moment.',
-                    'hu' => 'A Juicednek egy olyan oldalra volt szüksége, ami az ízt adja el, nem egy termékkatalógust. A bolti felületet magára a termékre építettük újra: merész, teljes szélességű íz-szekciók, amik minden itallal színt váltanak, egy szívószálak-vs-italok váltó, ami tényleg azonnalinak érződik, és egy mobil-first böngészési élmény, hiszen ott vásárolják végig a teljes kínálatot. Nincs sablon téma, nincs unalmas webáruház-rács — minden íznek saját pillanata van.',
+                    'en' => 'Juiced sells flavour on a page that used to feel like a spec sheet. I rebuilt the storefront around the product itself: bold, full-bleed flavour sections that change colour with every drink, a sticks-vs-drinks toggle that actually feels instant, and a browsing experience built mobile-first since that is where the whole catalogue gets shopped. No stock theme, no beige e-commerce grid — every flavour gets its own moment.',
+                    'hu' => 'A Juicednek egy olyan oldalra volt szüksége, ami az ízt adja el, nem egy termékkatalógust. A bolti felületet magára a termékre építettem újra: merész, teljes szélességű íz-szekciók, amik minden itallal színt váltanak, egy szívószálak-vs-italok váltó, ami tényleg azonnalinak érződik, és egy mobil-first böngészési élmény, hiszen ott vásárolják végig a teljes kínálatot. Nincs sablon téma, nincs unalmas webáruház-rács — minden íznek saját pillanata van.',
                 ],
                 'duration' => [
                     'en' => '3 weeks',

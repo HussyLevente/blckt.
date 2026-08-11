@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClothingProductController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WebsiteProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ Route::view('/websites', 'websites');
 Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->name('websites.show');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
+
+Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.submit');
 
 Route::get('/lang/{locale}', function (\Illuminate\Http\Request $request, string $locale) {
     abort_unless(in_array($locale, ['en', 'hu'], true), 404);
