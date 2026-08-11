@@ -30,7 +30,7 @@
             @if (!empty($data['budget']))
                 <div class="row">
                     <div class="label">Budget</div>
-                    <div class="value">{{ number_format((float) $data['budget']) }} Ft</div>
+                    <div class="value">{{ number_format((float) $data['budget'], 0, ',', ' ') }} Ft</div>
                 </div>
             @endif
 

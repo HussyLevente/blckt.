@@ -19,7 +19,7 @@
     <label class="form-field">
         <span class="form-label">{{ __('Budget') }}</span>
         <div class="input-suffix-wrap">
-            <input type="number" name="budget" placeholder="500 000" value="{{ old('budget') }}">
+            <input type="text" inputmode="numeric" name="budget" placeholder="500 000" value="{{ old('budget') }}" autocomplete="off">
             <span class="input-suffix">Ft</span>
         </div>
         <span class="form-error" data-error-for="budget">{{ $errors->first('budget') }}</span>

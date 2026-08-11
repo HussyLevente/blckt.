@@ -11,6 +11,8 @@
         var sentLabel = (submitBtn && submitBtn.dataset.labelSent) || defaultLabel;
         var networkError = (statusEl && statusEl.dataset.networkError) || 'Something went wrong. Please try again.';
 
+        attachBudgetFormatter(form);
+
         form.addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -69,6 +71,42 @@
                     submitBtn.disabled = false;
                     submitBtn.textContent = defaultLabel;
                 });
+        });
+    }
+
+    function formatThousands(value) {
+        var digits = value.replace(/\D/g, '');
+        if (!digits) {
+            return '';
+        }
+        return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+
+    function attachBudgetFormatter(form) {
+        var input = form.querySelector('input[name="budget"]');
+        if (!input) {
+            return;
+        }
+
+        if (input.value) {
+            input.value = formatThousands(input.value);
+        }
+
+        input.addEventListener('input', function () {
+            var cursor = input.selectionStart;
+            var digitsBeforeCursor = input.value.slice(0, cursor).replace(/\D/g, '').length;
+
+            input.value = formatThousands(input.value);
+
+            var pos = 0;
+            var seen = 0;
+            while (pos < input.value.length && seen < digitsBeforeCursor) {
+                if (/\d/.test(input.value[pos])) {
+                    seen++;
+                }
+                pos++;
+            }
+            input.setSelectionRange(pos, pos);
         });
     }
 
