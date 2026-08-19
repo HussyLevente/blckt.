@@ -124,6 +124,6 @@ return [
     |
     */
 
-    'contact_to' => env('MAIL_CONTACT_TO', 'blckt.websites@gmail.com'),
+    'contact_to' => env('MAIL_CONTACT_TO', 'hello@blckt.hu'),
 
 ];

@@ -145,7 +145,7 @@
                 <div class="col">
                     <h3>{{ __('contact') }}</h3>
                     <a href="/contact">{{ __('Get in touch') }}</a>
-                    <a href="mailto:blckt.websites@gmail.com">blckt.websites@gmail.com</a>
+                    <a href="mailto:hello@blckt.hu">hello@blckt.hu</a>
                     <a href="tel:+36302552432">+36 30 255 2432</a>
                     <a href="https://wa.me/36302552432" target="_blank" rel="noopener">{{ __('WhatsApp') }}</a>
                 </div>

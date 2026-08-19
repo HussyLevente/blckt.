@@ -33,7 +33,7 @@
     <p
         class="form-status @if (session('contact_success')) is-success @elseif (session('contact_error')) is-error @endif"
         data-form-status
-        data-network-error="{{ __('Something went wrong. Please try again or email blckt.websites@gmail.com directly.') }}"
+        data-network-error="{{ __('Something went wrong. Please try again or email hello@blckt.hu directly.') }}"
         role="status"
         aria-live="polite"
     >{{ session('contact_success') ?? session('contact_error') }}</p>

@@ -53,7 +53,7 @@ class ContactController extends Controller
         } catch (\Throwable $e) {
             report($e);
 
-            $error = __('Something went wrong sending your message. Please email me directly at blckt.websites@gmail.com.');
+            $error = __('Something went wrong sending your message. Please email me directly at hello@blckt.hu.');
 
             if ($request->expectsJson()) {
                 return response()->json(['message' => $error], 500);

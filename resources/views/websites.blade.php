@@ -83,7 +83,7 @@
             <div class="contact-left">
                 <h2 class="contact-title">{{ __('Ready to own something remarkable?') }}</h2>
                 <p class="contact-text">{{ __('Tell me about your industry, budget, and timeline. I’ll match you with the right site — or scope something new from the ground up.') }}</p>
-                <a href="mailto:blckt.websites@gmail.com" class="contact-email">{{ __('Email: blckt.websites@gmail.com') }}</a>
+                <a href="mailto:hello@blckt.hu" class="contact-email">{{ __('Email: hello@blckt.hu') }}</a>
                 <a href="https://wa.me/36302552432" target="_blank" rel="noopener" class="contact-email contact-whatsapp">{{ __('Message on WhatsApp') }}</a>
                 <p class="contact-response">{{ __('Response time: 24 Hours') }}</p>
             </div>
