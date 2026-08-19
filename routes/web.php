@@ -20,6 +20,10 @@ Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->na
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 
+Route::view('/impresszum', 'legal.impresszum')->name('legal.impresszum');
+Route::view('/adatvedelem', 'legal.adatvedelem')->name('legal.adatvedelem');
+Route::view('/aszf', 'legal.aszf')->name('legal.aszf');
+
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::post('/contact', [ContactController::class, 'store'])

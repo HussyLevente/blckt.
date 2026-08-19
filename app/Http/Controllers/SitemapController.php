@@ -15,6 +15,9 @@ class SitemapController extends Controller
             ['loc' => url('/websites'), 'priority' => '0.9'],
             ['loc' => url('/about'), 'priority' => '0.6'],
             ['loc' => url('/contact'), 'priority' => '0.7'],
+            ['loc' => route('legal.impresszum'), 'priority' => '0.2'],
+            ['loc' => route('legal.adatvedelem'), 'priority' => '0.2'],
+            ['loc' => route('legal.aszf'), 'priority' => '0.2'],
         ];
 
         foreach ($clothing->slugs() as $slug) {

@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/cursor.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spotlight.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/cookie-consent.css') }}">
     @stack('styles')
 </head>
 <body class="is-loading{{ request()->is('websites') ? ' page-websites' : '' }}">
@@ -153,10 +154,25 @@
                     <h3>{{ __('about') }}</h3>
                     <a href="/">{{ __('Home') }}</a>
                     <a href="/about">{{ __('about') }}</a>
+                    <a href="{{ route('legal.impresszum') }}">{{ __('Imprint') }}</a>
+                    <a href="{{ route('legal.adatvedelem') }}">{{ __('Privacy notice') }}</a>
+                    <a href="{{ route('legal.aszf') }}">{{ __('Terms & conditions') }}</a>
+                    <a href="#" data-cookie-preferences>{{ __('Cookie preferences') }}</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <div class="cookie-consent" id="cookie-consent">
+        <div class="cookie-consent-card">
+            <h2 class="cookie-consent-title">{{ __('Cookies') }}</h2>
+            <p class="cookie-consent-text">{{ __('This site only uses cookies that are strictly necessary for it to work — session security, and remembering your language and theme choice. No advertising or tracking cookies.') }}</p>
+            <div class="cookie-consent-actions">
+                <button type="button" class="btn-pill" id="cookie-consent-accept">{{ __('Got it') }}</button>
+                <a href="{{ route('legal.adatvedelem') }}#sutik" class="cookie-consent-link">{{ __('Learn more') }}</a>
+            </div>
+        </div>
+    </div>
 
     <div class="lightbox" id="site-lightbox">
         <div class="lightbox-toolbar">
@@ -276,6 +292,7 @@
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('assets/js/cursor.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
+    <script src="{{ asset('assets/js/cookie-consent.js') }}"></script>
 
     @stack('scripts')
 </body>
