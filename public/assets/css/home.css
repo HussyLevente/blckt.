@@ -83,7 +83,7 @@
 }
 
 .manifesto-brand {
-    margin-top: 0 px;
+    margin-top: 0;
     font-size: 35px;
     font-weight: 400;
     font-style: italic;
@@ -450,25 +450,23 @@
     }
 }
 
-/* Gomb (Pill alakú) */
-.center-button {
-    text-align: center;
-    margin-top: 20px;
+/* A gomb (pill) stilusai a layout.css-be kerultek, hogy minden oldalon eljenek. */
+
+/* A masodik bekezdes nagyobb levegot kap a lebego logok mellett */
+.text-content-spaced {
+    margin-top: 150px;
 }
 
-.btn-pill {
-    display: inline-block;
-    padding: 10px 30px;
-    background-color: var(--bg-muted);
-    color: var(--text);
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
-    border: 1px solid var(--border-strong);
-    transition: all 0.3s ease;
+/* Ket gomb egymas mellett a szekcio aljan */
+.center-button-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
 }
 
-.btn-pill:hover {
-    background-color: var(--invert-bg);
-    color: var(--invert-text);
+@media (max-width: 768px) {
+    .text-content-spaced {
+        margin-top: 40px;
+    }
 }

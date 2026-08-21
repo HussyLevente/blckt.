@@ -32,18 +32,18 @@
 
     <section class="content-section websites-section reveal">
         <div class="text-and-logos">
-            <div class="text-content">
+            <div class="text-content" data-anim="left">
                 <p>{{ __('I am not only designing your websites but actually make them with precision and functionality.') }}</p>
-                <p style="margin-top:150px">{{ __('Here is the most recent one I did.') }}</p>
+                <p class="text-content-spaced">{{ __('Here is the most recent one I did.') }}</p>
             </div>
-            <div class="floating-logos">
+            <div class="floating-logos" data-parallax="0.22">
                 <img src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma" loading="lazy" decoding="async">
                 <img src="{{ asset('assets/imgs/tools/vs_logo.png') }}" alt="VS Code" class="logo-vscode" loading="lazy" decoding="async">
                 <img src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js" loading="lazy" decoding="async">
             </div>
         </div>
 
-        <div class="slider-container">
+        <div class="slider-container" data-anim="up">
             <h3 class="slider-title">Paradise <img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="" class="arrow-icon" loading="lazy" decoding="async"></h3>
             <div class="slider-wrapper">
                 <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev" loading="lazy" decoding="async"></button>
@@ -59,8 +59,9 @@
                 </div>
                 <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Next" loading="lazy" decoding="async"></button>
             </div>
-            <div class="center-button">
+            <div class="center-button center-button-pair">
                 <a href="/websites" class="btn-pill">{{ __('all websites') }}</a>
+                <a href="/redesigns" class="btn-pill">{{ __('before & after') }}</a>
             </div>
         </div>
     </section>
@@ -76,18 +77,18 @@
 
     <section class="content-section clothing-section reveal">
         <div class="text-and-logos">
-            <div class="text-content">
+            <div class="text-content" data-anim="left">
                 <p class="mt-4">{{ __('That\'s why I make high quality clothes that function for long time. No matter your everywhere clothing.') }}</p>
                 <p class="mt-4">{{ __('Here are some of the recommend. Click "all clothing" to see more.') }}</p>
             </div>
-            <div class="floating-clothing">
+            <div class="floating-clothing" data-parallax="0.18">
                 <img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_hollyweed.webp') }}" alt="Hollyweed" class="clothing-1" loading="lazy" decoding="async">
                 <img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_ratio.webp') }}" alt="Ratio" class="clothing-2" loading="lazy" decoding="async">
                 <img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_agapiti.webp') }}" alt="Agapiti" class="clothing-3" loading="lazy" decoding="async">
             </div>
         </div>
 
-        <div class="slider-container">
+        <div class="slider-container" data-anim="up">
             <h3 class="slider-title">{{ __('blckt. collection') }} <img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="" class="arrow-icon" loading="lazy" decoding="async"></h3>
             <div class="slider-wrapper">
                 <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev" loading="lazy" decoding="async"></button>

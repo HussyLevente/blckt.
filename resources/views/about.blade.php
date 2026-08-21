@@ -12,15 +12,15 @@
 @section('content')
     <section class="content-section about-hero-section reveal">
         <span class="section-eyebrow">{{ __('About') }}</span>
-        <h1 class="about-hero-title">{{ __('I am blckt.') }}</h1>
-        <p class="about-hero-subtitle">{{ __('A solo studio from Hungary building clothes and websites that don’t apologize for existing.') }}</p>
+        <h1 class="about-hero-title" data-anim="up">{{ __('I am blckt.') }}</h1>
+        <p class="about-hero-subtitle" data-anim="up" data-anim-delay="150">{{ __('A solo studio from Hungary building clothes and websites that don’t apologize for existing.') }}</p>
     </section>
 
     <section class="content-section about-origin-section reveal">
         <span class="section-eyebrow">{{ __('Origin') }}</span>
         <div class="origin-grid">
-            <h2 class="origin-title">{{ __('Started in a bedroom. Still feels that way.') }}</h2>
-            <div class="origin-text">
+            <h2 class="origin-title" data-anim="left">{{ __('Started in a bedroom. Still feels that way.') }}</h2>
+            <div class="origin-text" data-anim="right" data-anim-delay="120">
                 <p>{{ __('blckt. launched in 2026 as an experiment — what happens if you apply the same obsessive attention to detail to a t-shirt that you’d apply to a software product?') }}</p>
                 <p>{{ __('The answer turned out to be: something people actually want. So I kept going. The clothing led to the websites. The websites led back to better clothing. Now it’s both, permanently, by design.') }}</p>
                 <p>{{ __('The name blckt. is intentionally stripped. No vowels, no fuss. A mark, not a word.') }}</p>
@@ -29,7 +29,7 @@
     </section>
 
     <section class="content-section about-stats-section reveal">
-        <div class="stats-grid stats-grid-divided">
+        <div class="stats-grid stats-grid-divided" data-anim-stagger="140">
             <div class="stat-item">
                 <span class="stat-number" data-target="2026" data-suffix="">0</span>
                 <span class="stat-label">{{ __('founded') }}</span>
@@ -47,7 +47,7 @@
 
     <section class="content-section about-work-section reveal">
         <span class="section-eyebrow">{{ __('What I do') }}</span>
-        <div class="work-grid">
+        <div class="work-grid" data-anim-stagger="160">
             <a href="/clothing" class="work-card">
                 <span class="work-card-index">01 — {{ __('Clothing') }}</span>
                 <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/brand/blckt_coll_main.png') }}" alt="blckt. clothing">
@@ -72,8 +72,8 @@
     <section class="content-section about-values-section reveal">
         <span class="section-eyebrow">{{ __('Values') }}</span>
         <div class="values-grid">
-            <h2 class="values-title">{{ __('Three things I won’t compromise on.') }}</h2>
-            <div class="values-accordion">
+            <h2 class="values-title" data-anim="left">{{ __('Three things I won’t compromise on.') }}</h2>
+            <div class="values-accordion" data-anim="up" data-anim-delay="120">
                 <div class="accordion-item">
                     <button type="button" class="accordion-trigger">{{ __('No filler.') }} <span class="accordion-icon">+</span></button>
                     <div class="accordion-panel">
@@ -101,7 +101,7 @@
         <div class="team-grid">
             <div class="team-member">
                 <div class="team-avatar team-avatar-logos">
-                    <div class="floating-logos team-floating-logos">
+                    <div class="floating-logos team-floating-logos" data-parallax="0.14">
                         <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/tools/figma_logo.png') }}" alt="Figma" class="logo-figma">
                         <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/tools/vs_logo.png') }}" alt="VS Code" class="logo-vscode">
                         <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/tools/js_logo.png') }}" alt="JavaScript" class="logo-js">

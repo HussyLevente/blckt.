@@ -51,6 +51,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animations.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/cursor.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spotlight.css') }}">
@@ -58,6 +59,8 @@
     @stack('styles')
 </head>
 <body class="is-loading{{ request()->is('websites') ? ' page-websites' : '' }}">
+
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
     <div class="dot-spotlight" id="dot-spotlight"></div>
 
@@ -75,10 +78,20 @@
             </div>
             <div class="nav-right" id="nav-right">
                 <nav class="nav-links">
-                    <a href="/clothing" class="active">{{ __('clothing') }}</a>
-                    <a href="/websites">{{ __('websites') }}</a>
-                    <a href="/contact">{{ __('contact') }}</a>
-                    <a href="/about">{{ __('about') }}</a>
+                    @php
+                        $navItems = [
+                            '/clothing' => __('clothing'),
+                            '/websites' => __('websites'),
+                            '/redesigns' => __('before & after'),
+                            '/services' => __('services'),
+                            '/about' => __('about'),
+                            '/contact' => __('contact'),
+                        ];
+                    @endphp
+                    @foreach ($navItems as $href => $label)
+                        @php $isActive = request()->is(ltrim($href, '/').'*'); @endphp
+                        <a href="{{ $href }}" class="{{ $isActive ? 'is-active' : '' }}" @if ($isActive) aria-current="page" @endif>{{ $label }}</a>
+                    @endforeach
                 </nav>
                 <div class="lang-switcher">
                     <a href="{{ route('lang.switch', 'en') }}" class="lang-option {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">EN</a>
@@ -138,6 +151,7 @@
                 <div class="col">
                     <h3>{{ __('websites') }}</h3>
                     <a href="/websites">{{ __('all websites') }}</a>
+                    <a href="/redesigns">{{ __('before & after') }}</a>
                     <a href="{{ route('websites.show', 'paradise') }}">Paradise</a>
                     <a href="{{ route('websites.show', 'palesso') }}">Palesso</a>
                     <a href="{{ route('websites.show', 'kepszakadas') }}">Képszakadás</a>
@@ -154,6 +168,7 @@
                     <h3>{{ __('about') }}</h3>
                     <a href="/">{{ __('Home') }}</a>
                     <a href="/about">{{ __('about') }}</a>
+                    <a href="/services">{{ __('services') }}</a>
                     <a href="{{ route('legal.impresszum') }}">{{ __('Imprint') }}</a>
                     <a href="{{ route('legal.adatvedelem') }}">{{ __('Privacy notice') }}</a>
                     <a href="{{ route('legal.aszf') }}">{{ __('Terms & conditions') }}</a>
@@ -190,6 +205,7 @@
             var MIN_DISPLAY_MS = 500;
             var start = Date.now();
             var loader = document.getElementById('page-loader');
+            if (!loader) return;
 
             function hideLoader() {
                 var remaining = Math.max(0, MIN_DISPLAY_MS - (Date.now() - start));
@@ -211,20 +227,35 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let lastScrollY = window.scrollY;
-            const navbar = document.getElementById('blckt-navbar');
+        document.addEventListener('DOMContentLoaded', function () {
+            var navbar = document.getElementById('blckt-navbar');
+            if (!navbar) return;
 
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > lastScrollY && window.scrollY > 80) {
-                    // Lefele görgetés - eltűnik
-                    navbar.style.transform = 'translateY(-100%)';
-                } else {
-                    // Felfele görgetés - megjelenik
-                    navbar.style.transform = 'translateY(0)';
-                }
-                lastScrollY = window.scrollY;
-            });
+            var lastScrollY = window.scrollY;
+            var ticking = false;
+
+            function render() {
+                ticking = false;
+                var y = window.scrollY;
+
+                navbar.classList.toggle('is-scrolled', y > 40);
+
+                // Nyitott mobilmenü mellett a navbar marad, különben a bezáró
+                // gomb is elcsúszna a képernyőről.
+                var menuOpen = document.body.classList.contains('no-scroll');
+                var hide = !menuOpen && y > lastScrollY && y > 120;
+
+                navbar.classList.toggle('is-hidden', hide);
+                lastScrollY = y;
+            }
+
+            window.addEventListener('scroll', function () {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(render);
+            }, { passive: true });
+
+            render();
         });
     </script>
 
@@ -289,6 +320,7 @@
         })();
     </script>
 
+    <script src="{{ asset('assets/js/animations.js') }}"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('assets/js/cursor.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>

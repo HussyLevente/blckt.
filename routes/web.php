@@ -17,6 +17,8 @@ Route::get('/clothing/collection', [ClothingProductController::class, 'index'])-
 Route::get('/clothing/collection/{product}', [ClothingProductController::class, 'show'])->name('clothing.show');
 Route::view('/websites', 'websites');
 Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->name('websites.show');
+Route::get('/redesigns', [WebsiteProjectController::class, 'redesigns'])->name('websites.redesigns');
+Route::view('/services', 'services')->name('services');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 

@@ -80,10 +80,15 @@ function initRevealOnScroll() {
         return;
     }
 
+    // Egyszer futo felfedes: ha az elem egyszer lathatova valt, levalunk rola.
+    // Korabban a toggle miatt minden visszagorgetesnel ujra lejatszodott az
+    // animacio, ami villogast okozott a hosszabb szekcioknal.
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
-                entry.target.classList.toggle('is-visible', entry.isIntersecting);
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             });
         },
         { threshold: 0.15, rootMargin: '0px 0px -80px 0px' }

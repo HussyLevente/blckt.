@@ -18,6 +18,21 @@ class WebsiteProjectController extends Controller
     }
 
     /**
+     * Before/after showcase: every project that has an "old site" screenshot on disk.
+     */
+    public function redesigns()
+    {
+        $locale = App::getLocale();
+
+        $redesigns = array_values(array_filter(array_map(
+            fn (array $project) => $this->resolveLocale($project, $locale)['redesign'],
+            $this->projects()
+        )));
+
+        return view('websites.redesigns', ['redesigns' => $redesigns]);
+    }
+
+    /**
      * @return string[]
      */
     public function slugs(): array
@@ -46,7 +61,63 @@ class WebsiteProjectController extends Controller
             range(1, count($images))
         );
 
+        $project['redesign'] = $this->redesign($project, $images, $pick);
+
         return $project;
+    }
+
+    /**
+     * The before/after pair for a project.
+     *
+     * "Before" is the client's original site, dropped in as {slug}_before.{ext}.
+     * "After" is the first gallery shot unless the project ships its own {slug}_after.{ext}.
+     * Returns null when no before-image exists, so the section simply stays hidden.
+     *
+     * @param  string[]  $gallery
+     * @return array<string, mixed>|null
+     */
+    private function redesign(array $project, array $gallery, callable $pick): ?array
+    {
+        $before = $this->firstExisting("assets/imgs/websites/{$project['slug']}/{$project['slug']}_before");
+
+        if ($before === null) {
+            return null;
+        }
+
+        $after = $this->firstExisting("assets/imgs/websites/{$project['slug']}/{$project['slug']}_after")
+            ?? ($gallery[0] ?? null);
+
+        if ($after === null) {
+            return null;
+        }
+
+        return [
+            'slug' => $project['slug'],
+            'name' => $project['name'],
+            'before' => $before,
+            'after' => $after,
+            'note' => isset($project['redesign_note']) ? $pick($project['redesign_note']) : null,
+            'metrics' => array_map(
+                fn (array $metric) => ['value' => $metric['value'], 'label' => $pick($metric['label'])],
+                $project['redesign_metrics'] ?? []
+            ),
+        ];
+    }
+
+    /**
+     * Resolve a path given without an extension to the first image that exists on disk.
+     */
+    private function firstExisting(string $pathWithoutExtension): ?string
+    {
+        foreach (['webp', 'jpg', 'jpeg', 'png'] as $ext) {
+            $relative = "{$pathWithoutExtension}.{$ext}";
+
+            if (file_exists(public_path($relative))) {
+                return $relative;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -114,6 +185,10 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Egy oldal, ami elég gyors ahhoz, hogy strandszékből, 4G-n is le lehessen foglalni egy hajóutat — a bevezetés utáni első hónapban 38%-kal nőtt a sikeres foglalások száma.',
                 ],
                 'price' => '450 000 Ft',
+                'redesign_note' => [
+                    'en' => 'The old Paradise site buried every destination in a dense list view — small thumbnails, cramped type, a booking form three scrolls down. The rebuild puts the photography first, gives every destination room to breathe, and moves the booking action into reach on the very first screen.',
+                    'hu' => 'A régi Paradise oldal minden úti célt egy sűrű listába temetett — apró bélyegképek, zsúfolt tipográfia, a foglalási űrlap három görgetéssel lejjebb. Az új verzió a fotókat teszi első helyre, teret ad minden úti célnak, és a foglalást már az első képernyőn elérhetővé teszi.',
+                ],
             ],
             'palesso' => [
                 'slug' => 'palesso',
@@ -141,6 +216,10 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Egy személyre szabási motor, amit egyetlen dobozos platform sem tudott volna nyújtani, és ami a Palesso legfőbb versenyelőnyévé vált a konkurenciával szemben.',
                 ],
                 'price' => '520 000 Ft',
+                'redesign_note' => [
+                    'en' => 'Palesso was running a stock theme that made premium pieces look like clearance stock. The rebuild strips the interface back to an editorial layout so the product photography carries the page, and the personalization flow finally sits where customers look for it.',
+                    'hu' => 'A Palesso egy sablon témát használt, amiben a prémium darabok kiárusításos árunak néztek ki. Az új verzió visszahúzza a felületet egy szerkesztői elrendezésre, hogy a termékfotók vigyék az oldalt, a személyre szabás pedig végre ott van, ahol a vásárlók keresik.',
+                ],
             ],
             'kepszakadas' => [
                 'slug' => 'kepszakadas',
@@ -168,6 +247,10 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Egy teljes ivós játék platform tucatnyi minijátékkal, mobil-first felépítéssel, hogy tökéletesen fusson egyenesen a böngészőből — nincs app store, nincs telepítés, nincs kifogás, hogy ne játsszatok.',
                 ],
                 'price' => '280 000 Ft',
+                'redesign_note' => [
+                    'en' => 'The original Képszakadás page was a desktop layout squeezed onto a phone — exactly the wrong way round for a game played at a table with one hand. The rebuild is mobile-first: thumb-sized targets, no pinch-zoom, and the game starts in one tap.',
+                    'hu' => 'Az eredeti Képszakadás oldal egy asztali elrendezés volt telefonra préselve — pont fordítva, mint ahogy egy asztalnál, fél kézzel játszott játékhoz kellene. Az új verzió mobil-first: hüvelykujjnyi gombok, nincs nagyítás, és a játék egy koppintással indul.',
+                ],
             ],
             'juiced' => [
                 'slug' => 'juiced',
@@ -196,6 +279,10 @@ class WebsiteProjectController extends Controller
                     'hu' => 'Egy teljes szélességű, színt váltó webáruház, ami már az összetevőlista betöltése előtt eladja az ízt — és egy szívószál-termékvonal, ami kétszer annyit ad el, mint a palackos termékek.',
                 ],
                 'price' => '390 000 Ft',
+                'redesign_note' => [
+                    'en' => 'Juiced used to present its drinks as a spec-sheet grid where every flavour looked identical. The rebuild gives each flavour a full-bleed, colour-shifting section of its own, so the page sells the taste before a single ingredient list loads.',
+                    'hu' => 'A Juiced korábban egy terméktáblázatban mutatta az italait, ahol minden íz egyformának látszott. Az új verzió minden íznek saját, teljes szélességű, színt váltó szekciót ad, így az oldal már az összetevőlista betöltése előtt eladja az ízt.',
+                ],
             ],
         ];
     }

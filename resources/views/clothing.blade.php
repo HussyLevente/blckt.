@@ -25,17 +25,17 @@
 
     <section class="content-section collection-section reveal">
         <div class="collection-grid">
-            <div class="collection-left">
+            <div class="collection-left" data-anim="left">
                 <h2 class="collection-title">{{ __('blckt. collection') }}</h2>
                 <p class="collection-text">{{ __('Standard issue is dead. blckt. engineers premium apparel designed to outlast the hype. No compromises. No cutting corners. Just top-tier quality that speaks for itself. Drop the dead weight and elevate your uniform.') }}</p>
                 <a href="{{ route('clothing.collection') }}" class="btn-pill">{{ __('check out blckt.') }}</a>
             </div>
-            <div class="collection-right">
+            <div class="collection-right" data-anim="right" data-anim-delay="120">
                 <img src="{{ asset('assets/imgs/brand/blckt_coll_main.webp') }}" alt="blckt. collection" class="collection-image" fetchpriority="high">
             </div>
         </div>
 
-        <div class="slider-container">
+        <div class="slider-container" data-anim="up">
             <div class="slider-wrapper">
                 <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev" loading="lazy" decoding="async"></button>
                 <div class="slider-viewport">

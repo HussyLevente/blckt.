@@ -354,3 +354,100 @@
         padding: 20px;
     }
 }
+
+/* Elotte / utana atvezeto sav */
+.redesign-banner {
+    margin-top: 160px;
+    margin-bottom: 40px;
+}
+
+.redesign-banner-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 42px 48px;
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    background-color: var(--bg-subtle);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* A sotet alap alulrol uszik be hoverre, ugyanaz a mozdulat, mint a pill gomboknal */
+.redesign-banner-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--invert-bg);
+    transform: translateY(101%);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.redesign-banner-link:hover::before {
+    transform: translateY(0);
+}
+
+.redesign-banner-link:hover {
+    border-color: var(--invert-bg);
+    transform: translateY(-4px);
+}
+
+.redesign-banner-text,
+.redesign-banner-arrow {
+    position: relative;
+    z-index: 1;
+    transition: color 0.4s ease;
+}
+
+.redesign-banner-link:hover .redesign-banner-text,
+.redesign-banner-link:hover .redesign-banner-arrow {
+    color: var(--invert-text);
+}
+
+.redesign-banner-eyebrow {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.55;
+}
+
+.redesign-banner-title {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.redesign-banner-text p {
+    font-size: 17px;
+    line-height: 1.6;
+    opacity: 0.75;
+}
+
+.redesign-banner-arrow {
+    flex-shrink: 0;
+    font-size: 34px;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s ease;
+}
+
+.redesign-banner-link:hover .redesign-banner-arrow {
+    transform: translateX(8px);
+}
+
+@media (max-width: 768px) {
+    .redesign-banner-link {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .redesign-banner-title {
+        font-size: 23px;
+    }
+}

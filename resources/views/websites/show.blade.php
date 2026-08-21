@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/websites.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/website-project.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/compare.css') }}">
 @endpush
 
 @section('content')
@@ -22,7 +23,7 @@
 
     <section class="content-section project-overview-section reveal">
         <div class="project-overview-grid">
-            <div class="project-overview-left">
+            <div class="project-overview-left" data-anim="left">
                 <a href="/websites" class="project-back-btn">&larr; {{ __('all websites') }}</a>
                 <img loading="lazy" decoding="async" src="{{ asset($project['logo']) }}" alt="{{ $project['name'] }}" class="project-logo {{ !empty($project['logo_invert']) ? 'project-logo-invert' : '' }}">
                 <p class="project-summary">{!! $project['summary'] !!}</p>
@@ -44,9 +45,21 @@
         </div>
     </section>
 
+    @if ($project['redesign'])
+        <section class="content-section project-redesign-section" data-anim="up">
+            @include('partials.compare', [
+                'redesign' => $project['redesign'],
+                'eyebrow' => __('Before & after'),
+                'title' => __('The site they had, and the site they have now.'),
+            ])
+
+            <a href="/redesigns" class="project-redesign-link anim-underline">{{ __('See every before & after') }} <span aria-hidden="true">&#8594;</span></a>
+        </section>
+    @endif
+
     <section class="content-section project-gallery-section reveal">
         <h2 class="project-section-title">{{ __('A closer look') }}</h2>
-        <div class="project-gallery-grid">
+        <div class="project-gallery-grid" data-anim-stagger="80">
             @foreach ($project['gallery'] as $image)
                 <button type="button" class="project-gallery-item">
                     <img src="{{ asset($image['src']) }}" alt="{{ $image['alt'] }}" loading="lazy" decoding="async">
@@ -57,7 +70,7 @@
     </section>
 
     <section class="content-section project-compare-section reveal">
-        <div class="project-compare-grid">
+        <div class="project-compare-grid" data-anim-stagger="140">
             <div class="project-compare-card">
                 <span class="project-compare-label">{{ __('The expectation') }}</span>
                 <p>{!! $project['expectation'] !!}</p>
@@ -87,4 +100,5 @@
 
 @push('scripts')
     <script src="{{ asset('assets/js/scroll-story.js') }}"></script>
+    <script src="{{ asset('assets/js/compare.js') }}"></script>
 @endpush
