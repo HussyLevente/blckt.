@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('title', __('Web Projects | blckt. — Custom Websites Built in Budapest'))
-@section('meta_description', __('Live client websites built in Budapest — a salon, a tyre service and a type tool — plus the design projects behind them. Real links, real screens.'))
+{{-- A leiras szandekosan nem sorolja fel az egyes munkakat: igy nem valik
+     hamissa, ha egy projekt lekerul a listarol vagy visszakerul ra. --}}
+@section('meta_description', __('Live client websites built in Budapest, plus the design projects behind them. Real links, real screens, every line written by hand.'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
@@ -46,16 +48,17 @@
             <span class="mask">{{ __('Live on the internet.') }}</span>
         </h1>
 
-        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Three client sites you can open right now, and the design projects that came before them. Every screen below was designed in Figma and written by hand — no templates, no page builders.') }}</p>
+        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Client sites you can open right now, and the design projects that came before them. Every screen below was designed in Figma and written by hand — no templates, no page builders.') }}</p>
 
         <div class="figures" data-reveal-group>
+            {{-- Egyes/tobbes szam: egyetlen munkanal a "sites" hibas lenne. --}}
             <div>
                 <span class="figure-value">{{ count($live) }}</span>
-                <span class="figure-label">{{ __('live client sites') }}</span>
+                <span class="figure-label">{{ trans_choice('live client site|live client sites', count($live)) }}</span>
             </div>
             <div>
                 <span class="figure-value">{{ count($designs) }}</span>
-                <span class="figure-label">{{ __('design projects') }}</span>
+                <span class="figure-label">{{ trans_choice('design project|design projects', count($designs)) }}</span>
             </div>
             <div>
                 <span class="figure-value">1</span>

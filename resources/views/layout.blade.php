@@ -119,13 +119,15 @@
                 </div>
 
                 <div class="footer-cols">
+                    @inject('websiteProjects', 'App\Http\Controllers\WebsiteProjectController')
                     <div class="footer-col">
                         <h2>{{ __('Work') }}</h2>
                         <a href="/websites">{{ __('All projects') }}</a>
-                        {{-- Az elo oldalak allnak elol: ezek nyithatok meg tenylegesen. --}}
-                        <a href="{{ route('websites.show', 'muzsik') }}">Muzsik Fodrászat</a>
-                        <a href="{{ route('websites.show', 'passion') }}">Passion Gumiszerviz</a>
-                        <a href="{{ route('websites.show', 'layzfonts') }}">Layz Fonts</a>
+                        {{-- A lista a lathato munkakbol epul (elo eloszor), nem kezzel
+                             felsorolva - igy egy elrejtett munka nem hagy 404-es linket. --}}
+                        @foreach ($websiteProjects->navLinks(4) as $link)
+                            <a href="{{ route('websites.show', $link['slug']) }}">{{ $link['name'] }}</a>
+                        @endforeach
                     </div>
                     <div class="footer-col">
                         <h2>{{ __('Clothing') }}</h2>

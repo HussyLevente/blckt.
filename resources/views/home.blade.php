@@ -30,10 +30,11 @@
             <a href="/contact" class="btn">{{ __('Start a project') }}</a>
         </div>
 
-        {{-- Csak ellenorizheto allitas: harom oldal tenylegesen elerheto a
-             neten, es mindharom linkje ott van a /websites oldalon. --}}
+        {{-- Csak ellenorizheto allitas: a szam a tenylegesen lathato elo
+             munkakbol jon, nem kezzel beirt ertek - igy nem csuszhat el, ha
+             egy munkat elrejtunk vagy visszahozunk. --}}
         <p class="t8 hero-facts" data-reveal style="--reveal-index: 5">
-            <span>{{ __(':n live client sites', ['n' => 3]) }}</span>
+            <span>{{ trans_choice(':count live client site|:count live client sites', $liveCount) }}</span>
             <span aria-hidden="true">—</span>
             <span>{{ __('100% written from scratch') }}</span>
             <span aria-hidden="true">—</span>
@@ -58,7 +59,13 @@
 
         <div class="work-grid">
             @foreach ($featured as $index => $project)
-                @include('partials.project-card', ['project' => $project, 'index' => $index])
+                {{-- Egyetlen kiemelt munka teljes szelessegben all: felezve
+                     furcsa, felig ures sort hagyna maga mellett. --}}
+                @include('partials.project-card', [
+                    'project' => $project,
+                    'index' => $index,
+                    'wide' => count($featured) === 1,
+                ])
             @endforeach
         </div>
 

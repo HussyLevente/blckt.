@@ -42,3 +42,23 @@ változik a fájl, változik az URL is.
 - A videó `Accept-Ranges` fejlécet kap az `.htaccess`-ből, hogy tekerni
   lehessen benne. A `php artisan serve` ezt **nem** támogatja, ezért a
   tekerés csak éles kiszolgálón (Apache/nginx) működik.
+
+## Elrejtett munkák
+
+A `config`-ban nincs kapcsoló hozzá, a projekt saját adatánál áll
+(`app/Http/Controllers/WebsiteProjectController.php`):
+
+```php
+'hidden' => true,
+```
+
+Jelenleg **Muzsik Fodrászat** és **Passion Gumiszerviz** van elrejtve.
+
+A visszahozáshoz elég ezt az egy sort törölni az adott projektnél — minden
+más (szöveg, képek, videó, before/after) érintetlenül megvan. Az elrejtés
+egyetlen ponton (`visible()`) dől el, ezért egyszerre érvényes a
+listákra, a címlapra, a sitemapre, a „következő projekt” láncra, a lábléc
+linkjeire és a közvetlen címre is — az elrejtett munka **404**-et ad.
+
+A címlapi „élő ügyféloldal” szám és a `/websites` fejlécének számai
+automatikusan igazodnak, nincs bennük kézzel beírt érték.

@@ -15,7 +15,10 @@ class WebsiteProjectController extends Controller
 
     public function show(string $project)
     {
-        $projects = $this->projects();
+        // Szandekosan a lathato listaval dolgozunk: egy elrejtett munka igy
+        // kozvetlen cimen sem nyithato meg, es a "kovetkezo projekt"
+        // lancba sem kerul bele.
+        $projects = $this->visible();
 
         abort_unless(isset($projects[$project]), 404);
 
@@ -59,8 +62,47 @@ class WebsiteProjectController extends Controller
     {
         return array_values(array_map(
             fn (array $project) => $this->resolveLocale($project, $locale),
-            array_filter($this->projects(), fn (array $p) => ($p['kind'] ?? 'design') === $kind)
+            array_filter($this->visible(), fn (array $p) => ($p['kind'] ?? 'design') === $kind)
         ));
+    }
+
+    /**
+     * A publikusan lathato munkak.
+     *
+     * Az elrejtes egyetlen ponton dol el, ezert nem lehet elfelejteni valahol:
+     * a listakat, a cimlapot, a sitemapet, a "kovetkezo projekt" linket es a
+     * kozvetlen cimet is ez a szures hatarozza meg. Egy munka elrejtesehez
+     * eleg a 'hidden' => true kulcs - az adatai bantatlanul megmaradnak.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    private function visible(): array
+    {
+        return array_filter($this->projects(), fn (array $p) => empty($p['hidden']));
+    }
+
+    /**
+     * Nehany munka a lablec "Munkak" oszlopaba: elo munkak elol, utana tervek.
+     *
+     * Azert szamoljuk es nem kezzel soroljuk fel, mert a kezzel beirt linkek
+     * egy elrejtes utan 404-re mutatnanak.
+     *
+     * @return array<int, array{slug: string, name: string}>
+     */
+    public function navLinks(int $limit = 4): array
+    {
+        $visible = $this->visible();
+        $isLive = fn (array $p) => ($p['kind'] ?? 'design') === 'live';
+
+        $ordered = array_merge(
+            array_values(array_filter($visible, $isLive)),
+            array_values(array_filter($visible, fn (array $p) => ! $isLive($p)))
+        );
+
+        return array_slice(array_map(
+            fn (array $p) => ['slug' => $p['slug'], 'name' => $p['name']],
+            $ordered
+        ), 0, $limit);
     }
 
     /**
@@ -74,11 +116,27 @@ class WebsiteProjectController extends Controller
     }
 
     /**
+     * Hany elo munka lathato most.
+     *
+     * A cimlapi teny-sor ebbol dolgozik, hogy az allitas ne csuszhasson el a
+     * valosagtol, ha egy munkat elrejtunk vagy visszahozunk.
+     */
+    public function liveCount(): int
+    {
+        return count(array_filter(
+            $this->visible(),
+            fn (array $p) => ($p['kind'] ?? 'design') === 'live'
+        ));
+    }
+
+    /**
      * @return string[]
      */
     public function slugs(): array
     {
-        return array_keys($this->projects());
+        // A sitemap ebbol epul: elrejtett munka nem kerulhet bele, kulonben a
+        // keresok egy 404-es cimet kapnanak felkinalva.
+        return array_keys($this->visible());
     }
 
     private function resolveLocale(array $project, string $locale): array
@@ -351,6 +409,12 @@ class WebsiteProjectController extends Controller
                 'name' => 'Muzsik Fodrászat',
                 'logo' => 'assets/imgs/websites/muzsik/muzsik_logo.png',
                 'kind' => 'live',
+
+                // Ideiglenesen rejtve. A teljes leiras, a kepek es a videó
+                // erintetlenul itt maradnak - a visszahozashoz ezt az egy
+                // sort kell torolni. Lasd: visible().
+                'hidden' => true,
+
                 'url' => 'https://hussylevente.github.io/muzsik_fodraszat/',
                 'year' => '2026',
                 'sector' => ['en' => 'Hair salon', 'hu' => 'Fodrászat'],
@@ -390,6 +454,10 @@ class WebsiteProjectController extends Controller
                 'slug' => 'passion',
                 'name' => 'Passion Gumiszerviz',
                 'kind' => 'live',
+
+                // Ideiglenesen rejtve - lasd a muzsik bejegyzesnel.
+                'hidden' => true,
+
                 'url' => 'https://hussylevente.github.io/passion_gumiszerviz/',
                 'year' => '2026',
                 'sector' => ['en' => 'Tyre service', 'hu' => 'Gumiszerviz'],

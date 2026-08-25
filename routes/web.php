@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // terhelje agyon a cimlapot.
 Route::get('/', fn (WebsiteProjectController $websites, ClothingProductController $clothing) => view('home', [
     'featured' => $websites->featured(2),
+    'liveCount' => $websites->liveCount(),
     'garments' => $clothing->featured(8),
 ]));
 
