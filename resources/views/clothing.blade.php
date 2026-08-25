@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('title', __('Clothing | blckt. — Premium Streetwear, Hungarian-Made'))
-@section('meta_description', __('Graphic-led, culture-literate oversized tees. Every blckt. piece is designed in-house and made in Hungary.'))
+@section('meta_description', __('Graphic-led oversized tees in 180 gsm combed ring-spun cotton, designed in-house in Budapest and printed in small batches. Unisex fit, built for the fifth wash.'))
 @section('meta_image', 'assets/imgs/brand/blckt_coll_main.webp')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/clothing.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/shop.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/editorial.css') }}">
 @endpush
 
 @push('preload')
@@ -14,47 +14,79 @@
 @endpush
 
 @section('content')
-    <div class="manifesto-pin">
-        <section class="manifesto-section">
-            <div class="manifesto-content">
-                <h2 class="manifesto-text">{{ __('You have so much to choose from.') }}</h2>
-                <span class="manifesto-brand">{{ __('But hey, no rush.') }}</span>
-            </div>
-        </section>
+    <div class="shell" style="padding-top: calc(72px + var(--space-10))">
+        @include('partials.breadcrumbs', ['trail' => [['label' => __('Clothing')]]])
     </div>
 
-    <section class="content-section collection-section reveal">
-        <div class="collection-grid">
-            <div class="collection-left" data-anim="left">
-                <h2 class="collection-title">{{ __('blckt. collection') }}</h2>
-                <p class="collection-text">{{ __('Standard issue is dead. blckt. engineers premium apparel designed to outlast the hype. No compromises. No cutting corners. Just top-tier quality that speaks for itself. Drop the dead weight and elevate your uniform.') }}</p>
-                <a href="{{ route('clothing.collection') }}" class="btn-pill">{{ __('check out blckt.') }}</a>
-            </div>
-            <div class="collection-right" data-anim="right" data-anim-delay="120">
-                <img src="{{ asset('assets/imgs/brand/blckt_coll_main.webp') }}" alt="blckt. collection" class="collection-image" fetchpriority="high">
+    <section class="shop-hero shell" aria-labelledby="shop-title">
+        <div class="shop-hero-body">
+            <span class="t8 ink-faint">{{ __('blckt. collection') }}</span>
+
+            <h1 class="t2 optical-left" id="shop-title" style="margin-top: var(--space-6)">
+                <span class="mask">{{ __('Wearable,') }}</span>
+                <span class="mask">{{ __('not disposable.') }}</span>
+            </h1>
+
+            <p class="t5 shop-hero-lede" data-reveal style="--reveal-index: 2">{{ __('Heavyweight cotton, graphic-led, printed in small batches in Hungary. Every piece is designed in-house — no outsourced taste, no seasonal filler.') }}</p>
+
+            <div class="shop-hero-actions" data-reveal style="--reveal-index: 3">
+                <a href="{{ route('clothing.collection') }}" class="btn btn-solid">{{ __('Shop the collection') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
             </div>
         </div>
 
-        <div class="slider-container" data-anim="up">
-            <div class="slider-wrapper">
-                <button class="slider-btn prev-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Prev" loading="lazy" decoding="async"></button>
-                <div class="slider-viewport">
-                    <div class="slider-items">
-                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_hollyweed.webp') }}" alt="Hollyweed" loading="lazy" decoding="async"></div></div>
-                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_ratio.webp') }}" alt="Ratio" loading="lazy" decoding="async"></div></div>
-                        <div class="slider-item"><div class="slider-image"><img src="{{ asset('assets/imgs/clothing/collection/blckt_coll_promo_agapiti.webp') }}" alt="Agapiti" loading="lazy" decoding="async"></div></div>
-                        <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
-                        <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
-                        <div class="slider-item placeholder"><span>{{ __('Coming soon') }}</span></div>
-                    </div>
-                </div>
-                <button class="slider-btn next-btn"><img src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="Next" loading="lazy" decoding="async"></button>
+        <div class="shop-hero-figure" data-reveal="scale">
+            <img src="{{ asset('assets/imgs/brand/blckt_coll_main.webp') }}" alt="{{ __('The blckt. clothing collection') }}" {!! \App\Support\Media::sizeAttrs('assets/imgs/brand/blckt_coll_main.webp') !!} fetchpriority="high" decoding="async">
+        </div>
+    </section>
+
+    {{-- Anyagjellemzok: rovid, tenyszeru valaszok, amiket a kereso is ki tud emelni. --}}
+    <section class="section shell" aria-labelledby="spec-title">
+        <h2 class="visually-hidden" id="spec-title">{{ __('Fabric and fit') }}</h2>
+
+        <dl class="spec-row" data-reveal-group>
+            <div class="spec">
+                <dt>{{ __('Fabric') }}</dt>
+                <dd>{{ __('100% combed ring-spun cotton') }}</dd>
+            </div>
+            <div class="spec">
+                <dt>{{ __('Weight') }}</dt>
+                <dd>{{ __('180 gsm heavyweight jersey') }}</dd>
+            </div>
+            <div class="spec">
+                <dt>{{ __('Fit') }}</dt>
+                <dd>{{ __('Unisex oversized') }}</dd>
+            </div>
+            <div class="spec">
+                <dt>{{ __('Made in') }}</dt>
+                <dd>{{ __('Hungary') }}</dd>
+            </div>
+        </dl>
+    </section>
+
+    <section class="statement" style="border-bottom: 0">
+        <div class="shell">
+            <div class="statement-inner">
+                <h2 class="t2 optical-left">
+                    <span class="mask">{{ __('Designed for the') }}</span>
+                    <span class="mask">{{ __('fifth wash, not') }}</span>
+                    <span class="mask">{{ __('the first photo.') }}</span>
+                </h2>
+                <span class="t8 statement-mark" data-reveal style="--reveal-index: 3">blckt.&trade;</span>
             </div>
         </div>
     </section>
-@endsection
 
-@push('scripts')
-    <script src="{{ asset('assets/js/slider.js') }}"></script>
-    <script src="{{ asset('assets/js/scroll-story.js') }}"></script>
-@endpush
+    <section class="section shell">
+        <header class="section-head">
+            <div>
+                <span class="t8 ink-faint">{{ __('The collection') }}</span>
+                <h2 class="t2 section-head-title">{{ __('Five pieces, no filler.') }}</h2>
+            </div>
+            <p class="t6 section-head-note">{{ __('Each design runs once. When a batch sells out it does not come back.') }}</p>
+        </header>
+
+        <div class="actions" data-reveal>
+            <a href="{{ route('clothing.collection') }}" class="btn">{{ __('Browse everything') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+        </div>
+    </section>
+@endsection

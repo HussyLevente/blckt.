@@ -1,39 +1,68 @@
 @extends('layout')
 
 @section('title', __('Contact | blckt. — Get a Quote for Your Website'))
-@section('meta_description', __('Tell me about your project and I’ll get back to you within 24 hours. No bots, no runaround.'))
+@section('meta_description', __('Tell me about your project and I’ll reply within 24 hours. Email hello@blckt.hu, call +36 30 255 2432, or use the form. No bots, no runaround.'))
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/websites.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/editorial.css') }}">
+@endpush
+
+@push('schema')
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'ContactPage',
+        'url' => url('/contact'),
+        'isPartOf' => ['@id' => url('/').'#website'],
+        'mainEntity' => ['@id' => url('/').'#studio'],
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+    </script>
 @endpush
 
 @section('content')
-    <div class="manifesto-pin">
-        <section class="manifesto-section">
-            <div class="manifesto-content">
-                <h2 class="manifesto-text">{{ __('Got a project in mind?') }}</h2>
-                <span class="manifesto-brand">{{ __('Let’s make it happen.') }}</span>
-            </div>
-        </section>
+    <div class="shell" style="padding-top: calc(72px + var(--space-10))">
+        @include('partials.breadcrumbs', ['trail' => [['label' => __('Contact')]]])
     </div>
 
-    <section class="content-section contact-cta-section reveal">
+    <section class="page-head shell" aria-labelledby="contact-title">
+        <span class="t8 page-head-eyebrow ink-faint">{{ __('Contact') }}</span>
+        <h1 class="t1 page-head-title optical-left" id="contact-title">
+            <span class="mask">{{ __('Got a project') }}</span>
+            <span class="mask">{{ __('in mind?') }}</span>
+        </h1>
+    </section>
+
+    <section class="shell" style="padding-bottom: var(--space-30)">
         <div class="contact-grid">
-            <div class="contact-left" data-anim="left">
-                <h2 class="contact-title">{{ __('Let’s get in touch.') }}</h2>
-                <p class="contact-text">{{ __('Whether it’s a t-shirt drop or a full site build, tell me what you’re after and I’ll take it from there. No bots, no runaround — just me reading your message and getting back to you.') }}</p>
-                <a href="mailto:hello@blckt.hu" class="contact-email">{{ __('Email: hello@blckt.hu') }}</a>
-                <a href="https://wa.me/36302552432" target="_blank" rel="noopener" class="contact-email contact-whatsapp">{{ __('Message on WhatsApp') }}</a>
-                <p class="contact-response">{{ __('Response time: 24 Hours') }}</p>
+            <div data-reveal>
+                <p class="t5 contact-lede" style="margin-top: 0">{{ __('Whether it’s a t-shirt drop or a full site build, tell me what you’re after and I’ll take it from there. No bots, no runaround — just me reading your message and getting back to you.') }}</p>
+
+                <dl class="contact-channels">
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Email') }}</dt>
+                        <dd><a href="mailto:hello@blckt.hu" class="contact-channel-value link-underline">hello@blckt.hu</a></dd>
+                    </div>
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Phone') }}</dt>
+                        <dd><a href="tel:+36302552432" class="contact-channel-value link-underline">+36 30 255 2432</a></dd>
+                    </div>
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Based in') }}</dt>
+                        <dd class="contact-channel-value">{{ __('Budapest, Hungary') }}</dd>
+                    </div>
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Response time') }}</dt>
+                        <dd class="contact-channel-value">{{ __('Within 24 hours') }}</dd>
+                    </div>
+                </dl>
+
+                @include('partials.social-links', ['variant' => 'inline'])
             </div>
-            <div class="contact-right" data-anim="right" data-anim-delay="140">
+
+            <div class="contact-card" data-reveal style="--reveal-index: 1">
                 @include('partials.contact-form')
             </div>
         </div>
     </section>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('assets/js/scroll-story.js') }}"></script>
-@endpush

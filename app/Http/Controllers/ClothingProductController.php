@@ -10,10 +10,12 @@ class ClothingProductController extends Controller
     {
         $locale = App::getLocale();
 
-        $products = array_map(
+        // array_values, hogy a nezet szamozott listat kapjon - a slug-kulcsos
+        // tomb elszamolna a strukturalt adat ItemList poziciit.
+        $products = array_values(array_map(
             fn (array $product) => $this->resolveLocale($product, $locale),
             $this->products()
-        );
+        ));
 
         return view('clothing.index', [
             'products' => $products,
@@ -30,6 +32,21 @@ class ClothingProductController extends Controller
         return view('clothing.show', [
             'product' => $this->resolveLocale($products[$product], App::getLocale()),
         ]);
+    }
+
+    /**
+     * A cimlapon kiemelt darabok.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function featured(int $limit = 4): array
+    {
+        $locale = App::getLocale();
+
+        return array_slice(array_values(array_map(
+            fn (array $product) => $this->resolveLocale($product, $locale),
+            $this->products()
+        )), 0, $limit);
     }
 
     /**

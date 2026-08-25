@@ -1,0 +1,390 @@
+/* ============================================================================
+   Ruhak: nyito oldal, kollekcio-racs es termekoldal.
+   A termekfotok atlatszo hatteruek, ezert mindenhol "contain" es belso
+   parnazas van - igy a darab lebeg a papiron, nem vagja el a keret.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------
+   1. Nyito oldal
+   --------------------------------------------------------------- */
+.shop-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-16);
+    align-items: center;
+    padding-top: calc(72px + var(--space-20));
+}
+
+/* A 44ch a LEDE olvasasi hosszara valo, nem a cimsorra. Amig a doboz vitte,
+   addig a 96px-es cimsort is ugyanaz a ~497px korlatozta (a ch a doboz 18px-es
+   betujehez mert), ezert a "nem eldobható." ket sorba tort. A merteket ezert
+   arra az elemre tesszuk, amelyiknek szol. */
+.shop-hero-body {
+    max-width: none;
+}
+
+.shop-hero-lede {
+    max-width: 44ch;
+    margin-top: var(--space-8);
+    color: var(--ink-muted);
+}
+
+.shop-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+}
+
+.shop-hero-figure {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-sunken);
+    overflow: hidden;
+}
+
+.shop-hero-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: var(--space-10);
+}
+
+/* Anyagjellemzok sav */
+.spec-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-8);
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-8);
+}
+
+.spec dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.spec dd {
+    margin-top: var(--space-2);
+    font-size: var(--text-5);
+    color: var(--ink);
+}
+
+@media (max-width: 900px) {
+    .shop-hero {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-10);
+        padding-top: calc(72px + var(--space-16));
+    }
+
+    .spec-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-6);
+    }
+}
+
+/* ---------------------------------------------------------------
+   2. Kollekcio-racs
+   --------------------------------------------------------------- */
+.shop-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--line);
+}
+
+.shop-search {
+    position: relative;
+    min-width: min(280px, 100%);
+}
+
+.shop-search input {
+    width: 100%;
+    padding: var(--space-3) var(--space-8) var(--space-3) 0;
+    border: 0;
+    border-bottom: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink);
+    font-size: var(--text-6);
+    transition: border-color 0.3s ease;
+}
+
+.shop-search input:focus {
+    outline: none;
+    border-bottom-color: var(--ink);
+}
+
+.shop-search svg {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 17px;
+    height: 17px;
+    transform: translateY(-50%);
+    color: var(--ink-faint);
+    pointer-events: none;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12) var(--space-8);
+}
+
+.product-card {
+    display: block;
+    position: relative;
+}
+
+.product-card-figure {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-sunken);
+    overflow: hidden;
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s ease, border-color 0.4s ease;
+}
+
+.product-card:hover .product-card-figure {
+    transform: translateY(-6px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.product-card-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: var(--space-8);
+    transition: transform 0.9s var(--ease-out-expo);
+}
+
+.product-card:hover .product-card-figure img {
+    transform: scale(1.04);
+}
+
+.product-badge {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 2;
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-pill);
+    background-color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.product-card-body {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+}
+
+.product-card-name {
+    color: var(--ink);
+}
+
+.product-card-price {
+    flex-shrink: 0;
+    color: var(--ink-muted);
+}
+
+/* Ures hely a keszulo darabokhoz */
+.product-card-placeholder .product-card-figure {
+    display: grid;
+    place-items: center;
+    border-style: dashed;
+    background-color: transparent;
+}
+
+.product-card-placeholder span {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.products-empty {
+    padding: var(--space-16) 0;
+    text-align: center;
+    color: var(--ink-muted);
+}
+
+@media (max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-8) var(--space-5);
+    }
+}
+
+@media (max-width: 520px) {
+    .product-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ---------------------------------------------------------------
+   3. Termekoldal
+   --------------------------------------------------------------- */
+.product-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--space-16);
+    align-items: start;
+    margin-top: var(--space-10);
+}
+
+/* A galeria a bal oszlopban gorog, a vasarlasi panel jobbra tapad */
+.product-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+
+.product-gallery-item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background-color: var(--paper-sunken);
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: border-color 0.4s ease, transform 0.5s var(--ease-out-expo);
+}
+
+.product-gallery-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--line-strong);
+}
+
+.product-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: var(--space-6);
+}
+
+.product-panel {
+    position: sticky;
+    top: calc(72px + var(--space-6));
+}
+
+.product-price {
+    margin-top: var(--space-5);
+    font-size: var(--text-3);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+}
+
+.product-block {
+    margin-top: var(--space-8);
+}
+
+.product-block-title {
+    display: block;
+    margin-bottom: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.size {
+    min-width: 52px;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.size:hover {
+    border-color: var(--ink);
+}
+
+.size.is-selected {
+    background-color: var(--invert-bg);
+    border-color: var(--invert-bg);
+    color: var(--invert-ink);
+}
+
+.colour {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.colour-chip {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-sm);
+    background-color: var(--paper-sunken);
+    overflow: hidden;
+}
+
+.colour-chip img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: var(--space-1);
+}
+
+.product-buy {
+    width: 100%;
+    margin-top: var(--space-10);
+}
+
+.product-note {
+    margin-top: var(--space-4);
+    text-align: center;
+    color: var(--ink-faint);
+}
+
+@media (max-width: 1000px) {
+    .product-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-10);
+    }
+
+    .product-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 520px) {
+    .product-gallery {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

@@ -106,18 +106,13 @@ document.addEventListener('DOMContentLoaded', function () {
         lightbox.classList.remove('is-dragging');
     }
 
+    // Barmelyik nagyithato keret ugyanezt a nezot nyitja meg.
     document.addEventListener('click', function (e) {
-        var galleryItem = e.target.closest('.project-gallery-item');
-        if (galleryItem) {
-            var galleryImg = galleryItem.querySelector('img');
-            if (galleryImg) open(galleryImg.src, galleryImg.alt);
-            return;
-        }
+        var item = e.target.closest('.gallery-item, .product-gallery-item');
+        if (!item) return;
 
-        var sliderImg = e.target.closest('.slider-item img');
-        if (sliderImg) {
-            open(sliderImg.src, sliderImg.alt);
-        }
+        var img = item.querySelector('img');
+        if (img) open(img.src, img.alt);
     });
 
     image.addEventListener('mousedown', startDrag);

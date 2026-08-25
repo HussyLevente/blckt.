@@ -1,114 +1,180 @@
 @extends('layout')
 
-@section('title', __('Websites | blckt. — Custom Web Design & Development'))
-@section('meta_description', __('Custom-built websites for small businesses — landing pages, multi-page sites, and webshops. Real code, fast load times, one developer from first call to launch.'))
+@section('title', __('Web Projects | blckt. — Custom Websites Built in Budapest'))
+@section('meta_description', __('Live client websites built in Budapest — a salon, a tyre service and a type tool — plus the design projects behind them. Real links, real screens.'))
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/websites.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/editorial.css') }}">
+@endpush
+
+@push('schema')
+    {{-- Csak az elo munkak kerulnek a strukturalt listaba: a tervek nem
+         nyilvanosan elerheto oldalak, ezert nem allitjuk oket annak. --}}
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => __('Web projects'),
+        'description' => __('Live client websites built by blckt. in Budapest.'),
+        'url' => url('/websites'),
+        'isPartOf' => ['@id' => url('/').'#website'],
+        'mainEntity' => [
+            '@type' => 'ItemList',
+            'numberOfItems' => count($live),
+            'itemListElement' => array_map(fn ($i, $p) => [
+                '@type' => 'ListItem',
+                'position' => $i + 1,
+                'url' => route('websites.show', $p['slug']),
+                'name' => $p['name'],
+            ], array_keys($live), $live),
+        ],
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+    </script>
 @endpush
 
 @section('content')
-    <div class="manifesto-pin">
-        <section class="manifesto-section">
-            <div class="manifesto-content">
-                <h2 class="manifesto-text">{{ __('All my websites listed below for you to check out.') }}</h2>
-                <span class="manifesto-brand">{{ __('Take a closer look.') }}</span>
-            </div>
-        </section>
+    <div class="shell" style="padding-top: calc(72px + var(--space-10))">
+        @include('partials.breadcrumbs', ['trail' => [['label' => __('Work')]]])
     </div>
 
-    <section id="before-after" class="content-section redesign-banner" data-anim="up">
-        <a href="/redesigns" class="redesign-banner-link">
-            <div class="redesign-banner-text">
-                <span class="redesign-banner-eyebrow">{{ __('Before & after') }}</span>
-                <h2 class="redesign-banner-title">{{ __('See what these sites looked like before I got to them.') }}</h2>
-                <p>{{ __('Drag a handle across the screen and watch the old site turn into the new one.') }}</p>
-            </div>
-            <span class="redesign-banner-arrow" aria-hidden="true">&#8594;</span>
-        </a>
-    </section>
+    <section class="page-head shell" aria-labelledby="page-title">
+        <span class="t8 page-head-eyebrow ink-faint">{{ __('Web projects') }}</span>
 
-    <section class="content-section site-section reveal">
-        <div class="site-grid">
-            <div class="site-left" data-anim="left">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/paradise/paradise_logo.png') }}" alt="Paradise" class="site-logo">
-                <p class="site-text">{{ __('Paradise is your ultimate portal to the planet’s most breathtaking destinations. Whether you want to scale ancient ruins, get lost in neon-lit cities, or set sail on a massive Royal Caribbean cruise ship, your next adventure starts right here. Stop dreaming and start packing.') }}</p>
-                <a href="{{ route('websites.show', 'paradise') }}" class="btn-pill">{{ __('check out') }}</a>
+        <h1 class="t1 page-head-title optical-left" id="page-title">
+            <span class="mask">{{ __('Built by hand.') }}</span>
+            <span class="mask">{{ __('Live on the internet.') }}</span>
+        </h1>
+
+        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Three client sites you can open right now, and the design projects that came before them. Every screen below was designed in Figma and written by hand — no templates, no page builders.') }}</p>
+
+        <div class="figures" data-reveal-group>
+            <div>
+                <span class="figure-value">{{ count($live) }}</span>
+                <span class="figure-label">{{ __('live client sites') }}</span>
             </div>
-            <div class="site-right" data-parallax="0.12">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/paradise/paradise_minis1.jpg') }}" alt="Paradise preview 1" class="site-mini site-mini-1">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/paradise/paradise_minis2.jpg') }}" alt="Paradise preview 2" class="site-mini site-mini-2">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/paradise/paradise_minis3.jpg') }}" alt="Paradise preview 3" class="site-mini site-mini-3">
+            <div>
+                <span class="figure-value">{{ count($designs) }}</span>
+                <span class="figure-label">{{ __('design projects') }}</span>
+            </div>
+            <div>
+                <span class="figure-value">1</span>
+                <span class="figure-label">{{ __('person, start to finish') }}</span>
             </div>
         </div>
     </section>
 
-    <section class="content-section site-section reveal">
-        <div class="site-grid">
-            <div class="site-left" data-anim="left">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/palesso/palesso_logo.png') }}" alt="Palesso" class="site-logo">
-                <p class="site-text">{{ __('Palesso is your destination for premium fashion and curated lifestyle pieces. From cutting-edge men’s and women’s apparel to statement bags and exclusive home decor, we have everything you need to elevate your look. Featuring seamless in-store collection and custom personalization, looking flawless has never been this efficient. Suit up.') }}</p>
-                <a href="{{ route('websites.show', 'palesso') }}" class="btn-pill">{{ __('check out') }}</a>
+    {{-- ── Live client work ─────────────────────────────────────── --}}
+    <section id="live" class="section-tight shell" aria-labelledby="live-title">
+        <header class="section-head">
+            <div>
+                <span class="status status-live">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    {{ __('Live') }}
+                </span>
+                <h2 class="t2 section-head-title" id="live-title">{{ __('Shipped, and open to anyone.') }}</h2>
             </div>
-            <div class="site-right" data-parallax="0.12">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/palesso/palesso_minis1.jpg') }}" alt="Palesso preview 1" class="site-mini site-mini-1">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/palesso/palesso_minis2.jpg') }}" alt="Palesso preview 2" class="site-mini site-mini-2">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/palesso/palesso_minis3.jpg') }}" alt="Palesso preview 3" class="site-mini site-mini-3">
-            </div>
+            <p class="t6 section-head-note">{{ __('Built for real businesses and running in public. Open any card to visit the site itself.') }}</p>
+        </header>
+
+        <div class="work-grid">
+            @foreach ($live as $index => $project)
+                @include('partials.project-card', [
+                    'project' => $project,
+                    'index' => $index,
+                    'wide' => $index === 0,
+                ])
+            @endforeach
         </div>
     </section>
 
-    <section class="content-section site-section reveal">
-        <div class="site-grid">
-            <div class="site-left" data-anim="left">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/kepszakadas/kepszakadas_logo.png') }}" alt="Képszakadás" class="site-logo">
-                <p class="site-text">{{ __('Képszakadás Drinking Game is your ultimate arsenal for escalating the night with your crew. Featuring a sleek, modern design, this expanded collection of drinking card games and minigames delivers everything your squad needs to keep the party moving. Optimized for a flawless mobile experience directly from your browser—zero downloads required, instant deployment. Fill your glasses. Let’s get to work.') }}</p>
-                <a href="{{ route('websites.show', 'kepszakadas') }}" class="btn-pill">{{ __('check out') }}</a>
+    {{-- ── Design projects ──────────────────────────────────────── --}}
+    <section id="designs" class="section shell" aria-labelledby="designs-title">
+        <header class="section-head">
+            <div>
+                <span class="status status-pending">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    {{ __('Design only') }}
+                </span>
+                <h2 class="t2 section-head-title" id="designs-title">{{ __('Designed, not deployed.') }}</h2>
             </div>
-            <div class="site-right" data-parallax="0.12">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/kepszakadas/kepszakadas_minis1.jpg') }}" alt="Képszakadás preview 1" class="site-mini site-mini-1">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/kepszakadas/kepszakadas_minis2.jpg') }}" alt="Képszakadás preview 2" class="site-mini site-mini-2">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/kepszakadas/kepszakadas_minis3.jpg') }}" alt="Képszakadás preview 3" class="site-mini site-mini-3">
-            </div>
+            <p class="t6 section-head-note">{{ __('Full design projects — every screen drawn and built, but never published to a public address. Shown here as work, not as running sites.') }}</p>
+        </header>
+
+        <div class="work-grid">
+            @foreach ($designs as $index => $project)
+                {{-- Ez a szekcio mindig a hajtas alatt van, ezert egyetlen kepe
+                     sem kaphat elore-toltest: az +1 eltolas gondoskodik errol. --}}
+                @include('partials.project-card', ['project' => $project, 'index' => $index + 1])
+            @endforeach
         </div>
     </section>
 
-    <section class="content-section site-section reveal">
-        <div class="site-grid">
-            <div class="site-left" data-anim="left">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/juiced/juiced_logo.png') }}" alt="Juiced" class="site-logo site-logo-invert">
-                <p class="site-text">{{ __('Juiced is where taste meets productivity — a flavour-first storefront for bold, ready-to-drink refreshers and flavour sticks. Every drink gets its own full-bleed, colour-shifting moment instead of getting buried in a spec-sheet grid. Browse by flavour, mix plain water into something worth drinking, and find your next favourite in seconds.') }}</p>
-                <a href="{{ route('websites.show', 'juiced') }}" class="btn-pill">{{ __('check out') }}</a>
+    {{-- ── Upcoming ─────────────────────────────────────────────── --}}
+    <section id="upcoming" class="section shell" aria-labelledby="upcoming-title">
+        <header class="section-head">
+            <div>
+                <span class="status status-pending">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    {{ __('Upcoming releases') }}
+                </span>
+                <h2 class="t2 section-head-title" id="upcoming-title">{{ __('On the bench right now.') }}</h2>
             </div>
-            <div class="site-right" data-parallax="0.12">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/juiced/juiced_minis1.jpg') }}" alt="Juiced preview 1" class="site-mini site-mini-1">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/juiced/juiced_minis2.jpg') }}" alt="Juiced preview 2" class="site-mini site-mini-2">
-                <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/websites/juiced/juiced_minis3.jpg') }}" alt="Juiced preview 3" class="site-mini site-mini-3">
-            </div>
-        </div>
+            <p class="t6 section-head-note">{{ __('Signed work that has not shipped yet. Names stay off the list until they are live.') }}</p>
+        </header>
+
+        <ol class="upcoming" data-reveal-group>
+            @foreach ($upcoming as $entry)
+                <li class="upcoming-row">
+                    <span class="upcoming-code">{{ $entry['code'] }}</span>
+
+                    <div>
+                        <div class="upcoming-head">
+                            <h3 class="t4">{{ $entry['sector'] }}</h3>
+                            <span class="t8 ink-faint">{{ $entry['window'] }}</span>
+                        </div>
+                        <p class="t6 upcoming-teaser">{{ $entry['teaser'] }}</p>
+                    </div>
+
+                    <div class="upcoming-progress">
+                        <span class="upcoming-stage">{{ $entry['stage'] }}</span>
+                        <span class="upcoming-track" role="img" aria-label="{{ __(':percent% complete', ['percent' => $entry['progress']]) }}">
+                            <span class="upcoming-fill" style="--upcoming-progress: {{ $entry['progress'] }}%"></span>
+                        </span>
+                    </div>
+                </li>
+            @endforeach
+        </ol>
+
+        <p class="t8 ink-faint" style="margin-top: var(--space-10)" data-reveal>{{ __('Two build slots open per quarter. If you want one of them, the earlier you ask the better.') }}</p>
     </section>
 
-    <section class="content-section contact-cta-section reveal">
+    <section class="section shell" aria-labelledby="contact-title">
         <div class="contact-grid">
-            <div class="contact-left">
-                <h2 class="contact-title">{{ __('Ready to own something remarkable?') }}</h2>
-                <p class="contact-text">{{ __('Tell me about your industry, budget, and timeline. I’ll match you with the right site — or scope something new from the ground up.') }}</p>
-                <a href="mailto:hello@blckt.hu" class="contact-email">{{ __('Email: hello@blckt.hu') }}</a>
-                <a href="https://wa.me/36302552432" target="_blank" rel="noopener" class="contact-email contact-whatsapp">{{ __('Message on WhatsApp') }}</a>
-                <p class="contact-response">{{ __('Response time: 24 Hours') }}</p>
+            <div data-reveal>
+                <span class="t8 ink-faint">{{ __('Start a project') }}</span>
+                <h2 class="t2" id="contact-title" style="margin-top: var(--space-5)">{{ __('Ready to own something remarkable?') }}</h2>
+                <p class="t5 contact-lede">{{ __('Tell me about your industry, budget, and timeline. I’ll match you with the right build — or scope something new from the ground up.') }}</p>
+
+                <dl class="contact-channels">
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Email') }}</dt>
+                        <dd><a href="mailto:hello@blckt.hu" class="contact-channel-value link-underline">hello@blckt.hu</a></dd>
+                    </div>
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Phone') }}</dt>
+                        <dd><a href="tel:+36302552432" class="contact-channel-value link-underline">+36 30 255 2432</a></dd>
+                    </div>
+                    <div class="contact-channel">
+                        <dt class="contact-channel-label">{{ __('Response time') }}</dt>
+                        <dd class="contact-channel-value">{{ __('Within 24 hours') }}</dd>
+                    </div>
+                </dl>
             </div>
-            <div class="contact-right">
+
+            <div class="contact-card" data-reveal style="--reveal-index: 1">
                 @include('partials.contact-form')
             </div>
         </div>
     </section>
-
-    <div class="sticky-cta-bar">
-        <a href="/contact" class="btn-pill">{{ __('Get a quote') }} <span aria-hidden="true">&#8594;</span></a>
-    </div>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('assets/js/scroll-story.js') }}"></script>
-@endpush

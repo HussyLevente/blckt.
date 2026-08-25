@@ -1,5 +1,10 @@
+/**
+ * Kollekcio-kereso es meretvalaszto.
+ * Az osszecsukhato panelek kulon fajlban (accordion.js) elnek.
+ */
 document.addEventListener('DOMContentLoaded', function () {
     var searchInput = document.getElementById('product-search');
+
     if (searchInput) {
         var cards = Array.prototype.slice.call(document.querySelectorAll('.product-card[data-name]'));
         var placeholders = Array.prototype.slice.call(document.querySelectorAll('.product-card-placeholder'));
@@ -16,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!card.hidden) visibleCount++;
             });
 
+            // Kereses kozben a "hamarosan" helyorzok csak zavarnanak
             placeholders.forEach(function (placeholder) {
                 placeholder.hidden = hasQuery;
             });
@@ -26,29 +32,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    var accordionTriggers = document.querySelectorAll('.accordion-trigger');
-    accordionTriggers.forEach(function (trigger) {
-        var item = trigger.closest('.accordion-item');
-        var panel = item.querySelector('.accordion-panel');
-
-        trigger.addEventListener('click', function () {
-            var isOpen = item.classList.contains('is-open');
-            if (isOpen) {
-                panel.style.maxHeight = '0px';
-                item.classList.remove('is-open');
-            } else {
-                item.classList.add('is-open');
-                panel.style.maxHeight = panel.scrollHeight + 'px';
-            }
+    var sizes = document.querySelectorAll('.size');
+    sizes.forEach(function (size) {
+        size.addEventListener('click', function () {
+            sizes.forEach(function (s) {
+                s.classList.remove('is-selected');
+                s.setAttribute('aria-pressed', 'false');
+            });
+            size.classList.add('is-selected');
+            size.setAttribute('aria-pressed', 'true');
         });
     });
-
-    var sizeSwatches = document.querySelectorAll('.size-swatch');
-    sizeSwatches.forEach(function (swatch) {
-        swatch.addEventListener('click', function () {
-            sizeSwatches.forEach(function (s) { s.classList.remove('is-selected'); });
-            swatch.classList.add('is-selected');
-        });
-    });
-
 });

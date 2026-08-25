@@ -23,3 +23,57 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# ============================================================================
+# Tomorites es gyorsitotar
+# ----------------------------------------------------------------------------
+# Az eszkoz-URL-ek verziozottak (?v=<modositasi ido>, lasd App\Support\Asset),
+# ezert az egy eves lejarat biztonsagos: ha valtozik a fajl, valtozik az URL is.
+# A HTML szandekosan NEM gyorsitotarazodik, kulonben a latogato a regi
+# jelolest kapna az uj eszkozokhoz.
+# ============================================================================
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+    AddOutputFilterByType BROTLI_COMPRESS application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    ExpiresByType text/css                "access plus 1 year"
+    ExpiresByType application/javascript  "access plus 1 year"
+    ExpiresByType text/javascript         "access plus 1 year"
+
+    ExpiresByType image/jpeg              "access plus 1 year"
+    ExpiresByType image/png               "access plus 1 year"
+    ExpiresByType image/webp              "access plus 1 year"
+    ExpiresByType image/svg+xml           "access plus 1 year"
+    ExpiresByType image/x-icon            "access plus 1 year"
+    ExpiresByType video/mp4               "access plus 1 year"
+    ExpiresByType font/woff2              "access plus 1 year"
+
+    ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|jpg|jpeg|png|webp|svg|ico|mp4|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+
+    # A videot reszletekben is lehessen kerni (tekeres)
+    <FilesMatch "\.mp4$">
+        Header set Accept-Ranges bytes
+    </FilesMatch>
+</IfModule>

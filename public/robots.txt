@@ -1,4 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# A nyelvvalto atiranyitas, nincs sajat tartalma - a nyelvi valtozatokat a
+# sitemap es a hreflang hivatkozasok irjak le.
+Disallow: /lang/
 
 Sitemap: https://blckt.hu/sitemap.xml

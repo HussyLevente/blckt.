@@ -1,0 +1,957 @@
+/* ============================================================================
+   Munkak: portfolio racs, projektkartyak, osszehasonlito adatok, vegigvezeto
+   video es a projektoldal. A cimlap es a /websites ugyanezt a kartyat hasznalja.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------
+   1. Morzsamenu
+   --------------------------------------------------------------- */
+.crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.crumbs li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.crumbs [aria-current='page'] {
+    color: var(--ink);
+}
+
+/* ---------------------------------------------------------------
+   2. Oldalfejlec (portfolio, szolgaltatasok, rolam)
+   --------------------------------------------------------------- */
+.page-head {
+    padding-top: calc(72px + var(--space-24));
+    padding-bottom: var(--space-16);
+}
+
+.page-head-eyebrow {
+    display: block;
+    margin-bottom: var(--space-8);
+}
+
+.page-head-title {
+    max-width: 16ch;
+}
+
+.page-head-lede {
+    max-width: 56ch;
+    margin-top: var(--space-8);
+    color: var(--ink-muted);
+}
+
+/* Szamsor a fejlec alatt */
+.figures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-16);
+    margin-top: var(--space-16);
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--line);
+}
+
+.figure-value {
+    display: block;
+    font-size: var(--text-3);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+}
+
+.figure-label {
+    display: block;
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+@media (max-width: 768px) {
+    .page-head {
+        padding-top: calc(72px + var(--space-16));
+    }
+
+    .figures {
+        gap: var(--space-8) var(--space-10);
+    }
+}
+
+/* ---------------------------------------------------------------
+   3. Projektracs
+   --------------------------------------------------------------- */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-20) var(--space-12);
+}
+
+/* A racs elso eleme teljes szelessegben all, ha kiemeltnek jeloljuk */
+.work-card-wide {
+    grid-column: 1 / -1;
+}
+
+.work-card-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-card);
+    background-color: var(--paper-sunken);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo), border-color 0.4s ease;
+}
+
+.work-card-wide .work-card-media {
+    aspect-ratio: 21 / 9;
+}
+
+.work-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* A teljes oldalkepek felulrol indulnak, hogy a hero resz latszodjon */
+    object-position: top center;
+    transition: transform 1s var(--ease-out-expo);
+}
+
+.work-card-media:hover {
+    transform: translateY(-6px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.work-card-media:hover img {
+    transform: scale(1.03);
+}
+
+.work-card-status {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 2;
+    background-color: rgba(var(--paper-rgb), 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* A "case study" ful alulrol uszik be - ez vezeti a szemet a linkhez */
+.work-card-open {
+    position: absolute;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-pill);
+    background-color: var(--invert-bg);
+    color: var(--invert-ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.45s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+}
+
+.work-card-media:hover .work-card-open,
+.work-card-media:focus-visible .work-card-open {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.work-card-body {
+    padding-top: var(--space-6);
+}
+
+.work-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--ink-faint);
+}
+
+.work-card-meta span[aria-hidden] {
+    opacity: 0.5;
+}
+
+.work-card-name {
+    margin-top: var(--space-4);
+}
+
+.work-card-tagline {
+    max-width: 48ch;
+    margin-top: var(--space-3);
+    color: var(--ink-muted);
+}
+
+/* ---------------------------------------------------------------
+   4. Kartya-akciok
+   --------------------------------------------------------------- */
+
+.work-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+}
+
+/* ---------------------------------------------------------------
+   5. "Elo oldal" link es a placeholder allapota
+   --------------------------------------------------------------- */
+.visit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transition: border-color 0.35s ease, color 0.35s ease;
+}
+
+a.visit:hover {
+    border-color: var(--ink);
+}
+
+.visit-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+}
+
+/* Amig nincs valodi cim: nem link, hanem egy visszafogott, nem kattinthato
+   allapot - szaggatott keret es ures gyuru kulonbozteti meg az elo linktol. */
+.visit-pending {
+    position: relative;
+    border-style: dashed;
+    color: var(--ink-muted);
+    cursor: default;
+}
+
+.visit-pending .visit-dot {
+    background-color: transparent;
+    border: 1.5px solid currentColor;
+}
+
+.visit-note {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    z-index: 5;
+    width: max-content;
+    max-width: 250px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-sm);
+    background-color: var(--invert-bg);
+    color: var(--invert-ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.45;
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: 0;
+    transform: translate(-50%, 6px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.4s var(--ease-out-expo);
+}
+
+.visit-pending:hover .visit-note,
+.visit-pending:focus-visible .visit-note {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* ---------------------------------------------------------------
+   6. Hamarosan erkezo munkak - halkabb, mint az elo racs
+   --------------------------------------------------------------- */
+.upcoming {
+    border-top: 1px solid var(--line);
+}
+
+.upcoming-row {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr) 200px;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-2);
+    border-bottom: 1px solid var(--line);
+    transition: background-color 0.45s ease, padding-left 0.5s var(--ease-out-expo);
+}
+
+.upcoming-row:hover {
+    background-color: var(--paper-sunken);
+    padding-left: var(--space-5);
+}
+
+.upcoming-code {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+}
+
+.upcoming-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-4);
+}
+
+.upcoming-teaser {
+    max-width: 62ch;
+    margin-top: var(--space-2);
+    color: var(--ink-muted);
+}
+
+.upcoming-progress {
+    justify-self: end;
+    width: 100%;
+    max-width: 200px;
+}
+
+.upcoming-stage {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.upcoming-track {
+    display: block;
+    height: 2px;
+    background-color: var(--line);
+    overflow: hidden;
+}
+
+.upcoming-fill {
+    display: block;
+    width: var(--upcoming-progress, 0%);
+    height: 100%;
+    background-color: var(--ink);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 1.2s var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+}
+
+[data-reveal-group].is-in .upcoming-fill {
+    transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------------
+   7. Vegigvezeto video
+   --------------------------------------------------------------- */
+.walkthrough-frame {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-raised);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+/* Bongeszo-keret, hogy ranezesre egyertelmu legyen: ez egy weboldal felvetele */
+.walkthrough-chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-bottom: 1px solid var(--line);
+    background-color: var(--paper-sunken);
+}
+
+.walkthrough-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--line-strong);
+}
+
+.walkthrough-bar {
+    margin-left: var(--space-3);
+    padding: var(--space-1) var(--space-4);
+    border-radius: var(--radius-pill);
+    background-color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+}
+
+.walkthrough-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-color: var(--paper-sunken);
+}
+
+.walkthrough-poster,
+.walkthrough-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.walkthrough-video {
+    z-index: 3;
+    object-fit: contain;
+    background-color: #000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.walkthrough-video.is-ready {
+    opacity: 1;
+}
+
+/* A lejatszas gomb a keret egeszet lefedi, hogy barhova lehessen kattintani */
+.walkthrough-play {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    width: 100%;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.1));
+    transition: opacity 0.4s ease;
+}
+
+.walkthrough-play-icon {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(6px);
+    transition: transform 0.5s var(--ease-out-back), background-color 0.4s ease;
+}
+
+/* A haromszog tiszta CSS - nincs miatta extra keres */
+.walkthrough-play-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-width: 10px 0 10px 17px;
+    border-color: transparent transparent transparent #fff;
+}
+
+.walkthrough-play:hover .walkthrough-play-icon {
+    transform: scale(1.09);
+    background-color: rgba(255, 255, 255, 0.26);
+}
+
+.walkthrough-play-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+.walkthrough-play-duration {
+    padding: 2px var(--space-3);
+    border-radius: var(--radius-pill);
+    background-color: rgba(255, 255, 255, 0.22);
+}
+
+.walkthrough.is-playing .walkthrough-play {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Amig nincs felvetel: a poszter marad, de egyertelmu jelzessel */
+.walkthrough-pending .walkthrough-poster {
+    filter: grayscale(1);
+    opacity: 0.4;
+}
+
+.walkthrough-pending-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(var(--paper-rgb), 0.94);
+    backdrop-filter: blur(8px);
+}
+
+.walkthrough-caption {
+    margin-top: var(--space-4);
+    color: var(--ink-muted);
+}
+
+/* ---------------------------------------------------------------
+   8. Projektoldal
+   --------------------------------------------------------------- */
+.project-head {
+    padding-top: calc(72px + var(--space-16));
+}
+
+.project-head-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    gap: var(--space-20);
+    align-items: start;
+    margin-top: var(--space-12);
+}
+
+.project-logo {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: var(--space-8);
+    /* A legtobb logo fekete, atlatszo hatterre tervezve - sotet modban invertaljuk */
+    filter: invert(var(--logo-invert));
+    transition: filter 0.4s ease;
+}
+
+.project-logo-invert {
+    filter: invert(var(--logo-invert-alt));
+}
+
+.project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-10);
+}
+
+.facts {
+    border-top: 1px solid var(--line);
+}
+
+/* A "Cim" sor erteke egy hosszu, torespont nelkuli URL. Itt szandekosan
+   "anywhere" all es nem "break-word": csak az elobbi csokkenti az elem
+   min-content meretet is, igy csak ez akadalyozza meg, hogy a flex-sor
+   szetfeszitse a szulojet keskeny nezeten. */
+.fact dd {
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+
+.fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--line);
+    min-width: 0;
+}
+
+.fact dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+}
+
+.fact dd {
+    font-size: var(--text-7);
+    text-align: right;
+    color: var(--ink);
+}
+
+/* Problema / megoldas / ertek */
+.story {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+}
+
+.story-block {
+    padding: var(--space-10) var(--space-8);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-sunken);
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s ease, border-color 0.4s ease;
+}
+
+.story-block:hover {
+    transform: translateY(-5px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-card);
+}
+
+.story-index {
+    display: block;
+    margin-bottom: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+}
+
+.story-title {
+    margin-bottom: var(--space-4);
+}
+
+/* A harmadik kartya - az eredmeny - invertalva zarja a sort */
+.story-block-value {
+    background-color: var(--invert-bg);
+    border-color: var(--invert-bg);
+    color: var(--invert-ink);
+}
+
+.story-block-value .story-title,
+.story-block-value p {
+    color: var(--invert-ink);
+}
+
+.story-block-value .story-index {
+    color: var(--invert-ink);
+    opacity: 0.5;
+}
+
+.highlights {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+}
+
+.highlights li {
+    position: relative;
+    padding-left: var(--space-6);
+    font-size: var(--text-7);
+    font-weight: 400;
+    color: var(--ink-muted);
+}
+
+.highlights li + li {
+    margin-top: var(--space-3);
+}
+
+.highlights li::before {
+    content: '';
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 10px;
+    height: 1px;
+    background-color: var(--ink-faint);
+}
+
+/* Galeria */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: var(--space-5);
+}
+
+.gallery-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background-color: var(--paper-sunken);
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s ease, border-color 0.4s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.9s var(--ease-out-expo);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-expand {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--paper);
+    color: var(--ink);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 0.35s ease, transform 0.45s var(--ease-out-back);
+}
+
+.gallery-item:hover .gallery-expand {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Kovetkezo projekt */
+.next-project {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-12);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-sunken);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s ease, transform 0.5s var(--ease-out-expo);
+}
+
+.next-project::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--invert-bg);
+    transform: translateY(101%);
+    transition: transform 0.6s var(--ease-out-expo);
+}
+
+.next-project:hover::before {
+    transform: translateY(0);
+}
+
+.next-project:hover {
+    border-color: var(--invert-bg);
+    transform: translateY(-4px);
+}
+
+.next-project > * {
+    position: relative;
+    z-index: 1;
+    transition: color 0.4s ease;
+}
+
+.next-project:hover > * {
+    color: var(--invert-ink);
+}
+
+.next-project-name {
+    flex: 1;
+}
+
+.next-project-arrow {
+    flex-shrink: 0;
+    font-size: var(--text-4);
+    transition: transform 0.5s var(--ease-out-expo), color 0.4s ease;
+}
+
+.next-project:hover .next-project-arrow {
+    transform: translateX(8px);
+}
+
+/* ---------------------------------------------------------------
+   9. Reszponziv
+   --------------------------------------------------------------- */
+@media (max-width: 1000px) {
+    .work-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-16);
+    }
+
+    .work-card-wide .work-card-media {
+        aspect-ratio: 4 / 3;
+    }
+
+    .project-head-grid,
+    .story {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-10);
+    }
+
+    .upcoming-row {
+        grid-template-columns: 56px minmax(0, 1fr);
+        gap: var(--space-4) var(--space-6);
+    }
+
+    .upcoming-progress {
+        grid-column: 2;
+        justify-self: start;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-3);
+    }
+
+    .next-project {
+        flex-wrap: wrap;
+        padding: var(--space-8);
+    }
+
+    .next-project-name {
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .work-card-actions,
+    .project-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .work-card-actions > *,
+    .project-actions > * {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .gallery {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .upcoming-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .upcoming-progress {
+        grid-column: 1;
+        max-width: none;
+    }
+}
+
+/* Erintokepernyon nincs hover, ezert az elrejtett jelzesek allandoak */
+@media (hover: none) {
+    .work-card-open {
+        opacity: 1;
+        transform: none;
+    }
+
+    .gallery-expand {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .visit-note {
+        display: none;
+    }
+}
+
+/* ---------------------------------------------------------------
+   10. Kartya-tartalom a metrikak helyen
+   Az elotte/utana szamsav megszunt (kitalalt ertekek voltak). Helyette
+   vagy ellenorizheto szamok allnak, vagy a kepessegek listaja.
+   --------------------------------------------------------------- */
+.figures-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-10);
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+}
+
+.figures-inline-value {
+    font-size: var(--text-3);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+}
+
+.figures-inline-label {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.card-highlights {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+}
+
+.card-highlights li {
+    position: relative;
+    padding-left: var(--space-6);
+    font-size: var(--text-7);
+    color: var(--ink-muted);
+}
+
+.card-highlights li + li {
+    margin-top: var(--space-2);
+}
+
+.card-highlights li::before {
+    content: '';
+    position: absolute;
+    top: 0.7em;
+    left: 0;
+    width: 10px;
+    height: 1px;
+    background-color: var(--ink-faint);
+}
+
+/* Terv-jelzes a projektoldalon: szaggatott keret, ugyanaz a nyelv, mint
+   a "nem elo" allapotjelzoknel. */
+.design-notice {
+    max-width: 74ch;
+    padding: var(--space-6) var(--space-8);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-card);
+    color: var(--ink-muted);
+}
+
+.design-notice strong {
+    color: var(--ink);
+    font-weight: 600;
+}

@@ -1,472 +1,390 @@
-/* Scroll-pin csomagolók a hero és a manifesto szekcióhoz */
-.hero-pin,
-.manifesto-pin {
-    position: relative;
-    height: 200vh;
-}
+/* ============================================================================
+   Cimlap.
+   A felepites a referencia aranyait koveti: egy nagyon nagy, kozepre zart
+   cimsor, alatta egy vekony teny-sor, majd valtakozo ritmusban a munkak, egy
+   allitas-szekcio es a ruhak. A tipografia viszi az oldalt, nem a diszites.
+   ============================================================================ */
 
-/* Hero Szekció */
-.hero-section {
-    height: 100vh;
+/* ---------------------------------------------------------------
+   1. Hero
+   --------------------------------------------------------------- */
+.hero {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    padding-top: 0px;
-    overflow: hidden;
-    will-change: filter, opacity;
-}
-
-.hero-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 450px;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -10px;
-    white-space: nowrap;
-    z-index: 1;
-}
-
-.hero-image {
-    position: relative;
-    height: 700px;
-    object-fit: cover;
-    z-index: 10;
-}
-
-.scroll-indicator {
-    position: absolute;
-    right: 100px;
-    bottom: 40px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    transform: rotate(90deg);
-    transform-origin: right bottom;
-}
-
-/* Manifesto Szekció */
-.manifesto-section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    overflow: hidden;
-}
-
-.manifesto-content {
-    display: inline-flex;
     flex-direction: column;
-    align-items: flex-start;
-    opacity: 0;
-    will-change: filter, opacity;
+    justify-content: center;
+    min-height: 100svh;
+    padding-top: calc(72px + var(--space-16));
+    padding-bottom: var(--space-16);
+    text-align: center;
 }
 
-.manifesto-text {
-    font-size: 48px;
-    font-weight: 500;
-    line-height: 1.3;
-    max-width: 900px;
-    text-align: left;
+.hero-eyebrow {
+    margin-bottom: var(--space-10);
+    color: var(--ink-faint);
 }
 
-.manifesto-brand {
-    margin-top: 0;
-    font-size: 35px;
-    font-weight: 400;
-    font-style: italic;
+.hero-title {
+    margin-inline: auto;
+    max-width: 13ch;
 }
 
-/* Görgetésre megjelenő animáció */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+/* A masodik sor halkabb - a mondat igy ket ritmusban erkezik */
+.hero-title .mask:nth-child(2) {
+    color: var(--ink-muted);
 }
 
-.reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+.hero-lede {
+    max-width: 46ch;
+    margin: var(--space-10) auto 0;
+    color: var(--ink-muted);
 }
 
-/* Tartalmi szekciók (Websites & Clothing) */
-.content-section {
-    max-width: 1200px;
-    margin: 100px auto;
-    padding: 0 40px;
-}
-
-.text-and-logos {
+.hero-actions {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 80px;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
 }
 
-.text-content {
-    max-width: 50%;
-}
-
-.text-content h2 {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.text-content p {
-    font-size: 36px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    font-weight: 600;
-}
-
-/* Lebegő logók - Websites */
-.floating-logos {
-    position: relative;
-    width: 400px;
-    height: 400px;
-}
-
-.logo-figma { position: absolute; top: 0; left: 0; width: 150px; animation: float-circle-a 9s linear infinite; }
-.logo-vscode { position: absolute; top: 50px; right: 0; width: 150px; animation: float-circle-b 11s linear infinite; animation-delay: -3s; }
-.logo-js { position: absolute; bottom: 0; left: 50px; width: 150px; animation: float-circle-c 10s linear infinite; animation-delay: -6s; }
-
-/* Sima, folyamatos körmozgás - sok apró lépésben, lineáris időzítéssel a rángatózás elkerülésére */
-@keyframes float-circle-a {
-    0%     { transform: translate(8px, 0) rotate(-8deg); }
-    8.33%  { transform: translate(6.9px, 4px) rotate(-8deg); }
-    16.67% { transform: translate(4px, 6.9px) rotate(-8deg); }
-    25%    { transform: translate(0, 8px) rotate(-8deg); }
-    33.33% { transform: translate(-4px, 6.9px) rotate(-8deg); }
-    41.67% { transform: translate(-6.9px, 4px) rotate(-8deg); }
-    50%    { transform: translate(-8px, 0) rotate(-8deg); }
-    58.33% { transform: translate(-6.9px, -4px) rotate(-8deg); }
-    66.67% { transform: translate(-4px, -6.9px) rotate(-8deg); }
-    75%    { transform: translate(0, -8px) rotate(-8deg); }
-    83.33% { transform: translate(4px, -6.9px) rotate(-8deg); }
-    91.67% { transform: translate(6.9px, -4px) rotate(-8deg); }
-    100%   { transform: translate(8px, 0) rotate(-8deg); }
-}
-
-@keyframes float-circle-b {
-    0%     { transform: translate(7px, 0) rotate(6deg); }
-    8.33%  { transform: translate(6.06px, -3.5px) rotate(6deg); }
-    16.67% { transform: translate(3.5px, -6.06px) rotate(6deg); }
-    25%    { transform: translate(0, -7px) rotate(6deg); }
-    33.33% { transform: translate(-3.5px, -6.06px) rotate(6deg); }
-    41.67% { transform: translate(-6.06px, -3.5px) rotate(6deg); }
-    50%    { transform: translate(-7px, 0) rotate(6deg); }
-    58.33% { transform: translate(-6.06px, 3.5px) rotate(6deg); }
-    66.67% { transform: translate(-3.5px, 6.06px) rotate(6deg); }
-    75%    { transform: translate(0, 7px) rotate(6deg); }
-    83.33% { transform: translate(3.5px, 6.06px) rotate(6deg); }
-    91.67% { transform: translate(6.06px, 3.5px) rotate(6deg); }
-    100%   { transform: translate(7px, 0) rotate(6deg); }
-}
-
-@keyframes float-circle-c {
-    0%     { transform: translate(0, 9px) rotate(-5deg); }
-    8.33%  { transform: translate(-4.5px, 7.79px) rotate(-5deg); }
-    16.67% { transform: translate(-7.79px, 4.5px) rotate(-5deg); }
-    25%    { transform: translate(-9px, 0) rotate(-5deg); }
-    33.33% { transform: translate(-7.79px, -4.5px) rotate(-5deg); }
-    41.67% { transform: translate(-4.5px, -7.79px) rotate(-5deg); }
-    50%    { transform: translate(0, -9px) rotate(-5deg); }
-    58.33% { transform: translate(4.5px, -7.79px) rotate(-5deg); }
-    66.67% { transform: translate(7.79px, -4.5px) rotate(-5deg); }
-    75%    { transform: translate(9px, 0) rotate(-5deg); }
-    83.33% { transform: translate(7.79px, 4.5px) rotate(-5deg); }
-    91.67% { transform: translate(4.5px, 7.79px) rotate(-5deg); }
-    100%   { transform: translate(0, 9px) rotate(-5deg); }
-}
-
-/* Lebegő ruhák - Clothing */
-.floating-clothing {
-    position: relative;
-    width: 400px;
-    height: 300px;
+/* Teny-sor a hero aljan */
+.hero-facts {
     display: flex;
-    justify-content: flex-end;
-}
-
-.floating-clothing img {
-    position: absolute;
-    width: 200px;
-}
-
-.clothing-1 { right: 150px; top: 20px; z-index: 1; }
-.clothing-2 { right: 80px; top: 60px; z-index: 2; }
-.clothing-3 { right: 0; top: 100px; z-index: 3; }
-
-/* Slider beállítások */
-.slider-container {
-    margin-top: 50px;
-}
-
-.slider-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-
-.arrow-icon {
-    width: 16px;
-    height: auto;
-    vertical-align: middle;
-    display: inline-block;
-    filter: invert(var(--logo-invert));
-}
-
-.slider-wrapper {
-    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 40px;
+    justify-content: center;
+    gap: var(--space-3) var(--space-6);
+    margin-top: var(--space-20);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+}
+
+.hero-facts span[aria-hidden] {
+    opacity: 0.4;
+}
+
+/* Gorgetesre biztato jel */
+.hero-scroll {
+    display: block;
+    width: 1px;
+    height: 48px;
+    margin: var(--space-12) auto 0;
+    background: linear-gradient(to bottom, var(--line-strong), transparent);
+    overflow: hidden;
+}
+
+.hero-scroll::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 40%;
+    background-color: var(--ink);
+    animation: hero-scroll-run 2.4s var(--ease-in-out-quint) infinite;
+}
+
+@keyframes hero-scroll-run {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(250%); }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding-top: calc(72px + var(--space-20));
+        padding-bottom: var(--space-12);
+    }
+
+    .hero-facts {
+        margin-top: var(--space-12);
+    }
+}
+
+/* ---------------------------------------------------------------
+   2. Allitas-szekcio
+   Egy nagy mondat, sok levegovel - a szekciok kozotti szunet.
+   --------------------------------------------------------------- */
+.statement {
+    padding-block: var(--space-41);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+/* Itt szandekosan NINCS ch-ben megadott szelesseg.
+   A "ch" mindig az ELEM sajat betumeretehez mer, ez a doboz viszont 18px-es
+   folyoszoveget orokol - a 22ch igy ~248px lett, amibe a 96px-es cimsor
+   sorai nem fertek be, es otsoros, bal oldalra szorult oszlop lett belole.
+   A harom sort amugy is kezzel torjuk (harom .mask), tehat nincs mit
+   korlatozni: a racs szelessege a hatar. */
+.statement-inner {
+    max-width: none;
+}
+
+.statement-mark {
+    display: block;
+    margin-top: var(--space-8);
+    color: var(--ink-faint);
+}
+
+@media (max-width: 768px) {
+    .statement {
+        padding-block: var(--space-24);
+    }
+}
+
+/* ---------------------------------------------------------------
+   3. Kepessegek sav
+   --------------------------------------------------------------- */
+.capabilities {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+}
+
+.capability {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--ink);
+}
+
+.capability-index {
+    display: block;
+    margin-bottom: var(--space-5);
+    color: var(--ink-faint);
+}
+
+.capability h3 {
+    margin-bottom: var(--space-4);
+}
+
+.capability p {
+    color: var(--ink-muted);
+}
+
+.capability-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+@media (max-width: 900px) {
+    .capabilities {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-10);
+    }
+}
+
+/* ---------------------------------------------------------------
+   4. Kollekcio-vago a cimlapon
+   Az alap a bongeszo sajat gorgetese + scroll-snap, nem JS-el szamolt
+   pozicio. Igy a vago JS nelkul is teljesen hasznalhato (ujjal, gorgovel,
+   billentyuzettel), a szkript pedig csak rateszi a gombokat, a
+   folyamatjelzot es a huzast. Ez egyben a legsimabb is: a gorgetest a
+   kompozitor vegzi, nem a fo szal.
+   --------------------------------------------------------------- */
+.slider-head-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-6);
+    flex-shrink: 0;
+}
+
+.slider-nav {
+    display: flex;
+    gap: var(--space-2);
 }
 
 .slider-btn {
-    background: none;
-    border: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
     cursor: pointer;
-    padding: 10px;
-    transition: transform 0.25s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease,
+                color 0.3s ease, opacity 0.3s ease;
 }
 
-.slider-btn img {
-    width: 30px;
-    filter: invert(var(--logo-invert));
+.slider-btn:hover:not(:disabled) {
+    background-color: var(--invert-bg);
+    border-color: var(--invert-bg);
+    color: var(--invert-ink);
 }
 
-.slider-btn:hover {
-    transform: scale(1.12);
+.slider-btn:active:not(:disabled) {
+    transform: scale(0.94);
 }
 
-.slider-btn:active {
-    transform: scale(0.85);
-    transition-duration: 0.1s;
-}
-
+/* A vegeken a gomb halvany es kattinthatatlan - de a helyen marad, hogy a
+   fejlec ne ugraljon lapozas kozben. */
 .slider-btn:disabled {
     opacity: 0.3;
     cursor: default;
 }
 
-/* Visszafele nyíl trükk K ügynöktől */
-.prev-btn img {
-    transform: scaleX(-1);
-}
-
-.slider-viewport {
-    flex: 1;
-    overflow: hidden;
-    padding: 20px 0;
-    margin: -20px 0;
-}
-
-.slider-items {
+.slider-track {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
+    gap: var(--space-5);
+
+    /* A racs bal szelen kezdodik, de jobbra kifut a kepernyorol: a kovetkezo
+       darab igy mindig belelog a nezetbe, ami elarulja, hogy van tovabb. */
+    padding-inline: var(--page-gutter) var(--page-pad);
+
+    /* A snap-nek tudnia kell a bal oldali behuzasrol. Enelkul az elso elem a
+       kepernyo szelehez tapad (a gorgetes rogton 48px-rol indul), amivel
+       elveszne a racshoz igazitas - es a "vissza" gomb sem lenne tiltva a
+       legelejen. */
+    scroll-padding-inline-start: var(--page-gutter);
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
 }
 
-.slider-item {
-    flex: 0 0 calc((100% - 40px) / 3);
-    aspect-ratio: 468 / 627;
-    box-sizing: border-box;
+.slider-track::-webkit-scrollbar {
+    display: none;
 }
 
-.websites-section .slider-item {
-    background: var(--bg-elevated);
-    border-radius: 5px;
-    padding: 10px;
+.slider-track:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 4px;
 }
 
-.slider-item img {
+.slide {
+    flex: 0 0 clamp(200px, 22vw, 300px);
+    scroll-snap-align: start;
+}
+
+.slide-frame {
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--line);
+}
+
+.slide-frame img {
+    object-fit: contain;
+    padding: var(--space-5);
+}
+
+.slide-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.slide-name {
+    color: var(--ink);
+}
+
+.slide-price {
+    color: var(--ink-faint);
+    flex-shrink: 0;
+}
+
+/* Huzas kozben a kurzor jelzi az allapotot, es a snap kikapcsol, kulonben
+   a mozgas rangatna. */
+.slider.is-dragging .slider-track {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    cursor: grabbing;
+    user-select: none;
+}
+
+.slider-progress {
+    position: relative;
+    height: 2px;
+    margin-top: var(--space-10);
+    background-color: var(--line);
+    overflow: hidden;
+}
+
+.slider-progress span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    background-color: var(--ink);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    transition: transform 0.35s var(--ease-out-quint);
+}
+
+/* JS nelkul nincs mit vezerelni, ezert a gombok es a jelzo nem jelennek meg -
+   a vago viszont ettol meg gorgetheto marad. */
+.slider-nav,
+.slider-progress {
+    display: none;
+}
+
+.slider.is-ready .slider-progress {
     display: block;
 }
 
-.websites-section .slider-item img {
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Kép körüli fehér kártya - a paradise slider kivételével */
-.slider-image {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    background: var(--bg-elevated);
-    border-radius: 5px;
-    padding: 40px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* A ruha képek ne legyenek levágva - a teljes kép látszódjon */
-.slider-image img {
-    object-fit: contain;
-}
-
-.slider-item.placeholder {
+.slider-head.is-ready .slider-nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: repeating-linear-gradient(45deg, var(--stripe-a), var(--stripe-a) 10px, var(--stripe-b) 10px, var(--stripe-b) 20px);
-    color: var(--text-faint);
-    font-size: 13px;
-    text-align: center;
-}
-
-@media (max-width: 1000px) {
-    .slider-item {
-        flex-basis: calc((100% - 20px) / 2);
-    }
-}
-
-@media (max-width: 640px) {
-    .slider-item {
-        flex-basis: 100%;
-    }
 }
 
 @media (max-width: 900px) {
-    .content-section {
-        padding: 0 24px;
-    }
-
-    .manifesto-section {
-        padding: 0 24px;
-    }
-
-    .hero-text {
-        font-size: 190px;
-        letter-spacing: -4px;
-    }
-
-    .hero-image {
-        height: 296px;
-    }
-
-    .manifesto-text {
-        font-size: 34px;
-        max-width: 100%;
-    }
-
-    .manifesto-brand {
-        font-size: 24px;
-    }
-
-    .text-and-logos {
-        flex-direction: column;
+    .slider-head-side {
         align-items: flex-start;
-        gap: 40px;
-    }
-
-    .text-content {
-        max-width: 100%;
-    }
-
-    .text-content p {
-        font-size: 24px;
-    }
-
-    .floating-logos {
-        width: 260px;
-        height: 260px;
-        align-self: center;
-        order: -1;
-    }
-
-    .logo-figma,
-    .logo-vscode,
-    .logo-js {
-        width: 100px;
-    }
-
-    .logo-vscode {
-        top: 33px;
-    }
-
-    .logo-js {
-        left: 33px;
-    }
-
-    .floating-clothing {
-        width: 260px;
-        height: 195px;
-        align-self: center;
-    }
-
-    .floating-clothing img {
-        width: 130px;
-    }
-
-    .clothing-1 { right: 98px; top: 13px; }
-    .clothing-2 { right: 52px; top: 39px; }
-    .clothing-3 { right: 0; top: 65px; }
-}
-
-@media (max-width: 480px) {
-    .hero-text {
-        font-size: 130px;
-        letter-spacing: -3px;
-    }
-
-    .hero-image {
-        height: 202px;
-    }
-
-    .manifesto-text {
-        font-size: 26px;
-    }
-
-    .manifesto-brand {
-        font-size: 19px;
-    }
-
-    .text-content p {
-        font-size: 19px;
-    }
-
-    .scroll-indicator {
-        display: none;
+        width: 100%;
     }
 }
 
-/* A gomb (pill) stilusai a layout.css-be kerultek, hogy minden oldalon eljenek. */
+@media (prefers-reduced-motion: reduce) {
+    .slider-track {
+        scroll-behavior: auto;
+    }
 
-/* A masodik bekezdes nagyobb levegot kap a lebego logok mellett */
-.text-content-spaced {
-    margin-top: 150px;
+    .slider-progress span {
+        transition: none;
+    }
 }
 
-/* Ket gomb egymas mellett a szekcio aljan */
-.center-button-pair {
+/* ---------------------------------------------------------------
+   5. Zaro felhivas
+   --------------------------------------------------------------- */
+.closer {
+    padding-block: var(--space-41);
+    text-align: center;
+    border-top: 1px solid var(--line);
+}
+
+.closer-title {
+    max-width: 16ch;
+    margin-inline: auto;
+}
+
+.closer-actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: 14px;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+}
+
+.closer-note {
+    margin-top: var(--space-8);
+    color: var(--ink-faint);
 }
 
 @media (max-width: 768px) {
-    .text-content-spaced {
-        margin-top: 40px;
+    .closer {
+        padding-block: var(--space-24);
     }
 }

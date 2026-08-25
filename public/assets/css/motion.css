@@ -1,0 +1,218 @@
+/* ============================================================================
+   Mozgas-rendszer
+   ----------------------------------------------------------------------------
+   Egyetlen belepo mintat hasznal az egesz oldal: az elem sajat magassaganak
+   12%-arol uszik fel, 0.7 masodperc alatt, expo lassitassal. A tavolsag azert
+   szazalek, hogy egy nagy szekcio nagyobbat mozduljon, mint egy apro cimke -
+   igy a mozgas aranyos marad a tartalommal.
+
+   A --reveal-index a sorrendet vezerli: a JS csak ezt es az .is-in osztalyt
+   irja, minden idozites innen jon.
+   ============================================================================ */
+
+[data-reveal] {
+    opacity: 0;
+
+    /* A tavolsag szazalek, hogy aranyos maradjon a tartalommal, de felso
+       hatarral: kulonben egy teljes kepernyos szekcio szaz pixereket uszna,
+       ami mar nem finom, hanem lomha. */
+    transform: translateY(min(var(--reveal-distance), var(--reveal-distance-max)));
+    transition:
+        opacity var(--reveal-duration) var(--ease-out-expo),
+        transform var(--reveal-duration) var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+    will-change: opacity, transform;
+}
+
+[data-reveal='fade'] {
+    transform: none;
+}
+
+[data-reveal='scale'] {
+    transform: scale(0.97);
+}
+
+[data-reveal='left'] {
+    transform: translateX(calc(var(--reveal-distance) * -1));
+}
+
+[data-reveal='right'] {
+    transform: translateX(var(--reveal-distance));
+}
+
+[data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+}
+
+/* A tranzicio vegen elengedjuk a kompozit reteget */
+[data-reveal].is-settled {
+    will-change: auto;
+}
+
+/* Gyerekek lepcsozetes belepese: a JS a gyerekekre irja a --reveal-index-et */
+[data-reveal-group] > * {
+    opacity: 0;
+    transform: translateY(min(var(--reveal-distance), var(--reveal-distance-max)));
+    transition:
+        opacity var(--reveal-duration) var(--ease-out-expo),
+        transform var(--reveal-duration) var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+}
+
+[data-reveal-group].is-in > * {
+    opacity: 1;
+    transform: none;
+}
+
+[data-reveal-group='tight'] > * {
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger-tight));
+}
+
+[data-reveal-group='loose'] > * {
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger-loose));
+}
+
+/* ---------------------------------------------------------------
+   Maszkolt cimsor: a sorok egy levagott savbol csusznak fel.
+   A .mask-line csomagolot a JS teszi be, hogy a jelolesben ne kelljen.
+   --------------------------------------------------------------- */
+.mask {
+    display: block;
+    overflow: hidden;
+    /* A leszallo szarak (g, y, j) kulonben levagodnanak a savnal */
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+}
+
+.mask > .mask-line {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.9s var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger-loose));
+}
+
+.mask.is-in > .mask-line {
+    transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------
+   Gorgetesi folyamatjelzo
+   --------------------------------------------------------------- */
+.scroll-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 1200;
+    height: 2px;
+    pointer-events: none;
+}
+
+.scroll-progress span {
+    display: block;
+    height: 100%;
+    background-color: var(--ink);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    will-change: transform;
+}
+
+/* ---------------------------------------------------------------
+   Parallax - a JS csak a --parallax-y valtozot irja
+   --------------------------------------------------------------- */
+[data-parallax] {
+    transform: translate3d(0, var(--parallax-y, 0px), 0);
+    will-change: transform;
+}
+
+/* ---------------------------------------------------------------
+   Oldalvaltas: a tartalom kihalvanyodik, mielott a bongeszo navigal
+   --------------------------------------------------------------- */
+body.is-leaving main,
+body.is-leaving .site-footer {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.16s ease-in, transform 0.16s ease-in;
+}
+
+/* ---------------------------------------------------------------
+   Erintokepernyo: a hover-allapotok nem valnak be
+   ----------------------------------------------------------------
+   Erintessel a :hover a koppintas utan RAGAD - a kartya felemelve marad,
+   a gomb kitoltve, amig valahol maskor nem koppintasz. Ezert ott, ahol
+   nincs valodi mutato, visszavesszuk a hover-hatasokat. A :active
+   visszajelzes megmarad, mert az koppintasra is helyesen mukodik.
+   --------------------------------------------------------------- */
+@media (hover: none) {
+    .frame-zoom:hover img {
+        transform: none;
+    }
+
+    .btn:hover::before {
+        transform: translateY(101%);
+    }
+
+    .btn-solid:hover::before {
+        transform: translateY(0);
+    }
+
+    .btn:hover {
+        color: var(--ink);
+        border-color: var(--line-strong);
+    }
+
+    .btn-solid:hover {
+        color: var(--invert-ink);
+        border-color: var(--invert-bg);
+    }
+
+    .btn:hover .arrow,
+    .link-arrow:hover .arrow {
+        transform: none;
+    }
+
+    .link-underline:hover {
+        background-size: 0 1px;
+    }
+
+    .footer-col a:hover {
+        transform: none;
+    }
+
+    .social-link:hover .social-icon {
+        transform: none;
+    }
+
+    .theme-toggle:hover {
+        transform: none;
+    }
+}
+
+/* ---------------------------------------------------------------
+   Csokkentett mozgas: minden azonnal a helyere kerul, semmi nem tunhet el
+   --------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+
+    [data-reveal],
+    [data-reveal-group] > *,
+    .mask > .mask-line {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    [data-parallax] {
+        --parallax-y: 0px;
+    }
+
+    body.is-leaving main,
+    body.is-leaving .site-footer {
+        opacity: 1;
+        transform: none;
+    }
+}

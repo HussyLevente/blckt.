@@ -1,0 +1,564 @@
+/* ============================================================================
+   Oldalkeret: fejlec, lablec, lightbox, sutisav, gorgeto gombok.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------
+   1. Fejlec
+   --------------------------------------------------------------- */
+.site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 1000;
+    transition: transform 0.5s var(--ease-out-expo), background-color 0.4s ease, border-color 0.4s ease;
+    border-bottom: 1px solid transparent;
+}
+
+/* Gorgetes kozben uveg-hatteret kap, hogy a nagy tipografia atolvashato maradjon */
+.site-header.is-scrolled {
+    background-color: rgba(var(--paper-rgb), 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--line);
+}
+
+/* Lefele gorgetve elbujik, felfele azonnal visszajon */
+.site-header.is-hidden {
+    transform: translateY(-100%);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    height: 72px;
+}
+
+.wordmark {
+    font-size: var(--text-5);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.site-nav a {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    transition: color 0.3s ease;
+}
+
+.site-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.45s var(--ease-out-expo);
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+    color: var(--ink);
+}
+
+.site-nav a:hover::after,
+.site-nav a.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+.header-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+/* Fejleces felhivas. Kisebb, mint a lapon belul allo gombok, hogy a
+   fejlec aranyai ne boruljanak fel, de tomor kitoltessel - ez az egyetlen
+   ilyen a fejlecben, ezert egyertelmuen ez a fo utvonal. */
+.header-cta {
+    padding: var(--space-2) var(--space-5);
+    white-space: nowrap;
+}
+
+/* A kozepes savban a szoveges linkek elfogynanak, de a felhivas marad. */
+@media (max-width: 1080px) and (min-width: 901px) {
+    .site-nav {
+        gap: var(--space-5);
+    }
+
+    .header-right {
+        gap: var(--space-5);
+    }
+}
+
+.lang-switch {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+}
+
+.lang-switch a {
+    transition: color 0.3s ease;
+}
+
+.lang-switch a:hover,
+.lang-switch a.is-active {
+    color: var(--ink);
+}
+
+.theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.4s var(--ease-out-back);
+}
+
+.theme-toggle:hover {
+    border-color: var(--ink);
+    transform: rotate(25deg);
+}
+
+.theme-toggle svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* Csak az aktualis temahoz tartozo ikon latszik */
+.theme-icon-moon { display: none; }
+:root[data-theme='dark'] .theme-icon-sun { display: none; }
+:root[data-theme='dark'] .theme-icon-moon { display: block; }
+
+/* Mobil kapcsolo */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background-color: var(--ink);
+    transition: transform 0.45s var(--ease-out-expo), opacity 0.3s ease;
+}
+
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .header-right {
+        position: fixed;
+        inset: 0 0 0 auto;
+        z-index: 1001;
+        width: min(84vw, 380px);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: var(--space-10);
+        padding: var(--space-20) var(--space-8);
+        background-color: var(--paper);
+        border-left: 1px solid var(--line);
+        transform: translateX(100%);
+        transition: transform 0.6s var(--ease-out-expo);
+    }
+
+    .header-right.is-open {
+        transform: translateX(0);
+    }
+
+    .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-5);
+    }
+
+    .site-nav a {
+        font-family: var(--font-sans);
+        font-size: var(--text-4);
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        text-transform: none;
+        color: var(--ink);
+    }
+
+    .site-nav a::after {
+        display: none;
+    }
+
+    /* A mobil panelen a felhivas teljes szelessegu, es a lista vegen all -
+       igy a hivelyk termeszetes utjaba esik.
+
+       A nowrap itt visszavonva: a gomb amugy is a panel teljes szelesseget
+       kitolti, viszont a hosszabb forditas ("Indítsunk projektet") igy nem
+       vagodik le a keskeny panelen - inkabb tortessen ket sorba. */
+    .header-cta {
+        width: 100%;
+        padding: var(--space-4) var(--space-5);
+        white-space: normal;
+    }
+
+    .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .nav-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* ---------------------------------------------------------------
+   2. Lablec
+   --------------------------------------------------------------- */
+.site-footer {
+    padding-block: var(--space-24) var(--space-10);
+    border-top: 1px solid var(--line);
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+    gap: var(--space-16);
+    padding-bottom: var(--space-20);
+}
+
+.footer-pitch {
+    max-width: 34ch;
+}
+
+.footer-wordmark {
+    display: block;
+    font-size: var(--text-3);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: var(--space-5);
+}
+
+.footer-cols {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-10);
+}
+
+.footer-col h2 {
+    margin-bottom: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.footer-col a {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-size: var(--text-7);
+    color: var(--ink-muted);
+    transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+}
+
+.footer-col a:hover {
+    color: var(--ink);
+    transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------
+   2b. Kozossegi linkek
+   Az ikon jeloli a platformot, a felirat kimondja - igy az ismeretlen
+   szimbolum sem talalos kerdes, es kepernyoolvasoval is ertelmes.
+   --------------------------------------------------------------- */
+.social {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.social-row {
+    flex-direction: column;
+    margin-top: var(--space-3);
+}
+
+.social-inline {
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-7);
+    color: var(--ink-muted);
+    transition: color 0.3s ease;
+}
+
+.social-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform 0.45s var(--ease-out-expo);
+}
+
+.social-arrow {
+    font-size: 12px;
+    opacity: 0;
+    transform: translate(-3px, 3px);
+    transition: opacity 0.35s ease, transform 0.45s var(--ease-out-expo);
+}
+
+.social-link:hover {
+    color: var(--ink);
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.12);
+}
+
+.social-link:hover .social-arrow,
+.social-link:focus-visible .social-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* A lablec oszlopaban a linkek blokk-szintuek; a kozossegi sor sajat
+   elrendezest hasznal, ezert az orokolt also margot vissza kell vennunk. */
+.footer-col .social-link {
+    margin-bottom: 0;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+}
+
+@media (max-width: 900px) {
+    .footer-top {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-12);
+    }
+
+    .footer-cols {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-8);
+    }
+}
+
+/* ---------------------------------------------------------------
+   3. Lebego akciok
+   --------------------------------------------------------------- */
+.scroll-top {
+    position: fixed;
+    right: var(--space-6);
+    bottom: var(--space-6);
+    z-index: 900;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background-color: rgba(var(--paper-rgb), 0.85);
+    backdrop-filter: blur(10px);
+    color: var(--ink);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.5s var(--ease-out-expo), border-color 0.3s ease;
+}
+
+.scroll-top.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.scroll-top:hover {
+    border-color: var(--ink);
+}
+
+/* ---------------------------------------------------------------
+   4. Sutisav
+   --------------------------------------------------------------- */
+.cookie-bar {
+    position: fixed;
+    left: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 1500;
+    width: min(420px, calc(100vw - var(--space-8)));
+    padding: var(--space-6);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-raised);
+    box-shadow: var(--shadow-medium);
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.6s var(--ease-out-expo);
+}
+
+.cookie-bar.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.cookie-bar h2 {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-7);
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.cookie-bar p {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-8);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-muted);
+}
+
+.cookie-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+}
+
+/* ---------------------------------------------------------------
+   5. Lightbox
+   --------------------------------------------------------------- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: grid;
+    place-items: center;
+    padding: var(--space-12);
+    background-color: rgba(0, 0, 0, 0.92);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s;
+}
+
+.lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-stage {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    transform-origin: top center;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.lightbox-toolbar {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-6);
+    display: flex;
+    gap: var(--space-2);
+}
+
+.lightbox-btn {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.lightbox-btn:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #fff;
+}
+
+@media (max-width: 768px) {
+    .lightbox {
+        padding: var(--space-4);
+    }
+
+    .scroll-top {
+        right: var(--space-4);
+        bottom: var(--space-4);
+    }
+}

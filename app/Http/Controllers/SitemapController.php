@@ -2,46 +2,77 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\SetLocale;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
+    /**
+     * Ket nyelvu sitemap.
+     *
+     * Minden cim mindket nyelven szerepel, es minden bejegyzes felsorolja a
+     * sajat nyelvi valtozatait xhtml:link alternate-kent - ez az, amibol a
+     * kereso megerti, hogy ugyanannak az oldalnak ket verzioja van, nem ket
+     * kulon oldal.
+     */
     public function index(ClothingProductController $clothing, WebsiteProjectController $websites): Response
     {
-        $urls = [
-            ['loc' => url('/'), 'priority' => '1.0', 'changefreq' => 'weekly'],
-            ['loc' => url('/clothing'), 'priority' => '0.8'],
-            ['loc' => route('clothing.collection'), 'priority' => '0.8'],
-            ['loc' => url('/websites'), 'priority' => '0.9'],
-            ['loc' => route('websites.redesigns'), 'priority' => '0.9'],
-            ['loc' => route('services'), 'priority' => '0.8'],
-            ['loc' => url('/about'), 'priority' => '0.6'],
-            ['loc' => url('/contact'), 'priority' => '0.7'],
-            ['loc' => route('legal.impresszum'), 'priority' => '0.2'],
-            ['loc' => route('legal.adatvedelem'), 'priority' => '0.2'],
-            ['loc' => route('legal.aszf'), 'priority' => '0.2', 'changefreq' => 'yearly'],
+        $pages = [
+            ['path' => '/', 'priority' => '1.0', 'changefreq' => 'weekly'],
+            ['path' => '/websites', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['path' => '/services', 'priority' => '0.9'],
+            ['path' => '/clothing', 'priority' => '0.8'],
+            ['path' => '/clothing/collection', 'priority' => '0.8'],
+            ['path' => '/about', 'priority' => '0.6'],
+            ['path' => '/contact', 'priority' => '0.7'],
+            ['path' => '/impresszum', 'priority' => '0.2', 'changefreq' => 'yearly'],
+            ['path' => '/adatvedelem', 'priority' => '0.2', 'changefreq' => 'yearly'],
+            ['path' => '/aszf', 'priority' => '0.2', 'changefreq' => 'yearly'],
         ];
 
-        foreach ($clothing->slugs() as $slug) {
-            $urls[] = ['loc' => route('clothing.show', $slug), 'priority' => '0.6'];
-        }
-
         foreach ($websites->slugs() as $slug) {
-            $urls[] = ['loc' => route('websites.show', $slug), 'priority' => '0.7'];
+            $pages[] = ['path' => '/websites/'.$slug, 'priority' => '0.8'];
         }
 
-        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+        foreach ($clothing->slugs() as $slug) {
+            $pages[] = ['path' => '/clothing/collection/'.$slug, 'priority' => '0.6'];
+        }
 
         $lastmod = now()->toDateString();
+        $lines = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+        ];
 
-        foreach ($urls as $entry) {
-            $node = $xml->addChild('url');
-            $node->addChild('loc', htmlspecialchars($entry['loc']));
-            $node->addChild('lastmod', $lastmod);
-            $node->addChild('changefreq', $entry['changefreq'] ?? 'monthly');
-            $node->addChild('priority', $entry['priority']);
+        foreach ($pages as $page) {
+            foreach (SetLocale::SUPPORTED_LOCALES as $locale) {
+                $lines[] = '  <url>';
+                $lines[] = '    <loc>'.e($this->urlFor($page['path'], $locale)).'</loc>';
+
+                foreach (SetLocale::SUPPORTED_LOCALES as $alt) {
+                    $lines[] = '    <xhtml:link rel="alternate" hreflang="'.$alt.'" href="'.e($this->urlFor($page['path'], $alt)).'"/>';
+                }
+
+                $lines[] = '    <xhtml:link rel="alternate" hreflang="x-default" href="'.e($this->urlFor($page['path'], SetLocale::DEFAULT_LOCALE)).'"/>';
+                $lines[] = '    <lastmod>'.$lastmod.'</lastmod>';
+                $lines[] = '    <changefreq>'.($page['changefreq'] ?? 'monthly').'</changefreq>';
+                $lines[] = '    <priority>'.$page['priority'].'</priority>';
+                $lines[] = '  </url>';
+            }
         }
 
-        return response($xml->asXML(), 200, ['Content-Type' => 'application/xml']);
+        $lines[] = '</urlset>';
+
+        return response(implode("\n", $lines), 200, ['Content-Type' => 'application/xml']);
+    }
+
+    /**
+     * Az alapertelmezett nyelv a tiszta cimen el, a masodik ?lang= parameterrel.
+     */
+    private function urlFor(string $path, string $locale): string
+    {
+        $url = url($path);
+
+        return $locale === SetLocale::DEFAULT_LOCALE ? $url : $url.'?lang='.$locale;
     }
 }

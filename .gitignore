@@ -22,3 +22,9 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Legyartott eszkozok (php artisan assets:build). Nem verziozzuk oket:
+# ha hianyoznak, az App\Support\Asset automatikusan az eredeti fajlt adja,
+# igy az oldal akkor is helyesen mukodik, ha a build lepes kimarad.
+/public/assets/css/*.min.css
+/public/assets/js/*.min.js

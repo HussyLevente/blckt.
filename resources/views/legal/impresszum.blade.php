@@ -1,22 +1,22 @@
 @extends('layout')
 
 @section('title', 'Impresszum | blckt.')
-@section('meta_description', 'A blckt.hu weboldal üzemeltetőjének adatai és elérhetőségei.')
+@section('meta_description', 'A blckt.hu weboldal üzemeltetőjének hivatalos adatai: név, székhely, adószám, nyilvántartási szám, valamint e-mail és telefonos elérhetőség.')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/legal.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/editorial.css') }}">
 @endpush
 
 @section('content')
-    <section class="legal-section reveal">
-        <h1 class="legal-title">Impresszum</h1>
-        <p class="legal-updated">Utolsó frissítés: 2026. augusztus</p>
+    <section class="section shell" style="padding-top: calc(72px + var(--space-16))">
+        <h1 class="t2 optical-left">Impresszum</h1>
+        <p class="t8 ink-faint">Utolsó frissítés: 2026. augusztus</p>
 
         @if (app()->getLocale() !== 'hu')
-            <p class="legal-locale-note">{{ __('This page is only available in Hungarian.') }}</p>
+            <p class="t8 ink-faint">{{ __('This page is only available in Hungarian.') }}</p>
         @endif
 
-        <div class="legal-content">
+        <div class="prose">
             <h2>Szolgáltató adatai</h2>
             <div class="legal-card">
                 <p><strong>Név:</strong> Hussy Levente</p>

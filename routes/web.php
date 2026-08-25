@@ -11,13 +11,26 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::view('/', 'home');
+// A cimlap a ket legutobbi weboldalt es nehany ruhat emel ki, ezert mindket
+// kontrollerbol kell hozza adat.
+// A cimlapi kollekcio-vago igazi lapozo, ezert a teljes keszletet megkapja -
+// a 8-as felso hatar csak azert van, hogy egy kesobbi nagy kollekcio se
+// terhelje agyon a cimlapot.
+Route::get('/', fn (WebsiteProjectController $websites, ClothingProductController $clothing) => view('home', [
+    'featured' => $websites->featured(2),
+    'garments' => $clothing->featured(8),
+]));
+
 Route::view('/clothing', 'clothing');
 Route::get('/clothing/collection', [ClothingProductController::class, 'index'])->name('clothing.collection');
 Route::get('/clothing/collection/{product}', [ClothingProductController::class, 'show'])->name('clothing.show');
-Route::view('/websites', 'websites');
+Route::get('/websites', [WebsiteProjectController::class, 'index'])->name('websites.index');
 Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->name('websites.show');
-Route::get('/redesigns', [WebsiteProjectController::class, 'redesigns'])->name('websites.redesigns');
+
+// A kulon before/after oldal megszunt - az osszehasonlitas a projektoldalakon
+// belul el. A regi cim atiranyitaskent marad, hogy a mar indexelt URL-ek es a
+// kimeno linkek ne 404-eljenek.
+Route::permanentRedirect('/redesigns', '/websites');
 Route::view('/services', 'services')->name('services');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');

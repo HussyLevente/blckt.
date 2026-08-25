@@ -4,19 +4,19 @@
 @section('meta_description', 'Tájékoztató a blckt.hu weboldalon történő adatkezelésről és a sütik használatáról.')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/legal.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/editorial.css') }}">
 @endpush
 
 @section('content')
-    <section class="legal-section reveal">
-        <h1 class="legal-title">Adatvédelmi tájékoztató</h1>
-        <p class="legal-updated">Utolsó frissítés: 2026. augusztus</p>
+    <section class="section shell" style="padding-top: calc(72px + var(--space-16))">
+        <h1 class="t2 optical-left">Adatvédelmi tájékoztató</h1>
+        <p class="t8 ink-faint">Utolsó frissítés: 2026. augusztus</p>
 
         @if (app()->getLocale() !== 'hu')
-            <p class="legal-locale-note">{{ __('This page is only available in Hungarian.') }}</p>
+            <p class="t8 ink-faint">{{ __('This page is only available in Hungarian.') }}</p>
         @endif
 
-        <div class="legal-content">
+        <div class="prose">
             <p>Ez a tájékoztató bemutatja, hogy a blckt. (Hussy Levente, a továbbiakban: <strong>Adatkezelő</strong>) milyen személyes adatokat kezel a blckt.hu weboldal használata során, milyen célból, és milyen jogok illetik meg az érintetteket az Európai Unió Általános Adatvédelmi Rendelete (GDPR) alapján.</p>
 
             <h2>1. Adatkezelő</h2>

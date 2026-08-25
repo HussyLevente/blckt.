@@ -111,11 +111,11 @@
     }
 
     function clearErrors(form) {
-        form.querySelectorAll('.form-error').forEach(function (el) {
+        form.querySelectorAll('.field-error').forEach(function (el) {
             el.textContent = '';
         });
-        form.querySelectorAll('.form-field-invalid').forEach(function (el) {
-            el.classList.remove('form-field-invalid');
+        form.querySelectorAll('.field-invalid').forEach(function (el) {
+            el.classList.remove('field-invalid');
         });
     }
 
@@ -128,7 +128,7 @@
             el.textContent = errors[field][0];
             var wrap = el.closest('.form-field');
             if (wrap) {
-                wrap.classList.add('form-field-invalid');
+                wrap.classList.add('field-invalid');
             }
         });
     }

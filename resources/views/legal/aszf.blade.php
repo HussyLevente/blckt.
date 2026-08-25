@@ -4,19 +4,19 @@
 @section('meta_description', 'A blckt.hu weboldalon keresztül kezdeményezett megkeresésekre vonatkozó általános szerződési feltételek.')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/legal.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/editorial.css') }}">
 @endpush
 
 @section('content')
-    <section class="legal-section reveal">
-        <h1 class="legal-title">Általános Szerződési Feltételek</h1>
-        <p class="legal-updated">Utolsó frissítés: 2026. augusztus</p>
+    <section class="section shell" style="padding-top: calc(72px + var(--space-16))">
+        <h1 class="t2 optical-left">Általános Szerződési Feltételek</h1>
+        <p class="t8 ink-faint">Utolsó frissítés: 2026. augusztus</p>
 
         @if (app()->getLocale() !== 'hu')
-            <p class="legal-locale-note">{{ __('This page is only available in Hungarian.') }}</p>
+            <p class="t8 ink-faint">{{ __('This page is only available in Hungarian.') }}</p>
         @endif
 
-        <div class="legal-content">
+        <div class="prose">
             <h2>1. Hatály</h2>
             <p>Jelen Általános Szerződési Feltételek (ÁSZF) a blckt.hu weboldalon keresztül kezdeményezett megkeresésekre és a Hussy Levente (a továbbiakban: <strong>Szolgáltató</strong>) által nyújtott weboldal-fejlesztési szolgáltatásokra vonatkoznak.</p>
 

@@ -1,121 +1,98 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @stack('preload')
+
+    {{-- A tema meg az elso festes elott beall, kulonben sotet modban
+         felvillanna a vilagos hatter. --}}
     <script>
         (function () {
             try {
                 var stored = localStorage.getItem('blckt-theme');
-                var theme = (stored === 'dark' || stored === 'light') ? stored : 'light';
+                var theme = (stored === 'dark' || stored === 'light')
+                    ? stored
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', theme);
             } catch (e) {}
         })();
     </script>
-    @php
-        // @section('x', $value) inline form already HTML-escapes $value via e(),
-        // so the yielded content below must be echoed raw (not re-escaped) to
-        // avoid double-encoding entities like "&" -> "&amp;amp;".
-        $metaTitle = trim($__env->yieldContent('title')) ?: e(__('blckt. | Custom Websites & Clothing Design, Budapest'));
-        $metaDescription = trim($__env->yieldContent('meta_description')) ?: e(__('I design and build custom websites and premium streetwear from Budapest. No templates, real code, one person start to finish.'));
-        $metaImagePath = trim($__env->yieldContent('meta_image')) ?: 'assets/imgs/brand/blckt_mainpage_hero_image.webp';
-        $ogLocale = app()->getLocale() === 'hu' ? 'hu_HU' : 'en_US';
-        $ogLocaleAlt = app()->getLocale() === 'hu' ? 'en_US' : 'hu_HU';
-    @endphp
 
-    <title>{!! $metaTitle !!}</title>
-    <meta name="description" content="{!! $metaDescription !!}">
-    <link rel="canonical" href="{{ url()->current() }}">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="blckt.">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{!! $metaTitle !!}">
-    <meta property="og:description" content="{!! $metaDescription !!}">
-    <meta property="og:image" content="{{ asset($metaImagePath) }}">
-    <meta property="og:locale" content="{{ $ogLocale }}">
-    <meta property="og:locale:alternate" content="{{ $ogLocaleAlt }}">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{!! $metaTitle !!}">
-    <meta name="twitter:description" content="{!! $metaDescription !!}">
-    <meta name="twitter:image" content="{{ asset($metaImagePath) }}">
+    @include('partials.seo-head')
 
     <link rel="icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/imgs/brand/blckt_logo.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Fragment+Mono&display=swap">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/animations.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/cursor.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/spotlight.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/cookie-consent.css') }}">
+    @stack('preload')
+
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/system.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/motion.css') }}">
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/chrome.css') }}">
     @stack('styles')
 </head>
-<body class="is-loading{{ request()->is('websites') ? ' page-websites' : '' }}">
+<body>
 
+    <a href="#main" class="skip-link">{{ __('Skip to content') }}</a>
+
+    @include('partials.icon-sprite')
+
+    {{-- Betoltokep szandekosan nincs: legalabb 450 ms-ot varakoztatott
+         mindenkit egy olyan oldalon, ami ennel gyorsabban megjelenik. --}}
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-    <div class="dot-spotlight" id="dot-spotlight"></div>
+    <header id="site-header" class="site-header">
+        <div class="shell header-inner">
+            <a href="/" class="wordmark" aria-label="blckt. — {{ __('Home') }}">blckt.</a>
 
-    <div id="page-loader" class="page-loader">
-        <div class="page-loader-inner">
-            <span class="page-loader-text">blckt.</span>
-            <div class="page-loader-bar"><span></span></div>
-        </div>
-    </div>
-
-    <header id="blckt-navbar" class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <a href="/">blckt.</a>
-            </div>
-            <div class="nav-right" id="nav-right">
-                <nav class="nav-links">
+            <div class="header-right" id="header-right">
+                <nav class="site-nav" aria-label="{{ __('Main navigation') }}">
                     @php
+                        // A weboldalak allnak elol - ez a fo munka, a tobbi utana jon.
                         $navItems = [
-                            '/clothing' => __('clothing'),
-                            '/websites' => __('websites'),
-                            '/redesigns' => __('before & after'),
-                            '/services' => __('services'),
-                            '/about' => __('about'),
-                            '/contact' => __('contact'),
+                            '/websites' => __('Work'),
+                            '/services' => __('Services'),
+                            '/clothing' => __('Clothing'),
+                            '/about' => __('About'),
+                            '/contact' => __('Contact'),
                         ];
                     @endphp
                     @foreach ($navItems as $href => $label)
-                        @php $isActive = request()->is(ltrim($href, '/').'*'); @endphp
-                        <a href="{{ $href }}" class="{{ $isActive ? 'is-active' : '' }}" @if ($isActive) aria-current="page" @endif>{{ $label }}</a>
+                        @php $active = request()->is(ltrim($href, '/').'*'); @endphp
+                        <a href="{{ $href }}" class="{{ $active ? 'is-active' : '' }}" @if ($active) aria-current="page" @endif>{{ $label }}</a>
                     @endforeach
                 </nav>
-                <div class="lang-switcher">
-                    <a href="{{ route('lang.switch', 'en') }}" class="lang-option {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">EN</a>
-                    <span class="lang-divider">/</span>
-                    <a href="{{ route('lang.switch', 'hu') }}" class="lang-option {{ app()->getLocale() === 'hu' ? 'is-active' : '' }}">HU</a>
+
+                <div class="header-tools">
+                    <div class="lang-switch">
+                        <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'is-active' : '' }}" hreflang="en">EN</a>
+                        <span aria-hidden="true">/</span>
+                        <a href="{{ route('lang.switch', 'hu') }}" class="{{ app()->getLocale() === 'hu' ? 'is-active' : '' }}" hreflang="hu">HU</a>
+                    </div>
+
+                    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{ __('Toggle dark mode') }}" aria-pressed="false">
+                        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4.5"></circle>
+                            <path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"></path>
+                        </svg>
+                        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
                 </div>
-                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{ __('Toggle dark mode') }}" aria-pressed="false">
-                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <line x1="12" y1="2" x2="12" y2="4.5"></line>
-                        <line x1="12" y1="19.5" x2="12" y2="22"></line>
-                        <line x1="4.22" y1="4.22" x2="5.94" y2="5.94"></line>
-                        <line x1="18.06" y1="18.06" x2="19.78" y2="19.78"></line>
-                        <line x1="2" y1="12" x2="4.5" y2="12"></line>
-                        <line x1="19.5" y1="12" x2="22" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.94" y2="18.06"></line>
-                        <line x1="18.06" y1="5.94" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
+
+                {{-- Allando, egyertelmu utvonal a kapcsolat oldalra. Ez az egyetlen
+                     tomor gomb a fejlecben, hogy ne versenyezzen mas akcioval. --}}
+                <a href="/contact" class="btn btn-solid header-cta" @if (request()->is('contact')) aria-current="page" @endif>
+                    {{ __('Start a project') }}
+                    <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
             </div>
-            <button type="button" id="nav-toggle" class="nav-toggle" aria-label="{{ __('Menu') }}" aria-expanded="false">
+
+            <button type="button" id="nav-toggle" class="nav-toggle" aria-label="{{ __('Menu') }}" aria-expanded="false" aria-controls="header-right">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -123,73 +100,78 @@
 
     <div class="nav-backdrop" id="nav-backdrop"></div>
 
-    <main>
+    <main id="main">
         @yield('content')
     </main>
 
-    <a href="/contact" class="get-in-touch">{{ __('Get in touch') }} <span class="action-icon" aria-hidden="true">&#8594;</span></a>
-
-    <button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="{{ __('Back to top') }}">
-        <img loading="lazy" decoding="async" src="{{ asset('assets/imgs/brand/slider_arrow_blckt.png') }}" alt="">
+    <button type="button" id="scroll-top" class="scroll-top" aria-label="{{ __('Back to top') }}">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+        </svg>
     </button>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <a href="/" class="footer-logo">
-                <h2>blckt.</h2>
-            </a>
-            <div class="footer-columns">
-                <div class="col">
-                    <h3>{{ __('clothing') }}</h3>
-                    <a href="{{ route('clothing.collection') }}">{{ __('blckt. collection') }}</a>
-                    <a href="{{ route('clothing.show', 'ratio') }}">Ratio</a>
-                    <a href="{{ route('clothing.show', 'hollyweed') }}">Hollyweed</a>
-                    <a href="{{ route('clothing.show', 'agapiti') }}">Agapití Skópelos</a>
-                    <a href="{{ route('clothing.show', 'prodigy') }}">Prodigy.</a>
-                    <a href="{{ route('clothing.show', 'miamivice') }}">Miami Vice</a>
+    <footer class="site-footer">
+        <div class="shell">
+            <div class="footer-top">
+                <div class="footer-pitch">
+                    <a href="/" class="footer-wordmark">blckt.</a>
+                    <p class="t6 ink-muted">{{ __('A one-person studio in Budapest. Custom websites and premium streetwear — designed, built and shipped by the same pair of hands.') }}</p>
                 </div>
-                <div class="col">
-                    <h3>{{ __('websites') }}</h3>
-                    <a href="/websites">{{ __('all websites') }}</a>
-                    <a href="/redesigns">{{ __('before & after') }}</a>
-                    <a href="{{ route('websites.show', 'paradise') }}">Paradise</a>
-                    <a href="{{ route('websites.show', 'palesso') }}">Palesso</a>
-                    <a href="{{ route('websites.show', 'kepszakadas') }}">Képszakadás</a>
-                    <a href="{{ route('websites.show', 'juiced') }}">Juiced</a>
+
+                <div class="footer-cols">
+                    <div class="footer-col">
+                        <h2>{{ __('Work') }}</h2>
+                        <a href="/websites">{{ __('All projects') }}</a>
+                        {{-- Az elo oldalak allnak elol: ezek nyithatok meg tenylegesen. --}}
+                        <a href="{{ route('websites.show', 'muzsik') }}">Muzsik Fodrászat</a>
+                        <a href="{{ route('websites.show', 'passion') }}">Passion Gumiszerviz</a>
+                        <a href="{{ route('websites.show', 'layzfonts') }}">Layz Fonts</a>
+                    </div>
+                    <div class="footer-col">
+                        <h2>{{ __('Clothing') }}</h2>
+                        <a href="{{ route('clothing.collection') }}">{{ __('The collection') }}</a>
+                        <a href="{{ route('clothing.show', 'ratio') }}">Ratio</a>
+                        <a href="{{ route('clothing.show', 'hollyweed') }}">Hollyweed</a>
+                        <a href="{{ route('clothing.show', 'agapiti') }}">Agapití Skópelos</a>
+                        <a href="{{ route('clothing.show', 'prodigy') }}">Prodigy.</a>
+                    </div>
+                    <div class="footer-col">
+                        <h2>{{ __('Studio') }}</h2>
+                        <a href="/about">{{ __('About') }}</a>
+                        <a href="/services">{{ __('Services & pricing') }}</a>
+                        <a href="/contact">{{ __('Contact') }}</a>
+                    </div>
+                    <div class="footer-col">
+                        <h2>{{ __('Reach me') }}</h2>
+                        <a href="mailto:hello@blckt.hu">hello@blckt.hu</a>
+                        <a href="tel:+36302552432">+36 30 255 2432</a>
+                        @include('partials.social-links', ['variant' => 'row'])
+                    </div>
                 </div>
-                <div class="col">
-                    <h3>{{ __('contact') }}</h3>
-                    <a href="/contact">{{ __('Get in touch') }}</a>
-                    <a href="mailto:hello@blckt.hu">hello@blckt.hu</a>
-                    <a href="tel:+36302552432">+36 30 255 2432</a>
-                    <a href="https://wa.me/36302552432" target="_blank" rel="noopener">{{ __('WhatsApp') }}</a>
-                </div>
-                <div class="col">
-                    <h3>{{ __('about') }}</h3>
-                    <a href="/">{{ __('Home') }}</a>
-                    <a href="/about">{{ __('about') }}</a>
-                    <a href="/services">{{ __('services') }}</a>
-                    <a href="{{ route('legal.impresszum') }}">{{ __('Imprint') }}</a>
-                    <a href="{{ route('legal.adatvedelem') }}">{{ __('Privacy notice') }}</a>
-                    <a href="{{ route('legal.aszf') }}">{{ __('Terms & conditions') }}</a>
-                    <a href="#" data-cookie-preferences>{{ __('Cookie preferences') }}</a>
-                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; {{ date('Y') }} blckt. — Budapest</span>
+                <span class="footer-legal">
+                    <a href="{{ route('legal.impresszum') }}" class="link-underline">{{ __('Imprint') }}</a>
+                    <a href="{{ route('legal.adatvedelem') }}" class="link-underline">{{ __('Privacy') }}</a>
+                    <a href="{{ route('legal.aszf') }}" class="link-underline">{{ __('Terms') }}</a>
+                    <a href="#" data-cookie-preferences class="link-underline">{{ __('Cookies') }}</a>
+                </span>
             </div>
         </div>
     </footer>
 
-    <div class="cookie-consent" id="cookie-consent">
-        <div class="cookie-consent-card">
-            <h2 class="cookie-consent-title">{{ __('Cookies') }}</h2>
-            <p class="cookie-consent-text">{{ __('This site only uses cookies that are strictly necessary for it to work — session security, and remembering your language and theme choice. No advertising or tracking cookies.') }}</p>
-            <div class="cookie-consent-actions">
-                <button type="button" class="btn-pill" id="cookie-consent-accept">{{ __('Got it') }}</button>
-                <a href="{{ route('legal.adatvedelem') }}#sutik" class="cookie-consent-link">{{ __('Learn more') }}</a>
-            </div>
+    <div class="cookie-bar" id="cookie-bar" role="region" aria-label="{{ __('Cookies') }}">
+        <h2>{{ __('Cookies') }}</h2>
+        <p>{{ __('This site only uses cookies that are strictly necessary for it to work — session security, and remembering your language and theme choice. No advertising or tracking cookies.') }}</p>
+        <div class="cookie-actions">
+            <button type="button" class="btn" id="cookie-accept">{{ __('Got it') }}</button>
+            <a href="{{ route('legal.adatvedelem') }}#sutik" class="t8 ink-muted link-underline">{{ __('Learn more') }}</a>
         </div>
     </div>
 
-    <div class="lightbox" id="site-lightbox">
+    <div class="lightbox" id="site-lightbox" role="dialog" aria-modal="true" aria-label="{{ __('Image viewer') }}">
         <div class="lightbox-toolbar">
             <button type="button" class="lightbox-btn lightbox-zoom-out" aria-label="{{ __('Zoom out') }}">&minus;</button>
             <button type="button" class="lightbox-btn lightbox-zoom-in" aria-label="{{ __('Zoom in') }}">&plus;</button>
@@ -200,132 +182,9 @@
         </div>
     </div>
 
-    <script>
-        (function () {
-            var MIN_DISPLAY_MS = 500;
-            var start = Date.now();
-            var loader = document.getElementById('page-loader');
-            if (!loader) return;
-
-            function hideLoader() {
-                var remaining = Math.max(0, MIN_DISPLAY_MS - (Date.now() - start));
-                setTimeout(function () {
-                    loader.classList.add('is-hidden');
-                    document.body.classList.remove('is-loading');
-                    loader.addEventListener('transitionend', function () {
-                        loader.remove();
-                    }, { once: true });
-                }, remaining);
-            }
-
-            if (document.readyState === 'complete') {
-                hideLoader();
-            } else {
-                window.addEventListener('load', hideLoader);
-            }
-        })();
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var navbar = document.getElementById('blckt-navbar');
-            if (!navbar) return;
-
-            var lastScrollY = window.scrollY;
-            var ticking = false;
-
-            function render() {
-                ticking = false;
-                var y = window.scrollY;
-
-                navbar.classList.toggle('is-scrolled', y > 40);
-
-                // Nyitott mobilmenü mellett a navbar marad, különben a bezáró
-                // gomb is elcsúszna a képernyőről.
-                var menuOpen = document.body.classList.contains('no-scroll');
-                var hide = !menuOpen && y > lastScrollY && y > 120;
-
-                navbar.classList.toggle('is-hidden', hide);
-                lastScrollY = y;
-            }
-
-            window.addEventListener('scroll', function () {
-                if (ticking) return;
-                ticking = true;
-                requestAnimationFrame(render);
-            }, { passive: true });
-
-            render();
-        });
-    </script>
-
-    <script>
-        (function () {
-            var btn = document.getElementById('scroll-top-btn');
-            var SHOW_AFTER = 500;
-
-            function toggleVisibility() {
-                btn.classList.toggle('is-visible', window.scrollY > SHOW_AFTER);
-            }
-
-            window.addEventListener('scroll', toggleVisibility, { passive: true });
-            toggleVisibility();
-
-            btn.addEventListener('click', function () {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        })();
-    </script>
-
-    <script>
-        (function () {
-            var toggle = document.getElementById('nav-toggle');
-            var navRight = document.getElementById('nav-right');
-            var backdrop = document.getElementById('nav-backdrop');
-            if (!toggle || !navRight || !backdrop) return;
-
-            function closeMenu() {
-                toggle.classList.remove('is-active');
-                navRight.classList.remove('is-open');
-                backdrop.classList.remove('is-open');
-                toggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('no-scroll');
-            }
-
-            function openMenu() {
-                toggle.classList.add('is-active');
-                navRight.classList.add('is-open');
-                backdrop.classList.add('is-open');
-                toggle.setAttribute('aria-expanded', 'true');
-                document.body.classList.add('no-scroll');
-            }
-
-            toggle.addEventListener('click', function () {
-                if (navRight.classList.contains('is-open')) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-
-            backdrop.addEventListener('click', closeMenu);
-
-            navRight.querySelectorAll('a').forEach(function (a) {
-                a.addEventListener('click', closeMenu);
-            });
-
-            window.addEventListener('resize', function () {
-                if (window.innerWidth > 768) closeMenu();
-            });
-        })();
-    </script>
-
-    <script src="{{ asset('assets/js/animations.js') }}"></script>
-    <script src="{{ asset('assets/js/theme.js') }}"></script>
-    <script src="{{ asset('assets/js/cursor.js') }}"></script>
-    <script src="{{ asset('assets/js/lightbox.js') }}"></script>
-    <script src="{{ asset('assets/js/cookie-consent.js') }}"></script>
-
+    <script src="{{ \App\Support\Asset::url('assets/js/site.js') }}" defer></script>
+    <script src="{{ \App\Support\Asset::url('assets/js/reveal.js') }}" defer></script>
+    <script src="{{ \App\Support\Asset::url('assets/js/lightbox.js') }}" defer></script>
     @stack('scripts')
 </body>
 </html>
