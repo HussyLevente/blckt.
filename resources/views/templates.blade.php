@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title', __('Website Templates | blckt. — Ready-Made Sites from 50 000 Ft'))
-@section('meta_description', __('Six websites already designed and built, in three packages from 50 000 Ft. I swap in your text and photos and put it live in days. Same hand-written code as a custom build, without the wait.'))
+@section('meta_description', __('Six designs in three packages from 50 000 Ft, two of them live to click through right now. I swap in your text and photos and put it live in days — same hand-written code as a custom build, without the wait.'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
@@ -20,7 +20,7 @@
     $faqs = [
         [
             'q' => __('Is this a WordPress theme or a page builder?'),
-            'a' => __('No. I designed every one of these in Figma and wrote them by hand, the same way I write a custom build. Nothing was bought from a marketplace and there is no builder plugin underneath. The only difference from my custom work is that the design already existed before you asked for it.'),
+            'a' => __('No. I design every one of these in Figma and write them by hand, the same way I write a custom build. Nothing is bought from a marketplace and there is no builder plugin underneath. The only difference from my custom work is that the design already existed before you asked for it.'),
         ],
         [
             'q' => __('Will another business have the same website as me?'),
@@ -115,14 +115,14 @@
             <span class="mask">{{ __('Yours this week.') }}</span>
         </h1>
 
-        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Six websites I have already designed and written, in the same three packages as my custom work. You pick one, send me your text and photos, and I put your business inside it. Same code — the design just existed before you asked for it.') }}</p>
+        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Six designs, in the same three packages as my custom work. :count of them you can open and click through right now; the rest are still being finished. You pick one, send your text and photos, and I put your business inside it — same code as my custom builds, the design just existed before you asked for it.', ['count' => $liveDemos]) }}</p>
 
         {{-- A szamok a kontrollerbol jonnek, nem kezzel beirva: egy uj sablon
              vagy egy arvaltozas igy nem hagy hazug allitast a lap tetejen. --}}
         <div class="figures" data-reveal-group>
             <div>
                 <span class="figure-value">{{ count($templates) }}</span>
-                <span class="figure-label">{{ trans_choice('design ready|designs ready', count($templates)) }}</span>
+                <span class="figure-label">{{ trans_choice('design in the catalogue|designs in the catalogue', count($templates)) }}</span>
             </div>
             <div>
                 <span class="figure-value">{{ $floorLabel }}</span>
@@ -131,6 +131,13 @@
             <div>
                 <span class="figure-value">{{ $fastest }}</span>
                 <span class="figure-label">{{ trans_choice('day at the fastest|days at the fastest', $fastest) }}</span>
+            </div>
+            {{-- Ez a szam a demokbol jon, nem kezzel beirva: amint egy uj
+                 demo bekerul, magatol nő - es amig nem, addig nem allitunk
+                 tobbet, mint ami tenyleg megnezheto. --}}
+            <div>
+                <span class="figure-value">{{ $liveDemos }}</span>
+                <span class="figure-label">{{ __('live to click through') }}</span>
             </div>
         </div>
     </section>
@@ -182,7 +189,7 @@
                 <span class="t8 ink-faint">{{ __('The catalogue') }}</span>
                 <h2 class="t2 section-head-title" id="catalogue-title">{{ __('Pick the one that already fits.') }}</h2>
             </div>
-            <p class="t6 section-head-note">{{ __('Each one was designed for a specific kind of business. Open any of them for the full page list, what changes, and what does not.') }}</p>
+            <p class="t6 section-head-note">{{ __('Each one was designed for a specific kind of business. Where a design says “live demo”, you can open the real thing and click around it — the rest are still being finished.') }}</p>
         </header>
 
         <div class="tpl-grid">
@@ -221,9 +228,18 @@
 
                         <div class="tpl-card-foot">
                             @include('partials.licence', ['template' => $template])
-                            <a href="{{ $template['url'] }}" class="link-arrow link-underline t8">
-                                {{ __('Look inside') }} <span class="arrow" aria-hidden="true">&#8594;</span>
-                            </a>
+
+                            {{-- Ahol all elo demo, ott az a legerosebb link a
+                                 kartyan - a tobbi allitast az bizonyitja. --}}
+                            @if ($template['has_demo'])
+                                <a href="{{ $template['demos'][0]['url'] }}" class="link-arrow link-underline t8" target="_blank" rel="noopener">
+                                    {{ __('Live demo') }} <span class="arrow-ne" aria-hidden="true">&#8599;</span>
+                                </a>
+                            @else
+                                <a href="{{ $template['url'] }}" class="link-arrow link-underline t8">
+                                    {{ __('Look inside') }} <span class="arrow" aria-hidden="true">&#8594;</span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </article>

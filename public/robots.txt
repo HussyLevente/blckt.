@@ -5,4 +5,9 @@ Allow: /
 # sitemap es a hreflang hivatkozasok irjak le.
 Disallow: /lang/
 
+# Sablon-demok. Kitalalt vallalkozasok kitalalt elerhetoseggel: sem a
+# keresoben, sem a Terkepen nincs helyuk. Minden demo lapon ott all a
+# noindex is - ez csak az elso vedvonal.
+Disallow: /demo/
+
 Sitemap: https://blckt.hu/sitemap.xml

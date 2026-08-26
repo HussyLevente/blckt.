@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Aperture Studio — editorial photography by Ada Vale.">
+  <title>Ada Vale — Aperture Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="wordmark magnetic" href="#top" aria-label="Aperture Studio home">AV<span>/</span>25</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#work">Selected work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="header-book magnetic" href="#contact">Book a shoot <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero section-pad" aria-labelledby="hero-title">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Independent image maker <span>—</span> London / Everywhere</p>
+        <h1 id="hero-title">Light,<br><em>held still.</em></h1>
+        <div class="hero-foot">
+          <p>Photography for people, places<br>and the space between them.</p>
+          <a class="circle-link magnetic" href="#work" aria-label="Explore selected work">↓</a>
+        </div>
+      </div>
+      <figure class="hero-visual reveal reveal-delay-1" data-parallax>
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1600&q=88" width="1600" height="2400" alt="Woman in a sculptural black dress standing in warm window light" fetchpriority="high">
+        <figcaption><span>01 / 06</span><span>New York, 2024</span></figcaption>
+      </figure>
+      <div class="hero-side-note">Available for worldwide booking <span class="availability-dot"></span></div>
+    </section>
+
+    <section class="about section-pad" id="about" aria-labelledby="about-title">
+      <div class="section-label reveal"><span>01</span><span>About the practice</span></div>
+      <div class="about-layout">
+        <div class="about-statement reveal">
+          <h2 id="about-title">The art of<br><em>looking closer.</em></h2>
+          <p class="lede">Ada Vale is an editorial photographer working between instinct and intention. Her images find the quiet drama in an ordinary gesture, a changing skyline, a face caught just before it performs.</p>
+          <a class="text-link magnetic" href="mailto:dummy@example.invalid">dummy@example.invalid <span>↗</span></a>
+        </div>
+        <div class="about-details reveal reveal-delay-1">
+          <figure class="about-portrait"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=85" width="900" height="1350" alt="Ada Vale in a sunlit studio portrait" loading="lazy"></figure>
+          <div class="detail-columns">
+            <div><p class="mono-label">Selected recognition</p><p>British Journal of Photography<br>Portrait of Britain, 2023</p><p>Photo London<br>Digital S+R Award, 2022</p></div>
+            <div><p class="mono-label">Recent commissions</p><p>Kinfolk / Aesop / COS<br>Wallpaper* / The Gentlewoman</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="work section-pad" id="work" aria-labelledby="work-title">
+      <div class="work-heading reveal"><div class="section-label"><span>02</span><span>Selected work</span></div><h2 id="work-title">A study in<br><em>contrast.</em></h2></div>
+      <div class="filter-bar reveal" role="tablist" aria-label="Filter portfolio by category">
+        <button class="filter-button is-active magnetic" data-filter="all" role="tab" aria-selected="true">All <sup>06</sup></button>
+        <button class="filter-button magnetic" data-filter="editorial" role="tab" aria-selected="false">Editorial <sup>02</sup></button>
+        <button class="filter-button magnetic" data-filter="portrait" role="tab" aria-selected="false">Portrait <sup>02</sup></button>
+        <button class="filter-button magnetic" data-filter="architecture" role="tab" aria-selected="false">Architecture <sup>02</sup></button>
+      </div>
+      <div class="gallery" aria-live="polite">
+        <button class="gallery-item gallery-item--wide reveal" data-category="editorial" data-index="0" data-title="After the rain" data-location="Paris, France · 2024"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=85" width="1400" height="933" alt="Editorial fashion model in a bright modern interior" loading="lazy"><span class="gallery-meta"><b>After the rain</b><i>Editorial / 2024</i></span></button>
+        <button class="gallery-item gallery-item--tall reveal reveal-delay-1" data-category="portrait" data-index="1" data-title="Soft focus" data-location="London, UK · 2023"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85" width="1000" height="1250" alt="Close-up portrait of a woman with natural light on her face" loading="lazy"><span class="gallery-meta"><b>Soft focus</b><i>Portrait / 2023</i></span></button>
+        <button class="gallery-item gallery-item--square reveal reveal-delay-2" data-category="architecture" data-index="2" data-title="Concrete poem" data-location="Milan, Italy · 2024"><img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1100&q=85" width="1100" height="733" alt="Geometric concrete architecture against a pale sky" loading="lazy"><span class="gallery-meta"><b>Concrete poem</b><i>Architecture / 2024</i></span></button>
+        <button class="gallery-item gallery-item--square reveal" data-category="portrait" data-index="3" data-title="The pause" data-location="New York, USA · 2022"><img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=1100&q=85" width="1100" height="1650" alt="Woman seated in a shadowy room wearing a white shirt" loading="lazy"><span class="gallery-meta"><b>The pause</b><i>Portrait / 2022</i></span></button>
+        <button class="gallery-item gallery-item--wide reveal reveal-delay-1" data-category="architecture" data-index="4" data-title="Quiet geometry" data-location="Copenhagen, Denmark · 2023"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=85" width="1400" height="933" alt="Minimal white modern house surrounded by green trees" loading="lazy"><span class="gallery-meta"><b>Quiet geometry</b><i>Architecture / 2023</i></span></button>
+        <button class="gallery-item gallery-item--tall reveal reveal-delay-2" data-category="editorial" data-index="5" data-title="Nocturne" data-location="Berlin, Germany · 2024"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85" width="1000" height="1500" alt="Editorial fashion portrait in deep blue evening light" loading="lazy"><span class="gallery-meta"><b>Nocturne</b><i>Editorial / 2024</i></span></button>
+      </div>
+    </section>
+
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
+      <div class="section-label reveal"><span>03</span><span>Start a conversation</span></div>
+      <div class="contact-layout">
+        <h2 id="contact-title" class="reveal">Have a story<br><em>in mind?</em></h2>
+        <div class="contact-actions reveal reveal-delay-1"><p>For commissions, collaborations and quietly ambitious ideas.</p><a class="primary-cta magnetic" href="https://wa.me/36300000000" target="_blank" rel="noreferrer">Book via WhatsApp <span>↗</span></a><a class="calendar-link" href="https://calendly.com/" target="_blank" rel="noreferrer">Or schedule via Calendly <span>↗</span></a><a class="email-link" href="mailto:dummy@example.invalid">dummy@example.invalid</a></div>
+      </div>
+      <footer class="site-footer"><span>© 2025 Ada Vale Studio</span><div><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a><a href="https://behance.net" target="_blank" rel="noreferrer">Behance</a><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></div><span>Built with intent</span></footer>
+    </section>
+  </main>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+    <button class="lightbox-close magnetic" aria-label="Close image viewer">×</button>
+    <button class="lightbox-arrow lightbox-prev magnetic" aria-label="Previous image">←</button>
+    <figure class="lightbox-figure"><img alt=""><figcaption><span class="lightbox-title"></span><span class="lightbox-location"></span></figcaption></figure>
+    <button class="lightbox-arrow lightbox-next magnetic" aria-label="Next image">→</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

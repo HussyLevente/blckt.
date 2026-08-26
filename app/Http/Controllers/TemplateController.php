@@ -41,6 +41,7 @@ class TemplateController extends Controller
             'tradeOff' => $this->tradeOff(),
             'floor' => $this->floor(),
             'fastest' => $this->fastest(),
+            'liveDemos' => $this->liveDemoCount(),
         ]);
     }
 
@@ -126,6 +127,21 @@ class TemplateController extends Controller
     }
 
     /**
+     * Hany sablonhoz all mar elo demo.
+     *
+     * A lap ebbol irja ki, hany terv nezheto meg tenylegesen. Nem szep
+     * szam, de igaz - es amint egy uj demo bekerul a public/demo mappaba
+     * es ide, magatol nő.
+     */
+    public function liveDemoCount(): int
+    {
+        return count(array_filter(
+            $this->available(),
+            fn (array $t) => ! empty($t['demos'])
+        ));
+    }
+
+    /**
      * @return string[]
      */
     public function slugs(): array
@@ -195,6 +211,18 @@ class TemplateController extends Controller
         $template['left'] = max(0, self::LICENCE_CAP - $template['taken']);
         $template['sold_out'] = $template['left'] === 0;
 
+        // Elo demok. A zaro per nem elgepeles: e nelkul a kiszolgalo egy
+        // atiranyitassal potolna, es a demo relativ hivatkozasai (style.css,
+        // script.js) egy szinttel feljebb keresnenek.
+        $template['demos'] = array_map(fn (array $demo) => [
+            'slug' => $demo['slug'],
+            'name' => $demo['name'],
+            'sector' => $pick($demo['sector']),
+            'url' => url('/demo/'.$demo['slug']).'/',
+        ], $template['demos'] ?? []);
+
+        $template['has_demo'] = $template['demos'] !== [];
+
         // A keresok kb. 155 karakter utan vagnak; a tagline + ar ennel
         // rovidebb, es pont azt mondja, amit egy talalati sorban erdemes.
         $template['meta'] = $template['name'].' — '.$template['tagline'].' '
@@ -237,7 +265,7 @@ class TemplateController extends Controller
                 'name' => 'SIGNAL',
                 'tier' => Packages::BASIC,
                 'taken' => 0,
-                'preview' => 'assets/imgs/templates/signal.svg',
+                'preview' => 'assets/imgs/templates/signal.webp',
                 'sector' => [
                     'en' => 'One-page launch',
                     'hu' => 'Egyoldalas indítás',
@@ -265,6 +293,22 @@ class TemplateController extends Controller
                     ['en' => 'Google Business profile linked up', 'hu' => 'Google cégprofil bekötve'],
                     ['en' => 'No form, so no spam and nothing to maintain', 'hu' => 'Nincs űrlap, így nincs spam és nincs mit karbantartani'],
                 ],
+                // Ket demo ugyanabbol a sablonbol, szandekosan a lehető
+                // legtavolabbi ket szakmaval: egy ugyvedi iroda es egy
+                // burgerezo. Ez bizonyitja azt, amit elmondani nem lehet -
+                // hogy a tartalom tenyleg kicserelheto benne.
+                'demos' => [
+                    [
+                        'slug' => 'signal-burger',
+                        'name' => 'Signal Burger',
+                        'sector' => ['en' => 'Burger restaurant', 'hu' => 'Burgerező'],
+                    ],
+                    [
+                        'slug' => 'signal-attorney',
+                        'name' => 'Armitage & Co.',
+                        'sector' => ['en' => 'Law firm', 'hu' => 'Ügyvédi iroda'],
+                    ],
+                ],
             ],
 
             'aperture' => [
@@ -272,7 +316,7 @@ class TemplateController extends Controller
                 'name' => 'APERTURE',
                 'tier' => Packages::BASIC,
                 'taken' => 0,
-                'preview' => 'assets/imgs/templates/aperture.svg',
+                'preview' => 'assets/imgs/templates/aperture.webp',
                 'sector' => [
                     'en' => 'Portfolio & photography',
                     'hu' => 'Portfólió és fotó',
@@ -299,6 +343,18 @@ class TemplateController extends Controller
                     ['en' => 'Lightbox viewer with zoom', 'hu' => 'Nagyítható képnézegető'],
                     ['en' => 'Images compressed so the gallery stays fast', 'hu' => 'Tömörített képek, hogy a galéria gyors maradjon'],
                     ['en' => 'Right-click protection on the gallery', 'hu' => 'Jobbklikk-védelem a galérián'],
+                ],
+                'demos' => [
+                    [
+                        'slug' => 'aperture-portfolio',
+                        'name' => 'Ada Vale',
+                        'sector' => ['en' => 'Photographer', 'hu' => 'Fotós'],
+                    ],
+                    [
+                        'slug' => 'aperture-contentcreator',
+                        'name' => 'Ari Vale',
+                        'sector' => ['en' => 'Content creator', 'hu' => 'Tartalomgyártó'],
+                    ],
                 ],
             ],
 

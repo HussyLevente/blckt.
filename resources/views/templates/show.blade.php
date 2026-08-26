@@ -68,7 +68,11 @@
                     <a href="{{ route('templates.index') }}" class="btn">{{ __('See the other templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                 @else
                     <a href="/contact" class="btn btn-solid">{{ __('Claim this one') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
-                    <a href="{{ route('templates.index') }}" class="btn">{{ __('All templates') }}</a>
+                    @if ($template['has_demo'])
+                        <a href="{{ $template['demos'][0]['url'] }}" class="btn" target="_blank" rel="noopener">{{ __('Try it live') }} <span class="arrow-ne" aria-hidden="true">&#8599;</span></a>
+                    @else
+                        <a href="{{ route('templates.index') }}" class="btn">{{ __('All templates') }}</a>
+                    @endif
                 @endif
             </div>
         </div>
@@ -114,17 +118,27 @@
     <section class="section-tight shell" aria-labelledby="preview-title">
         <h2 class="visually-hidden" id="preview-title">{{ __('Preview') }}</h2>
 
-        <div data-reveal>
-            @include('partials.template-preview', [
-                'template' => $template,
-                'eager' => true,
-                'alt' => __(':name — the layout, before your content goes in', ['name' => $template['name']]),
-            ])
-        </div>
+        @if ($template['has_demo'])
+            {{-- Ket kesz demo all mogotte, tehat nem kepet mutatunk, hanem
+                 magat az oldalt. Ez az egyetlen hely, ahol a "kicserelem a
+                 tartalmat" allitas bizonyithato is. --}}
+            <div data-reveal>
+                @include('partials.demo-viewer', ['template' => $template])
+            </div>
+        @else
+            <div data-reveal>
+                @include('partials.template-preview', [
+                    'template' => $template,
+                    'eager' => true,
+                    'alt' => __(':name — the layout, before your content goes in', ['name' => $template['name']]),
+                ])
+            </div>
 
-        {{-- Amig nincs elo demo, ezt ki kell mondani. A "hamarosan" allapotot
-             az oldal mashol is igy kezeli: inkabb megmondjuk, mint sugalljuk. --}}
-        <p class="t8 ink-faint" style="margin-top: var(--space-5)" data-reveal>{{ __('The layout as it stands today, with placeholder content. Your photos and words replace all of it.') }}</p>
+            {{-- Amig nincs elo demo, ezt ki kell mondani. A "hamarosan"
+                 allapotot az oldal mashol is igy kezeli: inkabb
+                 megmondjuk, mint sugalljuk. --}}
+            <p class="demo-pending" style="margin-top: var(--space-5)" data-reveal>{{ __('Live demo being built — this is the layout, with placeholder content') }}</p>
+        @endif
     </section>
 
     {{-- ── What is in it ────────────────────────────────────────── --}}
@@ -239,3 +253,10 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    {{-- Csak ott van mit vezerelnie, ahol all elo demo. --}}
+    @if ($template['has_demo'])
+        <script src="{{ \App\Support\Asset::url('assets/js/template-demo.js') }}" defer></script>
+    @endif
+@endpush

@@ -24,9 +24,14 @@
     </span>
 
     <span class="tpl-shot">
+        {{-- A meret az igazi kepernyokepekhez kiirodik, az SVG vazlatokhoz
+             nem (a getimagesize nem meri meg oket) - ott a keret
+             aspect-ratio-ja tartja a helyet. Igy egyik esetben sem ugrik
+             meg az elrendezes, amikor a kep megerkezik. --}}
         <img
             src="{{ asset($template['preview']) }}"
             alt="{{ $alt }}"
+            {!! \App\Support\Media::sizeAttrs($template['preview']) !!}
             loading="{{ $eager ? 'eager' : 'lazy' }}"
             @if ($eager) fetchpriority="high" @endif
             decoding="async"
