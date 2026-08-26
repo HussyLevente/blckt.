@@ -88,8 +88,10 @@
             if (e.key === 'Escape') close();
         });
 
+        // A hatar a chrome.css fiokos toresponjaval mozog egyutt: ott valt
+        // at a fejlec vizszintes sorra, itt pedig ott kell becsukni a fiokot.
         window.addEventListener('resize', function () {
-            if (window.innerWidth > 900) close();
+            if (window.innerWidth > 1100) close();
         });
     }
 

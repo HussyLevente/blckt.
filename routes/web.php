@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClothingProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\WebsiteProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +17,14 @@ use Illuminate\Support\Facades\Route;
 // A cimlapi kollekcio-vago igazi lapozo, ezert a teljes keszletet megkapja -
 // a 8-as felso hatar csak azert van, hogy egy kesobbi nagy kollekcio se
 // terhelje agyon a cimlapot.
-Route::get('/', fn (WebsiteProjectController $websites, ClothingProductController $clothing) => view('home', [
+Route::get('/', fn (WebsiteProjectController $websites, ClothingProductController $clothing, TemplateController $templates) => view('home', [
     'featured' => $websites->featured(2),
     'liveCount' => $websites->liveCount(),
     'garments' => $clothing->featured(8),
+    'templates' => $templates->featured(),
+    'templateFloor' => $templates->floor(),
+    'templateCount' => $templates->count(),
+    'templateDays' => $templates->fastest(),
 ]));
 
 Route::view('/clothing', 'clothing');
@@ -32,7 +37,14 @@ Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->na
 // belul el. A regi cim atiranyitaskent marad, hogy a mar indexelt URL-ek es a
 // kimeno linkek ne 404-eljenek.
 Route::permanentRedirect('/redesigns', '/websites');
-Route::view('/services', 'services')->name('services');
+Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+Route::get('/templates/{template}', [TemplateController::class, 'show'])->name('templates.show');
+// Az arak oldala a sablonok also hatarat is kiirja, ezert mar nem
+// eleg egy Route::view - az erteknek a kontrollerbol kell jonnie, hogy
+// egy arvaltozas ne hagyjon hazug szamot ezen a lapon.
+Route::get('/services', fn (TemplateController $templates) => view('services', [
+    'templateFloor' => $templates->floor(),
+]))->name('services');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 

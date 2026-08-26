@@ -101,14 +101,27 @@
     white-space: nowrap;
 }
 
-/* A kozepes savban a szoveges linkek elfogynanak, de a felhivas marad. */
-@media (max-width: 1080px) and (min-width: 901px) {
+/* A kozepes savban minden terkoz osszehuzodik, de semmi nem esik ki.
+   A hatarok nem talalomra vannak: a magyar valtozat menupontjai sokkal
+   hosszabbak (a "Szolgaltatasok" egymaga tizennegy karakter), es hat
+   menuponttal a vizszintes sor csak nagyjabol 1060px-tol fer el. Ezert
+   megy at a fejlec 1100px alatt a fiokos valtozatra - ez a szam es a
+   site.js-ben allo tarsa egyutt mozog. */
+@media (max-width: 1280px) and (min-width: 1101px) {
     .site-nav {
-        gap: var(--space-5);
+        gap: var(--space-3);
     }
 
     .header-right {
-        gap: var(--space-5);
+        gap: var(--space-4);
+    }
+
+    .header-tools {
+        gap: var(--space-2);
+    }
+
+    .header-cta {
+        padding-inline: var(--space-4);
     }
 }
 
@@ -184,7 +197,7 @@
 .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
 .nav-toggle.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .nav-toggle {
         display: flex;
     }
@@ -290,8 +303,17 @@ body.no-scroll {
 
 .footer-cols {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: var(--space-10);
+}
+
+/* Ot oszlop csak a legszelesebb nezetben fer el olvashatoan; alatta
+   harom, majd ketto. A lablec sose gyakoroljon nyomast a racsra. */
+@media (max-width: 1240px) {
+    .footer-cols {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-10) var(--space-8);
+    }
 }
 
 .footer-col h2 {

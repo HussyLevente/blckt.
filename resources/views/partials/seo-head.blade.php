@@ -12,7 +12,7 @@
     $isHu = $locale === 'hu';
 
     $title = trim($__env->yieldContent('title')) ?: e(__('blckt. — Custom Websites & Clothing, Budapest'));
-    $description = trim($__env->yieldContent('meta_description')) ?: e(__('I design and build custom websites and premium streetwear from Budapest. No templates, real code, one person start to finish.'));
+    $description = trim($__env->yieldContent('meta_description')) ?: e(__('I design and build websites and premium streetwear from Budapest. Custom builds and ready-made templates, real code, one person start to finish.'));
     $image = trim($__env->yieldContent('meta_image')) ?: 'assets/imgs/brand/blckt_mainpage_hero_image.webp';
     $robots = trim($__env->yieldContent('robots')) ?: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
@@ -88,12 +88,12 @@
                 'url' => asset('assets/imgs/brand/blckt_logo.png'),
                 'caption' => 'blckt.',
             ],
-            'description' => __('One-person design studio in Budapest building custom websites and premium streetwear. No templates — every site is designed in Figma and written by hand.'),
+            'description' => __('One-person design studio in Budapest building custom websites, ready-made website templates and premium streetwear. Designed in Figma, written by hand — no page builders.'),
             'email' => 'hello@blckt.hu',
             'telephone' => '+36302552432',
             'founder' => ['@id' => url('/').'#levente'],
             'foundingDate' => '2026',
-            'priceRange' => '180000-520000 HUF',
+            'priceRange' => '50000-350000 HUF',
             'currenciesAccepted' => 'HUF, EUR',
             'areaServed' => [
                 ['@type' => 'City', 'name' => 'Budapest'],
@@ -102,6 +102,7 @@
             'serviceType' => [
                 __('Web design'),
                 __('Web development'),
+                __('Website templates'),
                 __('Website redesign'),
                 __('E-commerce development'),
                 __('Clothing design'),

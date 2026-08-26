@@ -75,7 +75,10 @@
                 <div class="about-card-body">
                     <span class="t8 ink-faint">01 — {{ __('Websites') }}</span>
                     <h3 class="t4" style="margin-top: var(--space-4)">{{ __('Websites people actually want to visit.') }}</h3>
-                    <p class="t6">{{ __('Custom sites for brands that care about the details. No templates, no bloat. Designed in Figma, written by hand, handed over as something you are proud to share.') }}</p>
+                    {{-- A "nincs sablon" allitas a sablon-szolgaltatas ota
+                         felreertheto lenne; ez a kartya a kifejezetten egyedi
+                         munkarol szol, ezert a mondat is arra szukul. --}}
+                    <p class="t6">{{ __('Custom sites for brands that care about the details. Nothing off the shelf, no bloat. Designed in Figma, written by hand, handed over as something you are proud to share.') }}</p>
                     <span class="link-arrow link-underline t8">{{ __('See the work') }} <span class="arrow" aria-hidden="true">&#8594;</span></span>
                 </div>
             </a>

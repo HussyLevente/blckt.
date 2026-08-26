@@ -52,8 +52,11 @@
                 <nav class="site-nav" aria-label="{{ __('Main navigation') }}">
                     @php
                         // A weboldalak allnak elol - ez a fo munka, a tobbi utana jon.
+                        // A sablonok kozvetlenul utana: ugyanaz a vasarloi szandek,
+                        // csak a masik veget celozza.
                         $navItems = [
                             '/websites' => __('Work'),
+                            '/templates' => __('Templates'),
                             '/services' => __('Services'),
                             '/clothing' => __('Clothing'),
                             '/about' => __('About'),
@@ -127,6 +130,14 @@
                              felsorolva - igy egy elrejtett munka nem hagy 404-es linket. --}}
                         @foreach ($websiteProjects->navLinks(4) as $link)
                             <a href="{{ route('websites.show', $link['slug']) }}">{{ $link['name'] }}</a>
+                        @endforeach
+                    </div>
+                    @inject('websiteTemplates', 'App\Http\Controllers\TemplateController')
+                    <div class="footer-col">
+                        <h2>{{ __('Templates') }}</h2>
+                        <a href="{{ route('templates.index') }}">{{ __('All templates') }}</a>
+                        @foreach ($websiteTemplates->navLinks(4) as $link)
+                            <a href="{{ route('templates.show', $link['slug']) }}">{{ $link['name'] }}</a>
                         @endforeach
                     </div>
                     <div class="footer-col">

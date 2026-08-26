@@ -15,11 +15,12 @@ class SitemapController extends Controller
      * kereso megerti, hogy ugyanannak az oldalnak ket verzioja van, nem ket
      * kulon oldal.
      */
-    public function index(ClothingProductController $clothing, WebsiteProjectController $websites): Response
+    public function index(ClothingProductController $clothing, WebsiteProjectController $websites, TemplateController $templates): Response
     {
         $pages = [
             ['path' => '/', 'priority' => '1.0', 'changefreq' => 'weekly'],
             ['path' => '/websites', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['path' => '/templates', 'priority' => '0.9', 'changefreq' => 'weekly'],
             ['path' => '/services', 'priority' => '0.9'],
             ['path' => '/clothing', 'priority' => '0.8'],
             ['path' => '/clothing/collection', 'priority' => '0.8'],
@@ -32,6 +33,10 @@ class SitemapController extends Controller
 
         foreach ($websites->slugs() as $slug) {
             $pages[] = ['path' => '/websites/'.$slug, 'priority' => '0.8'];
+        }
+
+        foreach ($templates->slugs() as $slug) {
+            $pages[] = ['path' => '/templates/'.$slug, 'priority' => '0.8'];
         }
 
         foreach ($clothing->slugs() as $slug) {

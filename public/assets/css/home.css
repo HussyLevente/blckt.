@@ -142,6 +142,13 @@
     gap: var(--space-12);
 }
 
+/* Negy szolgaltatas. Kulon modosito, mert harom oszlopnal a negyedik
+   kartya egy majdnem ures sort hagyna maga alatt. */
+.capabilities-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-8);
+}
+
 .capability {
     padding-top: var(--space-6);
     border-top: 1px solid var(--ink);
@@ -173,8 +180,18 @@
     color: var(--ink);
 }
 
+/* Negy oszlop 1100px alatt mar tul keskeny a folyoszoveghez: ket sorra
+   tor, mielott egyetlen oszloppa esne szet. */
+@media (max-width: 1100px) {
+    .capabilities-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-12) var(--space-10);
+    }
+}
+
 @media (max-width: 900px) {
-    .capabilities {
+    .capabilities,
+    .capabilities-4 {
         grid-template-columns: minmax(0, 1fr);
         gap: var(--space-10);
     }

@@ -1,0 +1,842 @@
+/* ============================================================================
+   Kesz sablonok: katalogus, sablonoldal es a cimlapi sav.
+   ----------------------------------------------------------------------------
+   Az elonezetek idegen weboldalak kepei, ezert SAJAT hatteruk van, es
+   szandekosan NEM kovetik az oldal temajat - egy kepernyokep akkor sem valt
+   szint, ha az ember sotet modra kapcsol. A bongeszo-keret viszont a mi
+   feluletunk resze, az kovet.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------
+   1. Bongeszo-keret + elonezet
+   Ugyanaz a gondolat, mint a .walkthrough-frame-nel: ranezesre
+   egyertelmu legyen, hogy weboldalt nezunk, nem illusztraciot.
+   --------------------------------------------------------------- */
+.tpl-frame {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-raised);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.5s var(--ease-out-expo), border-color 0.4s ease, transform 0.5s var(--ease-out-expo);
+}
+
+.tpl-chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    background-color: var(--paper-sunken);
+}
+
+.tpl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--line-strong);
+    flex-shrink: 0;
+}
+
+.tpl-url {
+    flex: 1;
+    margin-left: var(--space-3);
+    padding: 3px var(--space-4);
+    border-radius: var(--radius-pill);
+    background-color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* A kep aranya CSS-bol jon, nem a fajlbol: az SVG-nek a getimagesize nem
+   ad meretet, igy width/height attributumot sem tudnank kiirni. Az
+   aspect-ratio ugyanugy megelozi az elrendezes megugrasat. */
+.tpl-shot {
+    display: block;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: var(--paper-sunken);
+}
+
+.tpl-shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.9s var(--ease-out-expo);
+}
+
+/* ---------------------------------------------------------------
+   2. Katalogus-kartya
+   --------------------------------------------------------------- */
+.tpl-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-16) var(--space-12);
+}
+
+.tpl-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.tpl-card-media {
+    display: block;
+    position: relative;
+}
+
+.tpl-card:hover .tpl-frame {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.tpl-card:hover .tpl-shot img {
+    transform: scale(1.03);
+}
+
+/* "Megnezem" fedes - ugyanaz a mozdulat, mint a munkakartyakon */
+.tpl-card-open {
+    position: absolute;
+    right: var(--space-5);
+    bottom: var(--space-5);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-pill);
+    background-color: var(--invert-bg);
+    color: var(--invert-ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+
+.tpl-card-media:hover .tpl-card-open,
+.tpl-card-media:focus-visible .tpl-card-open {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tpl-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-top: var(--space-6);
+}
+
+.tpl-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--ink-faint);
+}
+
+.tpl-card-meta span[aria-hidden] {
+    color: var(--line-strong);
+}
+
+/* A csomag neve az egyetlen tinta-erossegu elem a halvany sorban: ez
+   donti el az arat, tehat ez az, amit elsore el kell olvasni. */
+.tpl-card-tier {
+    color: var(--ink);
+}
+
+.tpl-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-5);
+    margin-top: var(--space-4);
+}
+
+.tpl-card-price {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-7);
+    letter-spacing: 0.02em;
+    color: var(--ink);
+}
+
+.tpl-card-tagline {
+    margin-top: var(--space-4);
+    color: var(--ink-muted);
+}
+
+.tpl-card-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: auto;
+    padding-top: var(--space-6);
+}
+
+/* Meg nem letezo sablon helye. Nem link, es nem is ugy nez ki. */
+.tpl-card-placeholder .tpl-shot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--line-strong);
+    border-top: 0;
+    background-color: transparent;
+}
+
+.tpl-card-placeholder .tpl-frame {
+    box-shadow: none;
+    border-style: dashed;
+}
+
+.tpl-card-placeholder .tpl-shot span {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+/* ---------------------------------------------------------------
+   3. Licenc-szamlalo
+   Monokrom rendszerben a forma viszi a jelentest: tomor negyzet =
+   elkelt, ures = szabad. A szoveg nelkul is olvashato.
+   --------------------------------------------------------------- */
+.licence {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+.licence-slots {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.licence-slot {
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--ink-muted);
+    border-radius: 2px;
+}
+
+.licence-slot.is-taken {
+    background-color: var(--ink);
+    border-color: var(--ink);
+}
+
+.licence-sold-out {
+    color: var(--ink);
+}
+
+/* ---------------------------------------------------------------
+   4. Fokonyv - amit felad, es amit kap
+   Ez a lap legfontosabb szekcioja: ha valakit a bal oszlop zavar,
+   annak nem sablont kell vennie. Jobb, ha ezt itt tudja meg.
+   --------------------------------------------------------------- */
+.ledger {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--ink);
+}
+
+.ledger-col {
+    padding-top: var(--space-8);
+}
+
+.ledger-col + .ledger-col {
+    padding-left: var(--space-12);
+    border-left: 1px solid var(--line);
+}
+
+.ledger-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+}
+
+.ledger-sign {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1;
+    color: var(--ink);
+    flex-shrink: 0;
+}
+
+.ledger-col-give .ledger-sign {
+    border-style: dashed;
+    color: var(--ink-muted);
+}
+
+.ledger-col-get .ledger-sign {
+    background-color: var(--invert-bg);
+    border-color: var(--invert-bg);
+    color: var(--invert-ink);
+}
+
+.ledger-list li {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--text-6);
+    line-height: 1.45;
+}
+
+.ledger-list li:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.ledger-col-give .ledger-list li {
+    color: var(--ink-muted);
+}
+
+.ledger-col-get .ledger-list li {
+    color: var(--ink);
+}
+
+.ledger-note {
+    grid-column: 1 / -1;
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    max-width: 68ch;
+    color: var(--ink-muted);
+}
+
+/* ---------------------------------------------------------------
+   5. Osszehasonlitas: sablon vagy egyedi
+   Szandekosan szoveges, nem pipa-racs: a pipa elhallgatja, MIBEN
+   kulonbozik a ketto, a mondat nem.
+   --------------------------------------------------------------- */
+.versus {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.versus th,
+.versus td {
+    padding: var(--space-5) var(--space-6) var(--space-5) 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.versus thead th {
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.versus tbody th {
+    width: 26%;
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.versus td {
+    width: 37%;
+    font-size: var(--text-6);
+    line-height: 1.45;
+    color: var(--ink-muted);
+}
+
+/* A jobb oszlop az egyedi epites - az legyen a hangsulyos */
+.versus .versus-custom {
+    color: var(--ink);
+}
+
+.versus tbody tr:hover td,
+.versus tbody tr:hover th {
+    background-color: var(--paper-sunken);
+}
+
+.versus-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ---------------------------------------------------------------
+   6. Sablonoldal
+   --------------------------------------------------------------- */
+.tpl-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: var(--space-16);
+    align-items: start;
+    padding-top: var(--space-8);
+}
+
+.tpl-head-title {
+    margin-top: var(--space-5);
+}
+
+.tpl-head-tagline {
+    margin-top: var(--space-6);
+    max-width: 34ch;
+    color: var(--ink-muted);
+}
+
+.tpl-head-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+}
+
+/* Ar-blokk: az ar es ami benne van, egy dobozban */
+.tpl-price-card {
+    padding: var(--space-8);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-raised);
+}
+
+.tpl-price {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-3);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+}
+
+.tpl-price-note {
+    display: block;
+    margin-top: var(--space-4);
+    color: var(--ink-faint);
+}
+
+.tpl-price-facts {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+}
+
+.tpl-price-facts div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+}
+
+.tpl-price-facts div + div {
+    border-top: 1px solid var(--line);
+}
+
+.tpl-price-facts dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.tpl-price-facts dd {
+    text-align: right;
+    font-size: var(--text-7);
+    color: var(--ink);
+}
+
+/* Oldallista: szamozott, mert a darabszam maga is informacio */
+.tpl-structure {
+    counter-reset: tpl-page;
+}
+
+.tpl-structure li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-5);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--text-5);
+    color: var(--ink);
+}
+
+.tpl-structure li::before {
+    counter-increment: tpl-page;
+    content: counter(tpl-page, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    color: var(--ink-faint);
+    flex-shrink: 0;
+}
+
+.tpl-includes li {
+    position: relative;
+    padding-left: var(--space-6);
+    color: var(--ink-muted);
+}
+
+.tpl-includes li + li {
+    margin-top: var(--space-3);
+}
+
+.tpl-includes li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 8px;
+    height: 1px;
+    background-color: var(--ink);
+}
+
+.tpl-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-16);
+    align-items: start;
+}
+
+/* Kovetkezo sablon - ugyanaz a mozdulat, mint a .next-project-nel */
+.next-tpl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding: var(--space-16) var(--space-12);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.4s ease, color 0.5s var(--ease-out-quint);
+}
+
+.next-tpl::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--invert-bg);
+    transform: translateY(101%);
+    transition: transform 0.6s var(--ease-out-expo);
+}
+
+.next-tpl:hover::before {
+    transform: translateY(0);
+}
+
+.next-tpl:hover {
+    color: var(--invert-ink);
+    border-color: var(--invert-bg);
+}
+
+.next-tpl:hover .t8,
+.next-tpl:hover .next-tpl-name {
+    color: inherit;
+}
+
+.next-tpl-name {
+    display: block;
+    margin-top: var(--space-4);
+    color: var(--ink);
+}
+
+.next-tpl-arrow {
+    font-size: var(--text-3);
+    line-height: 1;
+    transition: transform 0.5s var(--ease-out-expo);
+}
+
+.next-tpl:hover .next-tpl-arrow {
+    transform: translateX(10px);
+}
+
+/* ---------------------------------------------------------------
+   7. Cimlapi sav
+   Sotet blokk, mert ez az egyetlen hirdetes a cimlapon - a tobbi
+   szekcio bemutat, ez elad.
+   --------------------------------------------------------------- */
+/* A sav sajat, megfordult palettat kap, hogy a benne levo kesz elemek
+   (gomb, cimke, keret, licenc-jelzo) magatol jol nezzenek ki.
+
+   A tokenek SZANDEKOSAN nyers ertekek, nem var(--invert-*) hivatkozasok:
+   ugyanazon az elemen a --ink: var(--invert-ink) es a --invert-ink:
+   var(--ink) korkoros hivatkozas lenne, amit a bongeszo mindketto
+   eldobasaval old fel. Az ertekek a system.css palettajabol jonnek. */
+.tpl-band {
+    --ink: #ffffff;
+    --ink-body: #ededed;
+    --ink-muted: #9c9c9c;
+    --ink-faint: #767676;
+    --paper: #000000;
+    --paper-raised: #141414;
+    --paper-sunken: #171717;
+    --line: #2b2b2b;
+    --line-strong: #454545;
+    --invert-bg: #ffffff;
+    --invert-ink: #000000;
+    --shadow-card: none;
+    --shadow-card-hover: none;
+
+    padding-block: var(--space-30);
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Sotet temaban a lap mar amugy is fekete, ezert ott a sav fordul meg:
+   mindket temaban ez az egyetlen szekcio, ami kilog a papirbol. */
+:root[data-theme='dark'] .tpl-band {
+    --ink: #000000;
+    --ink-body: #1a1a1a;
+    --ink-muted: #666666;
+    --ink-faint: #8a8a8a;
+    --paper: #ffffff;
+    --paper-raised: #ffffff;
+    --paper-sunken: #f2f2f2;
+    --line: #e0e0e0;
+    --line-strong: #c2c2c2;
+    --invert-bg: #000000;
+    --invert-ink: #ffffff;
+
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.tpl-band-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+}
+
+.tpl-band-title {
+    margin-top: var(--space-5);
+    max-width: 18ch;
+}
+
+.tpl-band-note {
+    flex-shrink: 0;
+    max-width: 36ch;
+}
+
+/* Elonezet-sor: nem vago, csak harom kartya. A negyedik "es meg
+   harom" lapka viszi tovabb az embert a katalogusba. */
+.tpl-band-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+}
+
+.tpl-band-item {
+    display: block;
+}
+
+.tpl-band-item .tpl-frame {
+    box-shadow: none;
+}
+
+.tpl-band-item:hover .tpl-frame {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+}
+
+.tpl-band-item:hover .tpl-shot img {
+    transform: scale(1.03);
+}
+
+.tpl-band-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+}
+
+.tpl-band-name {
+    color: var(--ink);
+}
+
+.tpl-band-price {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+}
+
+.tpl-band-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--line);
+}
+
+.tpl-band-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+    color: var(--ink-faint);
+}
+
+.tpl-band-terms span[aria-hidden] {
+    color: var(--line-strong);
+}
+
+/* ---------------------------------------------------------------
+   8. Kisebb nezetek
+   --------------------------------------------------------------- */
+@media (max-width: 1000px) {
+    .tpl-head {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-10);
+    }
+
+    .tpl-columns {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-12);
+    }
+}
+
+@media (max-width: 900px) {
+    .tpl-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-12);
+    }
+
+    .ledger {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ledger-col + .ledger-col {
+        margin-top: var(--space-10);
+        padding-left: 0;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding-top: var(--space-8);
+    }
+
+    .tpl-band-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-5);
+    }
+
+    .tpl-band-note {
+        max-width: none;
+    }
+
+    /* Harom kartya egymas alatt tul hosszu sav lenne: itt vizszintesen
+       gorgetheto sorra valt, ugyanugy, mint a cimlapi ruha-vago. */
+    .tpl-band-strip {
+        display: flex;
+        gap: var(--space-5);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        margin-inline: calc(var(--page-pad) * -1);
+        padding-inline: var(--page-pad);
+    }
+
+    .tpl-band-strip::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tpl-band-item {
+        flex: 0 0 72%;
+        scroll-snap-align: start;
+    }
+
+    .next-tpl {
+        padding: var(--space-10) var(--space-6);
+    }
+}
+
+@media (max-width: 768px) {
+    .tpl-band {
+        padding-block: var(--space-20);
+    }
+
+    .versus tbody th {
+        width: 32%;
+    }
+
+    .versus th,
+    .versus td {
+        padding-right: var(--space-4);
+        font-size: var(--text-8);
+    }
+
+    .versus td {
+        font-size: 15px;
+    }
+
+    .tpl-card-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+}
+
+@media (max-width: 520px) {
+    .tpl-price-card {
+        padding: var(--space-6);
+    }
+
+    .tpl-band-item {
+        flex-basis: 84%;
+    }
+}
+
+/* Erintokepernyon nincs hover, ezert a fedes allandoan lathato -
+   kulonben sosem derulne ki, hogy a kep kattinthato. */
+@media (hover: none) {
+    .tpl-card-open {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tpl-frame,
+    .tpl-shot img,
+    .next-tpl,
+    .next-tpl::before,
+    .next-tpl-arrow,
+    .tpl-card-open {
+        transition: none;
+    }
+}

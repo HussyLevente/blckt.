@@ -1,11 +1,14 @@
 @extends('layout')
 
 @section('title', __('blckt. — Custom Websites & Clothing, Budapest'))
-@section('meta_description', __('blckt. is a one-person studio in Budapest. I design and build custom websites — no templates, real code — and make premium streetwear. See the work and what it changed.'))
+@section('meta_description', __('blckt. is a one-person studio in Budapest. Custom websites written by hand, ready-made templates from 90 000 Ft, and premium streetwear. See the work and what it costs.'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
     <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/home.css') }}">
+    {{-- A sablon-sav a katalogussal azonos kartyat hasznal, ezert ugyanabbol
+         a fajlbol olvas - ket masolat elobb-utobb elcsuszna egymastol. --}}
+    <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/templates.css') }}">
 @endpush
 
 @push('scripts')
@@ -75,15 +78,63 @@
     </section>
 
     {{-- ── Statement ────────────────────────────────────────────── --}}
+    {{-- Itt korabban a "Nincsenek sablonok." sor allt. A sablon-szolgaltatas
+         mellett az mar nem lenne igaz, es egy hazug allitas tobbet ront,
+         mint amennyit egy jol hangzo sor hasznal. Ami maradt, az mindket
+         szolgaltatasra igaz: a sablonokat is ugyanaz az egy ember rajzolta. --}}
     <section class="statement">
         <div class="shell">
             <div class="statement-inner">
                 <h2 class="t2 optical-left">
-                    <span class="mask">{{ __('No templates.') }}</span>
                     <span class="mask">{{ __('No page builders.') }}</span>
                     <span class="mask">{{ __('No agency layers.') }}</span>
+                    <span class="mask">{{ __('No outsourced taste.') }}</span>
                 </h2>
                 <span class="t8 statement-mark" data-reveal style="--reveal-index: 3">blckt.&trade;</span>
+            </div>
+        </div>
+    </section>
+
+    {{-- ── Templates ────────────────────────────────────────────── --}}
+    {{-- A cimlap egyetlen hirdetese. A tobbi szekcio bemutat, ez elad -
+         ezert fordul meg a paletta, es ezert all itt, kozvetlenul az
+         allitas utan: az elozo mondat a minoseget vedi, ez pedig kinyitja
+         az ajtot annak is, akinek az egyedi epites tul draga. --}}
+    <section class="tpl-band" aria-labelledby="templates-band-title">
+        <div class="shell">
+            <header class="tpl-band-head">
+                <div>
+                    <span class="t8 ink-faint">{{ __('New — website templates') }}</span>
+                    <h2 class="t2 tpl-band-title" id="templates-band-title">{{ __('Or take one I already built.') }}</h2>
+                </div>
+                <p class="t6 tpl-band-note">{{ __('Websites that are finished before you ask for them. You send your text and photos, I put your business inside, and it goes live in days — from :price, in the same three packages as my custom work.', ['price' => \App\Support\Packages::money($templateFloor)]) }}</p>
+            </header>
+
+            <div class="tpl-band-strip" data-reveal-group="tight">
+                @foreach ($templates as $template)
+                    <a href="{{ $template['url'] }}" class="tpl-band-item">
+                        @include('partials.template-preview', ['template' => $template])
+                        <span class="tpl-band-meta">
+                            <span class="t7 tpl-band-name">{{ $template['name'] }}</span>
+                            <span class="tpl-band-price">{{ $template['price_label'] }}</span>
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="tpl-band-foot">
+                <a href="{{ route('templates.index') }}" class="btn btn-solid">
+                    {{ trans_choice('See the :count template|See all :count templates', $templateCount) }}
+                    <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+
+                <p class="t8 tpl-band-terms">
+                    <span>{{ trans_choice('Live in :count day|Live in :count days', $templateDays) }}</span>
+                    <span aria-hidden="true">—</span>
+                    <span>{{ __('Fixed price, nothing monthly') }}</span>
+                    <span aria-hidden="true">—</span>
+                    <span>{{ __('Not unique, and priced like it') }}</span>
+                </p>
             </div>
         </div>
     </section>
@@ -93,11 +144,11 @@
         <header class="section-head">
             <div>
                 <span class="t8 ink-faint">{{ __('What I do') }}</span>
-                <h2 class="t2 section-head-title" id="capabilities-title">{{ __('Three things, done properly.') }}</h2>
+                <h2 class="t2 section-head-title" id="capabilities-title">{{ __('Four things, done properly.') }}</h2>
             </div>
         </header>
 
-        <div class="capabilities" data-reveal-group>
+        <div class="capabilities capabilities-4" data-reveal-group>
             <article class="capability">
                 <span class="t8 capability-index">01 — {{ __('Websites') }}</span>
                 <h3 class="t4">{{ __('Sites that earn their keep.') }}</h3>
@@ -106,14 +157,21 @@
             </article>
 
             <article class="capability">
-                <span class="t8 capability-index">02 — {{ __('Redesigns') }}</span>
+                <span class="t8 capability-index">02 — {{ __('Templates') }}</span>
+                <h3 class="t4">{{ __('Finished before you asked.') }}</h3>
+                <p class="t6">{{ __('Websites I already designed and wrote, in the same three packages. You get the same code for a good bit less, and you are live in days — as long as you can live with someone else having the same layout.') }}</p>
+                <a href="{{ route('templates.index') }}" class="capability-link link-underline">{{ __('Browse the templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+            </article>
+
+            <article class="capability">
+                <span class="t8 capability-index">03 — {{ __('Redesigns') }}</span>
                 <h3 class="t4">{{ __('Rebuilds that keep your rankings.') }}</h3>
                 <p class="t6">{{ __('You already have a site and it is holding you back. I rebuild it, keep the URLs alive, and hand you the numbers showing what changed.') }}</p>
                 <a href="/services" class="capability-link link-underline">{{ __('What it costs') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
             </article>
 
             <article class="capability">
-                <span class="t8 capability-index">03 — {{ __('Clothing') }}</span>
+                <span class="t8 capability-index">04 — {{ __('Clothing') }}</span>
                 <h3 class="t4">{{ __('Heavyweight cotton, small runs.') }}</h3>
                 <p class="t6">{{ __('The other half of the studio. Graphic-led oversized tees, designed in-house and made in Hungary — built for the fifth wash, not the first photo.') }}</p>
                 <a href="/clothing" class="capability-link link-underline">{{ __('See the collection') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
