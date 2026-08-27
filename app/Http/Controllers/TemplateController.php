@@ -25,14 +25,7 @@ class TemplateController extends Controller
 
     public function index(PlaygroundController $playground)
     {
-        $locale = App::getLocale();
-
-        // array_values, hogy a nezet szamozott listat kapjon - a slug-kulcsos
-        // tomb elszamolna a strukturalt adat ItemList poziciit.
-        $templates = array_values(array_map(
-            fn (array $t) => $this->resolveLocale($t, $locale),
-            $this->available()
-        ));
+        $templates = $this->all();
 
         return view('templates', [
             'templates' => $templates,
@@ -67,6 +60,24 @@ class TemplateController extends Controller
         ]);
     }
 
+    /**
+     * Minden sablon, feloldott nyelvvel.
+     *
+     * A mentett lap ebbol dolgozik: kiterit minden kartyat, es a bongeszo
+     * valogat kozuluk. Igy a mentett lista kiszolgalo nelkul is mukodik,
+     * a kartya jelolese pedig egy helyen marad.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function all(): array
+    {
+        $locale = App::getLocale();
+
+        return array_values(array_map(
+            fn (array $t) => $this->resolveLocale($t, $locale),
+            $this->available()
+        ));
+    }
     /**
      * A cimlapi sav sablonjai - egy mindegyik szintrol.
      *

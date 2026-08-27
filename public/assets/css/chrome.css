@@ -584,3 +584,39 @@ body.no-scroll {
         bottom: var(--space-4);
     }
 }
+
+/* ---------------------------------------------------------------
+   1b. Mentett elemek a fejlecben
+   Csak akkor kap szamot, ha van mit szamolni - ures allapotban a
+   konyvjelzo-ikon magaban all, es nem hivja fel magara a figyelmet.
+   --------------------------------------------------------------- */
+.saved-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-right: var(--space-2);
+    color: var(--ink-muted);
+    transition: color 0.3s ease;
+}
+
+.saved-link:hover,
+.saved-link[aria-current='page'],
+.saved-link.has-items {
+    color: var(--ink);
+}
+
+.saved-count {
+    position: absolute;
+    top: -7px;
+    right: -9px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 4px;
+    border-radius: var(--radius-pill);
+    background-color: var(--invert-bg);
+    color: var(--invert-ink);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+}

@@ -1119,3 +1119,87 @@
 
     .pg-band { padding-block: var(--space-20); }
 }
+
+/* ---------------------------------------------------------------
+   10. Mentes
+   A mentett allapotot a KITOLTOTT ikon viszi, nem a szin - igy a
+   monokrom rendszerben is egyertelmu, melyik van elmentve.
+   --------------------------------------------------------------- */
+.save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background-color: var(--paper);
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+.save-btn.is-saved {
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+.save-btn.is-saved .save-icon {
+    fill: currentColor;
+}
+
+/* A kartyan a kep sarkaban ul, ezert kell sajat hatter es arnyek. */
+.save-btn-float {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    z-index: 2;
+    box-shadow: var(--shadow-card);
+}
+
+.tpl-card { position: relative; }
+
+/* Ures mentett lista */
+.saved-empty {
+    padding: var(--space-16) 0;
+    border-top: 1px solid var(--line);
+}
+
+.saved-empty-note {
+    margin-top: var(--space-5);
+    max-width: 56ch;
+    color: var(--ink-muted);
+}
+
+@media (max-width: 520px) {
+    .save-btn-float {
+        top: var(--space-3);
+        right: var(--space-3);
+    }
+
+    .save-btn-float .save-btn-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+}
+
+/* A hidden attributum ONMAGABAN nem eleg itt: a bongeszo [hidden]
+   szabalyat a .tpl-card display:flex-e es a .tpl-grid display:grid-je
+   is felulirja (osztaly eros abb a UA-stiluslapnal). A mentett lap
+   ezzel rejti el, ami nincs elmentve - ki kell mondani. */
+.tpl-card[hidden],
+.tpl-grid[hidden] {
+    display: none;
+}

@@ -73,6 +73,8 @@
                     @else
                         <a href="{{ route('templates.index') }}" class="btn">{{ __('All templates') }}</a>
                     @endif
+
+                    @include('partials.save-button', ['type' => 'template', 'id' => $template['slug']])
                 @endif
             </div>
         </div>

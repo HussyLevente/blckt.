@@ -113,7 +113,15 @@
                 'price' => $e['price'] ? (string) $e['price'] : null,
                 'priceCurrency' => $e['price'] ? 'HUF' : null,
                 'description' => $e['summary'],
-            ]), $extras)
+            ]), $extras),
+            // A kiegeszitok is sajat ajanlatok: fix aruk van, tehat idezhetok.
+            array_map(fn ($a) => [
+                '@type' => 'Offer',
+                'name' => $a['name'],
+                'price' => (string) $a['price'],
+                'priceCurrency' => 'HUF',
+                'description' => $a['summary'],
+            ], Packages::addOns())
         )),
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
     </script>
@@ -207,6 +215,8 @@
             </a>
         </aside>
     </section>
+
+    @include('partials.add-ons', ['context' => 'services'])
 
     <section class="statement">
         <div class="shell">

@@ -41,6 +41,13 @@ Route::permanentRedirect('/redesigns', '/websites');
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 Route::get('/templates/{template}', [TemplateController::class, 'show'])->name('templates.show');
 
+// A mentett lista a latogato bongeszojeben el, ezert a lap csak a
+// kartyakat teriti ki - a valogatast a saved.js vegzi. A sitemapbol
+// kimarad: latogatonkent mas, es nincs kozos tartalma.
+Route::get('/saved', fn (TemplateController $templates) => view('saved', [
+    'templates' => $templates->all(),
+]))->name('saved');
+
 // A playground a demokra ul ra, nem a sablonokra: ott a SAJAT szoveget es
 // fotoit teheti bele a latogato. Minden a bongeszojeben marad - ez az
 // utvonal csak a lapot adja ki, adatot nem vesz at es nem tarol.

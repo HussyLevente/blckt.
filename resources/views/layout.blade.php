@@ -70,6 +70,13 @@
                 </nav>
 
                 <div class="header-tools">
+                    <a href="{{ route('saved') }}" class="saved-link" data-saved-link aria-label="{{ __('Saved') }}" @if (request()->is('saved')) aria-current="page" @endif>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M6 3h12a1 1 0 0 1 1 1v16l-7-4-7 4V4a1 1 0 0 1 1-1z"></path>
+                        </svg>
+                        <span class="saved-count" data-saved-count hidden></span>
+                    </a>
+
                     <div class="lang-switch">
                         <a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'is-active' : '' }}" hreflang="en">EN</a>
                         <span aria-hidden="true">/</span>
@@ -199,6 +206,7 @@
     <script src="{{ \App\Support\Asset::url('assets/js/site.js') }}" defer></script>
     <script src="{{ \App\Support\Asset::url('assets/js/reveal.js') }}" defer></script>
     <script src="{{ \App\Support\Asset::url('assets/js/lightbox.js') }}" defer></script>
+    <script src="{{ \App\Support\Asset::url('assets/js/saved.js') }}" defer></script>
     @stack('scripts')
 </body>
 </html>

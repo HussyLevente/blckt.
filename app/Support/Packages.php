@@ -193,6 +193,91 @@ class Packages
     }
 
     /**
+     * Kiegeszitok - amit barmelyik csomaghoz hozza lehet kerni.
+     *
+     * Az 'included_in' nem diszites: ha egy kiegeszito mar benne van a
+     * valasztott szintben, azt a lap kiirja, es nem adjuk el masodszor.
+     * Ugyanez a lista mondja meg, hogy melyik kiegeszitonek van egyaltalan
+     * ertelme - a "belepes/regisztracio" peldaul a Premiumban mar all.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function addOns(): array
+    {
+        $locale = App::getLocale();
+        $pick = fn (array $v) => $v[$locale] ?? $v['en'];
+
+        return array_map(fn (array $a) => [
+            'key' => $a['key'],
+            'name' => $pick($a['name']),
+            'price' => $a['price'],
+            'price_label' => static::money($a['price']),
+            'summary' => $pick($a['summary']),
+            'included_in' => $a['included_in'],
+        ], [
+            [
+                'key' => 'form',
+                'name' => ['en' => 'Email form', 'hu' => 'E-mail űrlap'],
+                'price' => 20000,
+                'included_in' => [self::STANDARD, self::PREMIUM],
+                'summary' => [
+                    'en' => 'A form that lands in your inbox, with spam protection and a proper confirmation message. On Basic this is the one piece of backend the package otherwise leaves out.',
+                    'hu' => 'Űrlap, ami a postafiókodba érkezik, spamvédelemmel és rendes visszajelzéssel. Az Alap csomagban pont ez az az egy backend-darab, ami egyébként kimarad belőle.',
+                ],
+            ],
+            [
+                'key' => 'dark-mode',
+                'name' => ['en' => 'Dark mode', 'hu' => 'Sötét mód'],
+                'price' => 25000,
+                'included_in' => [],
+                'summary' => [
+                    'en' => 'A second colour scheme and a switch in the header. The site follows the visitor’s phone setting on the first visit, then remembers what they picked.',
+                    'hu' => 'Második színséma és egy kapcsoló a fejlécben. Az oldal először a látogató telefonjának beállítását követi, utána megjegyzi, amit választott.',
+                ],
+            ],
+            [
+                'key' => 'extra-page',
+                'name' => ['en' => 'Extra page', 'hu' => 'Plusz oldal'],
+                'price' => 25000,
+                'included_in' => [],
+                'summary' => [
+                    'en' => 'One more page beyond what the package includes, laid out to match the rest so it does not read as an afterthought. Priced per page.',
+                    'hu' => 'Egy oldallal több, mint amennyi a csomagban van, a többihez igazított elrendezéssel — hogy ne látszódjon utólag odabiggyesztettnek. Oldalanként.',
+                ],
+            ],
+            [
+                'key' => 'language',
+                'name' => ['en' => 'Extra language', 'hu' => 'Plusz nyelv'],
+                'price' => 40000,
+                'included_in' => [],
+                'summary' => [
+                    'en' => 'The whole site in a second language, with a switch and separate addresses so search engines index both. You supply the translated text.',
+                    'hu' => 'A teljes oldal egy második nyelven, nyelvváltóval és külön címekkel, hogy a keresők mindkettőt indexeljék. A lefordított szöveget te adod.',
+                ],
+            ],
+            [
+                'key' => 'accounts',
+                'name' => ['en' => 'Login & registration', 'hu' => 'Belépés és regisztráció'],
+                'price' => 60000,
+                'included_in' => [self::PREMIUM],
+                'summary' => [
+                    'en' => 'Accounts with sign-up, sign-in, password reset, and pages only logged-in people can open. The biggest of these, because it is the one with real security to get right.',
+                    'hu' => 'Fiókok regisztrációval, belépéssel, jelszó-visszaállítással, és olyan oldalakkal, amiket csak belépve lehet megnyitni. Ez a legnagyobb tétel, mert ennél van igazi biztonsági tétje a dolognak.',
+                ],
+            ],
+            [
+                'key' => 'revision',
+                'name' => ['en' => 'Extra revision round', 'hu' => 'Plusz javítási kör'],
+                'price' => 15000,
+                'included_in' => [],
+                'summary' => [
+                    'en' => 'One more round of changes after the three that come with every package. Most people never need it — it is here so nobody feels rushed on the third.',
+                    'hu' => 'Egy további javítási kör a minden csomagban benne lévő három után. A legtöbben sosem veszik igénybe — azért van, hogy senki ne érezze sürgetve magát a harmadiknál.',
+                ],
+            ],
+        ]);
+    }
+    /**
      * A harom szint kozos jellemzoi.
      *
      * A szoveg egy helyen all, mert a szolgaltatasok es a sablonok lapja is
