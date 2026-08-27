@@ -41,7 +41,7 @@ class TemplateController extends Controller
             'tradeOff' => $this->tradeOff(),
             'floor' => $this->floor(),
             'fastest' => $this->fastest(),
-            'liveDemos' => $this->liveDemoCount(),
+            'demoCount' => $this->demoCount(),
             // A playground sajat kontrollere mondja meg, hany demo
             // szerkesztheto - igy a szam nem tud elcsuszni attol, hogy
             // egy demohoz meg nincs szerkeszto-beallitas.
@@ -131,19 +131,17 @@ class TemplateController extends Controller
     }
 
     /**
-     * Hany sablonhoz all mar elo demo.
+     * Hany elo demo all osszesen.
      *
-     * A lap ebbol irja ki, hany terv nezheto meg tenylegesen. Nem szep
-     * szam, de igaz - es amint egy uj demo bekerul a public/demo mappaba
-     * es ide, magatol nő.
+     * A lap ebbol irja ki, hany kesz oldal nyithato meg. Nem kezzel beirt
+     * szam: amint egy uj demo bekerul a public/demo mappaba es a
+     * sablonjahoz ide, a mondat magatol pontos marad.
      */
-    public function liveDemoCount(): int
+    public function demoCount(): int
     {
-        return count(array_filter(
-            $this->available(),
-            fn (array $t) => ! empty($t['demos'])
-        ));
+        return count($this->demos());
     }
+
 
     /**
      * @return string[]
@@ -427,7 +425,7 @@ class TemplateController extends Controller
                 'name' => 'ATRIUM',
                 'tier' => Packages::STANDARD,
                 'taken' => 0,
-                'preview' => 'assets/imgs/templates/atrium.svg',
+                'preview' => 'assets/imgs/templates/atrium.webp',
                 'sector' => [
                     'en' => 'Restaurant & café',
                     'hu' => 'Étterem és kávézó',
@@ -455,6 +453,18 @@ class TemplateController extends Controller
                     ['en' => 'Opening hours that show open or closed now', 'hu' => 'Nyitvatartás, ami mutatja: most nyitva vagy zárva'],
                     ['en' => 'Allergen markers on menu items', 'hu' => 'Allergénjelölések az ételeknél'],
                 ],
+                'demos' => [
+                    [
+                        'slug' => 'atrium-restaurant',
+                        'name' => 'Atrium',
+                        'sector' => ['en' => 'Restaurant', 'hu' => 'Étterem'],
+                    ],
+                    [
+                        'slug' => 'atrium-caffee',
+                        'name' => 'Atrium Coffee',
+                        'sector' => ['en' => 'Coffee shop', 'hu' => 'Kávézó'],
+                    ],
+                ],
             ],
 
             'poise' => [
@@ -462,7 +472,7 @@ class TemplateController extends Controller
                 'name' => 'POISE',
                 'tier' => Packages::STANDARD,
                 'taken' => 0,
-                'preview' => 'assets/imgs/templates/poise.svg',
+                'preview' => 'assets/imgs/templates/poise.webp',
                 'sector' => [
                     'en' => 'Salon, barber & studio',
                     'hu' => 'Szalon, fodrász és stúdió',
@@ -490,6 +500,23 @@ class TemplateController extends Controller
                     ['en' => 'Per-stylist profiles and gallery', 'hu' => 'Külön profil és galéria minden kollégának'],
                     ['en' => 'Price list laid out so it stays readable on a phone', 'hu' => 'Árlista úgy tördelve, hogy telefonon is olvasható maradjon'],
                 ],
+                'demos' => [
+                    [
+                        'slug' => 'poise-hairdresser',
+                        'name' => 'POISE',
+                        'sector' => ['en' => 'Hair studio', 'hu' => 'Fodrászat'],
+                    ],
+                    [
+                        'slug' => 'poise-mechanic',
+                        'name' => 'POISE Automotive',
+                        'sector' => ['en' => 'Garage', 'hu' => 'Autószerviz'],
+                    ],
+                    [
+                        'slug' => 'poise-mechanic2',
+                        'name' => 'Blackline Motorworks',
+                        'sector' => ['en' => 'Performance garage', 'hu' => 'Teljesítményműhely'],
+                    ],
+                ],
             ],
 
             // ── Premium: hat oldal, admin felulettel ─────────────────
@@ -498,35 +525,42 @@ class TemplateController extends Controller
                 'name' => 'FOUNDRY',
                 'tier' => Packages::PREMIUM,
                 'taken' => 0,
-                'preview' => 'assets/imgs/templates/foundry.svg',
+                'preview' => 'assets/imgs/templates/foundry.webp',
                 'sector' => [
-                    'en' => 'Trades & contractors',
-                    'hu' => 'Szakipar és kivitelezés',
+                    'en' => 'Furniture, homeware & craft',
+                    'hu' => 'Bútor, lakberendezés, kézműves',
                 ],
                 'tagline' => [
-                    'en' => 'Proof you did the job, and a way to ask for a quote.',
-                    'hu' => 'Bizonyíték, hogy megcsináltad, és egy hely, ahol árat kérnek.',
+                    'en' => 'A shop that behaves like a gallery.',
+                    'hu' => 'Bolt, ami galériaként viselkedik.',
                 ],
                 'summary' => [
-                    'en' => 'Nobody hires a contractor off a slogan. This one is built around finished work: before-and-after pairs, the areas you cover, and a quote form that asks the questions you would ask on the phone anyway.',
-                    'hu' => 'Kivitelezőt senki nem szlogen alapján választ. Ez a sablon az elkészült munkára épül: előtte-utána párok, a lefedett területek, és egy ajánlatkérő űrlap, ami pont azt kérdezi, amit telefonban is kérdeznél.',
+                    'en' => 'For a catalogue where each piece deserves a page of its own. Serif typography, a lot of air, and a full cart and checkout underneath the calm — plus customer accounts and an admin panel for stock and orders.',
+                    'hu' => 'Olyan kínálathoz, ahol minden darab megérdemel egy saját oldalt. Talpas betűk, sok levegő, és a nyugalom alatt egy teljes kosár és fizetés — plusz vásárlói fiókok és admin felület a készlethez és a rendelésekhez.',
                 ],
                 'best_for' => [
-                    'en' => 'Builders, electricians, plumbers, joiners, roofers, landscapers — trades that live on referrals and want a site that closes them.',
-                    'hu' => 'Építőknek, villanyszerelőknek, vízvezeték-szerelőknek, asztalosoknak, tetőfedőknek, kertészeknek — olyan szakmáknak, amik ajánlásból élnek, és olyan oldal kell, ami le is zárja őket.',
+                    'en' => 'Furniture makers, ceramicists, homeware labels, galleries — a small range of considered objects with a considered price.',
+                    'hu' => 'Bútorkészítőknek, keramikusoknak, lakberendezési márkáknak, galériáknak — kis kínálat átgondolt tárgyakból, átgondolt áron.',
                 ],
                 'structure' => [
-                    ['en' => 'Home with the quote form up top', 'hu' => 'Főoldal, elöl az ajánlatkérővel'],
-                    ['en' => 'Services, one block each', 'hu' => 'Szolgáltatások, mind külön blokkban'],
-                    ['en' => 'Finished work, before and after', 'hu' => 'Elkészült munkák, előtte-utána'],
-                    ['en' => 'Areas covered', 'hu' => 'Hol vállalunk munkát'],
-                    ['en' => 'Certifications and insurance', 'hu' => 'Képesítések és biztosítás'],
-                    ['en' => 'Request a quote', 'hu' => 'Ajánlatkérés'],
+                    ['en' => 'Home — the manifesto and the featured object', 'hu' => 'Főoldal — a kiáltvány és a kiemelt darab'],
+                    ['en' => 'Collection, with filtering', 'hu' => 'Kollekció, szűrővel'],
+                    ['en' => 'Bag', 'hu' => 'Kosár'],
+                    ['en' => 'Checkout', 'hu' => 'Fizetés'],
+                    ['en' => 'Customer profile and past orders', 'hu' => 'Vásárlói profil és korábbi rendelések'],
+                    ['en' => 'Studio and contact', 'hu' => 'Stúdió és kapcsolat'],
                 ],
                 'includes' => [
-                    ['en' => 'Before-and-after slider on project photos', 'hu' => 'Előtte-utána csúszka a projektfotókon'],
-                    ['en' => 'Quote form with job type and postcode', 'hu' => 'Ajánlatkérő űrlap munkatípussal és irányítószámmal'],
+                    ['en' => 'Card payment and bank transfer', 'hu' => 'Bankkártyás fizetés és átutalás'],
+                    ['en' => 'Customer accounts with order history', 'hu' => 'Vásárlói fiókok rendeléstörténettel'],
                     ['en' => 'Admin panel: add finished jobs yourself', 'hu' => 'Admin felület: az elkészült munkákat magad töltöd fel'],
+                ],
+                'demos' => [
+                    [
+                        'slug' => 'foundry-furniture',
+                        'name' => 'Atelier Noma',
+                        'sector' => ['en' => 'Furniture maker', 'hu' => 'Bútorkészítő'],
+                    ],
                 ],
             ],
 
@@ -535,7 +569,7 @@ class TemplateController extends Controller
                 'name' => 'CARGO',
                 'tier' => Packages::PREMIUM,
                 'taken' => 0,
-                'preview' => 'assets/imgs/templates/cargo.svg',
+                'preview' => 'assets/imgs/templates/cargo.webp',
                 'sector' => [
                     'en' => 'Small webshop',
                     'hu' => 'Kis webáruház',
@@ -564,6 +598,13 @@ class TemplateController extends Controller
                     ['en' => 'Card payment and bank transfer', 'hu' => 'Bankkártyás fizetés és átutalás'],
                     ['en' => 'Hungarian courier options at checkout', 'hu' => 'Magyar futárszolgálatok a fizetésnél'],
                     ['en' => 'Admin panel: products, prices, stock, orders', 'hu' => 'Admin felület: termékek, árak, készlet, rendelések'],
+                ],
+                'demos' => [
+                    [
+                        'slug' => 'cargo-shoes',
+                        'name' => 'CARGO/00',
+                        'sector' => ['en' => 'Sneaker archive', 'hu' => 'Sneaker-archívum'],
+                    ],
                 ],
             ],
         ];

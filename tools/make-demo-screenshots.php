@@ -20,6 +20,10 @@
 $covers = [
     'signal' => 'signal-burger',
     'aperture' => 'aperture-portfolio',
+    'atrium' => 'atrium-caffee',
+    'poise' => 'poise-hairdresser',
+    'foundry' => 'foundry-furniture',
+    'cargo' => 'cargo-shoes',
 ];
 
 const WIDTH = 1280;

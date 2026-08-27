@@ -223,6 +223,120 @@ class PlaygroundController extends Controller
                 ],
                 'skip' => [],
             ],
+            'atrium-caffee' => [
+                'blurb' => [
+                    'en' => 'Editorial and unhurried. Put your own room and your own menu in it.',
+                    'hu' => 'Magazinos és nyugodt. Tedd bele a saját tereidet és a saját étlapodat.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#b75738',
+                        'vars' => ['--terra' => 0],
+                    ],
+                ],
+                'skip' => [],
+            ],
+
+            'atrium-restaurant' => [
+                'blurb' => [
+                    'en' => 'The same four pages, dressed for evening service instead of morning light.',
+                    'hu' => 'Ugyanaz a négy oldal, esti szervizre öltöztetve, nem reggeli fényre.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#bc6545',
+                        'vars' => ['--clay' => 0],
+                    ],
+                ],
+                'skip' => [],
+            ],
+
+            'poise-hairdresser' => [
+                'blurb' => [
+                    'en' => 'Price list up front, booking one tap away. Swap in your services and your rates.',
+                    'hu' => 'Árlista elöl, foglalás egy koppintásra. Cseréld le a szolgáltatásokat és az árakat.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#bc4c30',
+                        'vars' => ['--rust' => 0],
+                    ],
+                ],
+                // A szemcses reteg csak textura, nincs benne olvashato tartalom.
+                'skip' => ['.grain'],
+            ],
+
+            'poise-mechanic' => [
+                'blurb' => [
+                    'en' => 'The same booking spine, for a trade where trust is the whole sale.',
+                    'hu' => 'Ugyanaz a foglalási gerinc, olyan szakmára, ahol a bizalom maga az üzlet.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#d6f54c',
+                        'vars' => ['--lime' => 0],
+                    ],
+                ],
+                'skip' => [],
+            ],
+
+            'poise-mechanic2' => [
+                'blurb' => [
+                    'en' => 'A second take on the same brief: hard grid, loud colour, numbers as decoration.',
+                    'hu' => 'Egy második megközelítés ugyanarra: kemény rács, hangos szín, számok díszítésként.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#ff4500',
+                        'vars' => ['--orange' => 0],
+                    ],
+                ],
+                'skip' => [],
+            ],
+
+            'foundry-furniture' => [
+                'blurb' => [
+                    'en' => 'A shop that behaves like a gallery. Try it with your own pieces and prices.',
+                    'hu' => 'Bolt, ami galériaként viselkedik. Próbáld ki a saját darabjaiddal és áraiddal.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#9b5a46',
+                        'vars' => ['--terracotta' => 0],
+                    ],
+                ],
+                // A futo szalag sajat szoveget ismetli, es a szerkesztoben
+                // ket peldanyban latszana ugyanaz a mondat.
+                'skip' => ['.marquee'],
+            ],
+
+            'cargo-shoes' => [
+                'blurb' => [
+                    'en' => 'Built for drops. Put your own product shots and sizes into the shop.',
+                    'hu' => 'Dobásokra készült. Tedd be a saját termékfotóidat és méreteidet a boltba.',
+                ],
+                'swatches' => [
+                    [
+                        'key' => 'accent',
+                        'label' => ['en' => 'Brand colour', 'hu' => 'Márkaszín'],
+                        'default' => '#ccff00',
+                        'vars' => ['--acid' => 0],
+                    ],
+                ],
+                'skip' => ['.marquee'],
+            ],
         ];
     }
 }

@@ -1,0 +1,144 @@
+/* =========================================
+   BLACKLINE MOTORWORKS / INDUSTRIAL BLUEPRINT
+   Shared visual system for all four pages.
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --paper: #f4f4f0;
+  --ink: #000000;
+  --orange: #ff4500;
+  --blue: #0000ff;
+  --line: 1px solid var(--ink);
+  --space: clamp(1rem, 2.2vw, 2.25rem);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 1.55;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+
+/* Sticky filing-system navigation. */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  border-bottom: var(--line);
+  background: var(--paper);
+}
+.nav-mark, .nav-link { min-height: 58px; padding: 1rem; border-right: var(--line); display: flex; align-items: center; }
+.nav-mark { font-weight: 700; letter-spacing: .08em; }
+.nav-mark span { color: var(--orange); margin-right: .45rem; }
+.nav-link { justify-content: center; text-transform: uppercase; font-size: 11px; }
+.nav-link:last-child { border-right: 0; }
+.nav-link:hover, .nav-link.active { background: var(--orange); color: var(--ink); }
+
+.page-shell { max-width: 1500px; margin: 0 auto; padding: var(--space); }
+.eyebrow { margin: 0 0 .8rem; color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.display { margin: 0; font-family: 'Bebas Neue', Impact, sans-serif; font-size: clamp(5rem, 13vw, 12rem); line-height: .78; letter-spacing: .01em; font-weight: 400; }
+.page-title { font-size: clamp(4rem, 9vw, 9rem); }
+.section-label { border-bottom: var(--line); padding: .75rem 0; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
+
+/* Shared hard-edged cells and mechanical reveal. */
+.grid { display: grid; border-top: var(--line); border-left: var(--line); }
+.cell { border-right: var(--line); border-bottom: var(--line); }
+.reveal { animation: snap-in .7s cubic-bezier(0, 1, 0, 1) both; }
+.reveal:nth-child(2) { animation-delay: .08s; }
+.reveal:nth-child(3) { animation-delay: .16s; }
+.reveal:nth-child(4) { animation-delay: .24s; }
+@keyframes snap-in { from { opacity: 0; clip-path: inset(100% 0 0 0); transform: translateY(18px); } to { opacity: 1; clip-path: inset(0); transform: translateY(0); } }
+
+/* Landing grid: three distinct boxes, with the image isolated in its own cell. */
+.hero-grid { grid-template-columns: 1.3fr .8fr 1.15fr; min-height: 620px; }
+.hero-heading { padding: var(--space); display: flex; flex-direction: column; justify-content: space-between; background: var(--orange); }
+.hero-heading .display { max-width: 7ch; }
+.hero-code { padding: var(--space); display: flex; flex-direction: column; justify-content: space-between; }
+.hero-code .data-number { font-family: 'Bebas Neue', Impact, sans-serif; font-size: 9rem; line-height: .8; }
+.data-list { margin: 0; padding: 0; list-style: none; }
+.data-list li { display: flex; justify-content: space-between; gap: 1rem; border-top: var(--line); padding: .65rem 0; }
+.hero-image { min-height: 420px; overflow: hidden; }
+.hero-image img { display: block; width: 100%; height: 100%; min-height: 420px; object-fit: cover; filter: grayscale(1) contrast(1.25); }
+.hero-footer { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); }
+.hero-footer > div { padding: 1rem; border-right: var(--line); }
+.hero-footer > div:last-child { border: 0; }
+
+.intro-strip { display: grid; grid-template-columns: 1fr 2fr; margin-top: var(--space); border-top: var(--line); border-left: var(--line); }
+.intro-strip > * { padding: var(--space); border-right: var(--line); border-bottom: var(--line); }
+.intro-strip p { max-width: 65ch; margin: 0; font-size: 1.05rem; }
+
+/* Table-like service matrix. */
+.page-header { display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--space); align-items: end; padding: 4rem 0 var(--space); }
+.page-header-copy { max-width: 48rem; }
+.page-header-copy p { max-width: 56ch; }
+.spec-box { border: var(--line); padding: 1rem; }
+.service-table { grid-template-columns: .3fr 1.7fr .9fr 1fr 1fr; }
+.service-table > div { padding: 1rem; min-height: 70px; display: flex; align-items: center; }
+.service-table .table-head { background: var(--ink); color: var(--paper); min-height: 42px; text-transform: uppercase; font-size: 10px; }
+.service-table .service-name { font-weight: 700; font-size: 15px; }
+.service-table .price { color: var(--orange); font-weight: 700; }
+
+/* About specs and team matrix. */
+.about-grid { grid-template-columns: 1fr 1fr 1fr; }
+.about-grid > div { padding: var(--space); min-height: 220px; }
+.about-grid .wide { grid-column: span 2; }
+.about-grid .orange { background: var(--orange); }
+.timeline { grid-template-columns: repeat(4, 1fr); }
+.timeline > div { padding: var(--space); min-height: 180px; }
+.timeline .year { font-family: 'Bebas Neue', Impact, sans-serif; font-size: 4rem; line-height: 1; }
+.team-table { grid-template-columns: 1.2fr .8fr .8fr 1fr; }
+.team-table > div { padding: 1rem; min-height: 58px; }
+.team-table .team-head { background: var(--blue); color: var(--paper); text-transform: uppercase; font-size: 10px; }
+
+/* Diagnostic-sheet booking form. */
+.booking-layout { display: grid; grid-template-columns: 1.5fr .75fr; gap: var(--space); align-items: start; }
+.form-sheet { border: var(--line); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--line); }
+.field { padding: 1rem; border-right: var(--line); }
+.field:last-child { border-right: 0; }
+.field.full { grid-column: 1 / -1; border-right: 0; }
+label { display: block; margin-bottom: .5rem; color: var(--orange); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+input, select, textarea { width: 100%; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); padding: .6rem 0; outline: 0; }
+input:focus, select:focus, textarea:focus { border-bottom: 3px solid var(--orange); }
+textarea { min-height: 120px; resize: vertical; }
+.form-actions { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; }
+button { border: var(--line); border-radius: 0; background: var(--orange); color: var(--ink); padding: .9rem 1.25rem; cursor: pointer; font-weight: 700; text-transform: uppercase; }
+button:hover { background: var(--blue); color: var(--paper); }
+button:disabled { cursor: wait; opacity: .65; }
+.side-note { border: var(--line); padding: var(--space); }
+.side-note .display { font-size: 5rem; color: var(--orange); }
+.status { min-height: 2em; margin: 0; padding: 0 1rem 1rem; color: var(--blue); font-weight: 700; }
+
+.site-footer { display: flex; justify-content: space-between; gap: 1rem; border-top: var(--line); margin-top: 4rem; padding: 1rem 0; font-size: 10px; text-transform: uppercase; }
+
+@media (max-width: 800px) {
+  .site-nav { grid-template-columns: 1fr 1fr; }
+  .nav-mark { grid-column: 1 / -1; border-right: 0; border-bottom: var(--line); }
+  .nav-link { min-height: 46px; }
+  .hero-grid, .page-header, .booking-layout { grid-template-columns: 1fr; }
+  .hero-image { min-height: 360px; }
+  .hero-footer, .intro-strip, .about-grid, .timeline, .service-table, .team-table { grid-template-columns: 1fr 1fr; }
+  .hero-footer > div { border-bottom: var(--line); }
+  .service-table .table-head { display: none; }
+  .service-table > div { min-height: 54px; }
+  .service-table .service-name { grid-column: 1 / -1; background: var(--orange); }
+  .about-grid .wide { grid-column: span 2; }
+}
+@media (max-width: 500px) {
+  .display { font-size: 4.5rem; }
+  .hero-footer, .intro-strip, .about-grid, .timeline, .service-table, .team-table, .form-row { grid-template-columns: 1fr; }
+  .hero-footer > div, .intro-strip > *, .about-grid > div, .timeline > div, .service-table > div, .team-table > div, .field { border-right: 0; }
+  .about-grid .wide { grid-column: span 1; }
+  .field.full { grid-column: auto; }
+  .site-footer { flex-direction: column; }
+}

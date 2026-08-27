@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Request a service appointment at Blackline Motorworks.">
+  <title>Booking // Blackline Motorworks</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="nav-mark" href="index.html"><span>//</span> BLACKLINE / 001</a>
+    <a class="nav-link" href="index.html">01 / HOME</a>
+    <a class="nav-link" href="services.html">02 / SERVICES</a>
+    <a class="nav-link" href="about.html">03 / ABOUT</a>
+    <a class="nav-link active" href="booking.html">04 / BOOKING</a>
+  </nav>
+
+  <main class="page-shell">
+    <header class="page-header"><div class="page-header-copy"><p class="eyebrow">Intake protocol // Form 04</p><h1 class="display page-title">Open<br>a work<br>order.</h1></div><div class="spec-box"><strong>RESPONSE TARGET</strong><br>ONE BUSINESS DAY<br><br><strong>REQUIRED INPUT</strong><br>VEHICLE / SYMPTOM / CONTACT</div></header>
+
+    <div class="booking-layout">
+      <!-- Engineering diagnostic sheet. Submission is intercepted by script.js. -->
+      <form id="booking-form" class="form-sheet" novalidate>
+        <div class="form-row"><div class="field"><label for="name">01 / Operator name</label><input id="name" name="name" type="text" placeholder="FULL NAME" required></div><div class="field"><label for="email">02 / Contact channel</label><input id="email" name="email" type="email" placeholder="EMAIL ADDRESS" required></div></div>
+        <div class="form-row"><div class="field"><label for="vehicle">03 / Vehicle identity</label><input id="vehicle" name="vehicle" type="text" placeholder="YEAR / MAKE / MODEL" required></div><div class="field"><label for="service">04 / Requested operation</label><select id="service" name="service" required><option value="">SELECT SERVICE</option><option>Full system diagnostic</option><option>Performance calibration</option><option>Brake system overhaul</option><option>Suspension geometry</option><option>Other / determine on intake</option></select></div></div>
+        <div class="form-row"><div class="field full"><label for="symptoms">05 / Observed condition</label><textarea id="symptoms" name="symptoms" placeholder="NOISES, WARNINGS, CONDITIONS, RECENT WORK..." required></textarea></div></div>
+        <div class="form-row"><div class="field"><label for="date">06 / Preferred date</label><input id="date" name="date" type="date"></div><div class="field"><label for="phone">07 / Return number</label><input id="phone" name="phone" type="tel" placeholder="(000) 000-0000"></div></div>
+        <div class="form-actions"><span>PACKET TYPE: SERVICE REQUEST / 04</span><button type="submit">Request slot</button></div><p class="status" role="status" aria-live="polite"></p>
+      </form>
+      <aside class="side-note"><p class="eyebrow">Before transmission</p><div class="display">DATA<br>MATTERS.</div><p>Tell us what the machine is doing, when it does it, and what changed before the symptom appeared. Specifics shorten the diagnostic loop.</p><p>We do not book through the form automatically. A human technician reviews every packet.</p></aside>
+    </div>
+  </main>
+  <footer class="site-footer page-shell"><span>Blackline Motorworks / Intake protocol</span><span>Mon—Sat / 07:00—18:00</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

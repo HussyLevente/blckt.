@@ -96,7 +96,13 @@ class PlaygroundTest extends TestCase
     public function test_every_swatch_targets_a_variable_the_demo_actually_uses(): void
     {
         foreach (app(PlaygroundController::class)->editable() as $slug => $demo) {
-            $css = file_get_contents(public_path('demo/'.$slug.'/style.css'));
+            // A stiluslap neve demonkent valtozik (style.css / styles.css),
+            // ezert nem a nevere fogadunk: az osszeset beolvassuk. Igy egy
+            // atnevezett fajl nem ejti el a vizsgalatot csendben.
+            $sheets = glob(public_path('demo/'.$slug.'/*.css'));
+            $this->assertNotEmpty($sheets, "{$slug} has no stylesheet at all.");
+            $css = implode("
+", array_map('file_get_contents', $sheets));
 
             foreach ($demo['swatches'] as $swatch) {
                 foreach (array_keys($swatch['vars']) as $variable) {

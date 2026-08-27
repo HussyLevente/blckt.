@@ -119,7 +119,7 @@
             <span class="mask">{{ __('Yours this week.') }}</span>
         </h1>
 
-        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Six designs, in the same three packages as my custom work. :count of them you can open and click through right now; the rest are still being finished. You pick one, send your text and photos, and I put your business inside it — same code as my custom builds, the design just existed before you asked for it.', ['count' => $liveDemos]) }}</p>
+        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Six designs, in the same three packages as my custom work — and :count live demos you can open and click through right now. You pick one, send your text and photos, and I put your business inside it. Same code as my custom builds; the design just existed before you asked for it.', ['count' => $demoCount]) }}</p>
 
         {{-- A szamok a kontrollerbol jonnek, nem kezzel beirva: egy uj sablon
              vagy egy arvaltozas igy nem hagy hazug allitast a lap tetejen. --}}
@@ -219,7 +219,7 @@
                 <span class="t8 ink-faint">{{ __('The catalogue') }}</span>
                 <h2 class="t2 section-head-title" id="catalogue-title">{{ __('Pick the one that already fits.') }}</h2>
             </div>
-            <p class="t6 section-head-note">{{ __('Each one was designed for a specific kind of business. Where a design says “live demo”, you can open the real thing and click around it — the rest are still being finished.') }}</p>
+            <p class="t6 section-head-note">{{ __('Each one was designed for a specific kind of business, and several are shown twice — the same template doing a job for two different trades. Open any of them and click around.') }}</p>
         </header>
 
         <div class="tpl-grid">
