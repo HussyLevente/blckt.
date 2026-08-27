@@ -205,7 +205,7 @@ class BuildAssets extends Command
         return implode("\n", $lines);
     }
 
-    private function regexAllowed(string $before): string|bool
+    private function regexAllowed(string $before): bool
     {
         $trimmed = rtrim($before);
         if ($trimmed === '') {
@@ -213,7 +213,24 @@ class BuildAssets extends Command
         }
 
         // Operator vagy nyito jel utan regex jon, azonosito/zaro utan osztas
-        return (bool) preg_match('#[(,=:\[!&|?{};+\-*%~^<>]$#', $trimmed);
+        if (preg_match('#[(,=:\[!&|?{};+\-*%~^<>]$#', $trimmed)) {
+            return true;
+        }
+
+        /*
+         * Kulcsszo utan is regex all, nem osztas.
+         *
+         * E nelkul a "return /^https?:\/\//i.test(x)" alaku sor csendben
+         * eltorik: a nyito perjelet osztasnak nezzuk, igy a lezaro elotti
+         * escape-elt perjel es maga a lezaro ket egymas melletti perjelnek
+         * latszik - vagyis sorkommentnek -, es a sor maradeka eltunik.
+         *
+         * A lookbehind azert kell, hogy a "join" vege ne szamitson "in"-nek.
+         */
+        return (bool) preg_match(
+            '#(?<![\w$])(return|typeof|instanceof|new|delete|void|throw|case|do|else|yield|await)$#',
+            $trimmed
+        );
     }
 
     private function human(int $bytes): string

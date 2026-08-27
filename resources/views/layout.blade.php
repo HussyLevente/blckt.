@@ -136,6 +136,7 @@
                     <div class="footer-col">
                         <h2>{{ __('Templates') }}</h2>
                         <a href="{{ route('templates.index') }}">{{ __('All templates') }}</a>
+                        <a href="{{ route('playground.index') }}">{{ __('Playground') }}</a>
                         @foreach ($websiteTemplates->navLinks(4) as $link)
                             <a href="{{ route('templates.show', $link['slug']) }}">{{ $link['name'] }}</a>
                         @endforeach

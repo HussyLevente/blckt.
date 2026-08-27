@@ -17,6 +17,7 @@
         var shell = root.querySelector('[data-demo-shell]');
         var address = root.querySelector('[data-demo-address]');
         var open = root.querySelector('[data-demo-open]');
+        var playground = root.querySelector('[data-demo-playground]');
         var tabs = root.querySelectorAll('[data-demo-tab]');
         var widths = root.querySelector('[data-demo-widths]');
 
@@ -33,8 +34,13 @@
                 var name = tab.getAttribute('data-demo-name');
 
                 frame.setAttribute('src', url);
-                if (address) address.textContent = url;
+
+                // A cimsavban a szep cim all, a hivatkozasokban a valodi -
+                // az index.html-t a kiszolgalonak irjuk ki, nem a
+                // latogatonak. Lasd TemplateController::demoUrl().
+                if (address) address.textContent = tab.getAttribute('data-demo-tab-address') || url;
                 if (open) open.setAttribute('href', url);
+                if (playground) playground.setAttribute('href', tab.getAttribute('data-demo-playground'));
 
                 Array.prototype.forEach.call(tabs, function (other) {
                     var on = other === tab;

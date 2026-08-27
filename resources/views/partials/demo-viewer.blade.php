@@ -32,7 +32,9 @@
                     aria-selected="{{ $i === 0 ? 'true' : 'false' }}"
                     data-demo-tab
                     data-demo-url="{{ $demo['url'] }}"
+                    data-demo-tab-address="{{ $demo['display_url'] }}"
                     data-demo-name="{{ $demo['name'] }}"
+                    data-demo-playground="{{ $demo['playground'] }}"
                 >
                     <span class="demo-tab-name">{{ $demo['name'] }}</span>
                     <span class="demo-tab-sector">{{ $demo['sector'] }}</span>
@@ -54,7 +56,7 @@
                 <span class="tpl-dot"></span>
                 <span class="tpl-dot"></span>
                 <span class="tpl-dot"></span>
-                <span class="tpl-url" data-demo-address>{{ $first['url'] }}</span>
+                <span class="tpl-url" data-demo-address>{{ $first['display_url'] }}</span>
             </span>
 
             <span class="demo-stage">
@@ -71,8 +73,16 @@
     <div class="demo-foot">
         <p class="t6 demo-note">{{ __('Two businesses, one template. Nothing was redesigned between them — only the words, the photos and the colours changed. That is exactly what happens when you buy it.') }}</p>
 
-        <a href="{{ $first['url'] }}" class="link-arrow link-underline t8" target="_blank" rel="noopener" data-demo-open>
-            {{ __('Open full size') }} <span class="arrow-ne" aria-hidden="true">&#8599;</span>
-        </a>
+        <div class="demo-actions">
+            {{-- Ez tobbet mond, mint a demo maga: itt a latogato a SAJAT
+                 tartalmaval probalhatja fel a tervet. --}}
+            <a href="{{ $first['playground'] }}" class="btn btn-solid" data-demo-playground>
+                {{ __('Try it with your own text and photos') }} <span class="arrow" aria-hidden="true">&#8594;</span>
+            </a>
+
+            <a href="{{ $first['url'] }}" class="link-arrow link-underline t8" target="_blank" rel="noopener" data-demo-open>
+                {{ __('Open full size') }} <span class="arrow-ne" aria-hidden="true">&#8599;</span>
+            </a>
+        </div>
     </div>
 </div>

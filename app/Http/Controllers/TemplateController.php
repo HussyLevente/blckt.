@@ -23,7 +23,7 @@ class TemplateController extends Controller
     /** Hany peldany kelhet el egyetlen sablonbol, mielott kivezetjuk. */
     public const LICENCE_CAP = 3;
 
-    public function index()
+    public function index(PlaygroundController $playground)
     {
         $locale = App::getLocale();
 
@@ -42,6 +42,10 @@ class TemplateController extends Controller
             'floor' => $this->floor(),
             'fastest' => $this->fastest(),
             'liveDemos' => $this->liveDemoCount(),
+            // A playground sajat kontrollere mondja meg, hany demo
+            // szerkesztheto - igy a szam nem tud elcsuszni attol, hogy
+            // egy demohoz meg nincs szerkeszto-beallitas.
+            'playgrounds' => $playground->count(),
         ]);
     }
 
@@ -150,6 +154,65 @@ class TemplateController extends Controller
     }
 
     /**
+     * Egy demo cime.
+     *
+     * Az index.html SZANDEKOSAN ki van irva. Az nginx nem olvas .htaccess-t,
+     * ezert a public/demo/.htaccess "DirectoryIndex index.html" sora ott nem
+     * ervenyesul: a mappara mutato cim 403-at ad, mert van mappa, de nincs
+     * kijelolt indexfajl es a listazas tiltva van. A fajlra mutato cimnek
+     * viszont minden kiszolgalon mukodnie kell, szerverbeallitas nelkul is.
+     *
+     * A szep, mappara mutato cimhez lasd: deploy/nginx.conf.
+     */
+    public static function demoUrl(string $slug): string
+    {
+        return url('/demo/'.$slug.'/index.html');
+    }
+
+    /**
+     * Ugyanaz a cim, ahogy a bongeszo-keret cimsavaban all.
+     *
+     * A latogatonak a mappa a cim; az index.html csak a kiszolgalonak szol,
+     * es egy elonezeti keretben csak zaj lenne.
+     */
+    public static function demoDisplayUrl(string $slug): string
+    {
+        return preg_replace('~^https?://~', '', url('/demo/'.$slug)).'/';
+    }
+
+    /**
+     * Minden elo demo, sablontol fuggetlenul, slug szerint kulcsolva.
+     *
+     * A playground ebbol dolgozik: ott egy demo onalloan is cim, nem csak a
+     * sablonja tartozeka. A nevsor viszont marad egy helyen - egy uj demo
+     * igy nem igenyel masodik felsorolast.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    public function demos(): array
+    {
+        $out = [];
+
+        foreach ($this->available() as $template) {
+            $resolved = $this->resolveLocale($template, App::getLocale());
+
+            foreach ($resolved['demos'] as $demo) {
+                $out[$demo['slug']] = $demo + [
+                    'template' => [
+                        'slug' => $resolved['slug'],
+                        'name' => $resolved['name'],
+                        'tier_name' => $resolved['tier_name'],
+                        'price_label' => $resolved['price_label'],
+                        'url' => $resolved['url'],
+                    ],
+                ];
+            }
+        }
+
+        return $out;
+    }
+
+    /**
      * Ami minden sablonban valtozik, es ami egyikben sem.
      *
      * Egy helyen tarolva, mert a lista a katalogusban es minden
@@ -211,14 +274,14 @@ class TemplateController extends Controller
         $template['left'] = max(0, self::LICENCE_CAP - $template['taken']);
         $template['sold_out'] = $template['left'] === 0;
 
-        // Elo demok. A zaro per nem elgepeles: e nelkul a kiszolgalo egy
-        // atiranyitassal potolna, es a demo relativ hivatkozasai (style.css,
-        // script.js) egy szinttel feljebb keresnenek.
+        // Elo demok.
         $template['demos'] = array_map(fn (array $demo) => [
             'slug' => $demo['slug'],
             'name' => $demo['name'],
             'sector' => $pick($demo['sector']),
-            'url' => url('/demo/'.$demo['slug']).'/',
+            'url' => self::demoUrl($demo['slug']),
+            'display_url' => self::demoDisplayUrl($demo['slug']),
+            'playground' => route('playground.show', $demo['slug']),
         ], $template['demos'] ?? []);
 
         $template['has_demo'] = $template['demos'] !== [];

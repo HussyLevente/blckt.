@@ -15,12 +15,13 @@ class SitemapController extends Controller
      * kereso megerti, hogy ugyanannak az oldalnak ket verzioja van, nem ket
      * kulon oldal.
      */
-    public function index(ClothingProductController $clothing, WebsiteProjectController $websites, TemplateController $templates): Response
+    public function index(ClothingProductController $clothing, WebsiteProjectController $websites, TemplateController $templates, PlaygroundController $playground): Response
     {
         $pages = [
             ['path' => '/', 'priority' => '1.0', 'changefreq' => 'weekly'],
             ['path' => '/websites', 'priority' => '0.9', 'changefreq' => 'weekly'],
             ['path' => '/templates', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['path' => '/playground', 'priority' => '0.7'],
             ['path' => '/services', 'priority' => '0.9'],
             ['path' => '/clothing', 'priority' => '0.8'],
             ['path' => '/clothing/collection', 'priority' => '0.8'],
@@ -37,6 +38,12 @@ class SitemapController extends Controller
 
         foreach ($templates->slugs() as $slug) {
             $pages[] = ['path' => '/templates/'.$slug, 'priority' => '0.8'];
+        }
+
+        // A demok maguk noindex-ek (kitalalt vallalkozasok), a
+        // playground viszont sajat lap sajat tartalommal - az mehet be.
+        foreach ($playground->slugs() as $slug) {
+            $pages[] = ['path' => '/playground/'.$slug, 'priority' => '0.6'];
         }
 
         foreach ($clothing->slugs() as $slug) {

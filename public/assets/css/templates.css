@@ -1009,3 +1009,113 @@
         transition: none;
     }
 }
+
+/* ---------------------------------------------------------------
+   11. Playground-sav
+   A sablonlap egyetlen olyan allitasa, amit egy kepernyokep nem tud
+   lemasolni: itt a latogato sajat tartalma kerul a tervbe. Ezert
+   invertalt, es ezert all rogton a lap teteje utan.
+
+   Az invertalas mindket temaban ELLENTETES a lappal: vilagos temaban
+   fekete sav, sotetben feher. Ha mindketto fekete lenne, sotet temaban
+   a sav eltunne a lap hattereben - vagyis pont a kiemeles veszne el.
+
+   A jelolt ertekek szandekosan konkretak, nem var(--ink) hivatkozasok:
+   ugyanazt a nevet egyszerre olvasni es felulirni egy elemen CSS-ben
+   kort alkot, amit a bongeszo eldob. A sav BELSEJEBEN viszont mar
+   var()-t hasznalunk - az mas nev, nem kor.
+   --------------------------------------------------------------- */
+.pg-band {
+    --ink: #ffffff;
+    --ink-body: #ededed;
+    --ink-muted: #9c9c9c;
+    --ink-faint: #767676;
+    --line: #2b2b2b;
+    --line-strong: #454545;
+    --invert-bg: #ffffff;
+    --invert-ink: #000000;
+
+    padding-block: var(--space-24);
+    background-color: #000000;
+    color: #ffffff;
+}
+
+:root[data-theme='dark'] .pg-band {
+    --ink: #000000;
+    --ink-body: #1a1a1a;
+    --ink-muted: #666666;
+    --ink-faint: #8a8a8a;
+    --line: #e6e6e6;
+    --line-strong: #cfcfcf;
+    --invert-bg: #000000;
+    --invert-ink: #ffffff;
+
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.pg-band-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-20);
+}
+
+.pg-band-eyebrow {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-6);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    color: var(--ink);
+}
+
+.pg-band-title { color: var(--ink); }
+
+.pg-band-lede {
+    max-width: 62ch;
+    margin: var(--space-6) 0 var(--space-10);
+    color: var(--ink-body);
+}
+
+.pg-band-count { color: var(--ink-muted); }
+
+/* A lista nem disz: ez a valasz arra, hogy "mit lehet ott csinalni" -
+   a gomb melle, nem utana. */
+.pg-band-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    color: var(--ink-body);
+}
+
+.pg-band-list li {
+    display: flex;
+    gap: var(--space-4);
+}
+
+.pg-band-list li::before {
+    content: '+';
+    flex-shrink: 0;
+    color: var(--ink-faint);
+}
+
+/* A demo laba ket allitast hordoz: a playground (elsodleges) es a
+   teljes meretben nyitas (masodlagos). */
+.demo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5);
+}
+
+@media (max-width: 900px) {
+    .pg-band-inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-12);
+    }
+
+    .pg-band { padding-block: var(--space-20); }
+}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClothingProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\WebsiteProjectController;
@@ -39,6 +40,12 @@ Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->na
 Route::permanentRedirect('/redesigns', '/websites');
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
 Route::get('/templates/{template}', [TemplateController::class, 'show'])->name('templates.show');
+
+// A playground a demokra ul ra, nem a sablonokra: ott a SAJAT szoveget es
+// fotoit teheti bele a latogato. Minden a bongeszojeben marad - ez az
+// utvonal csak a lapot adja ki, adatot nem vesz at es nem tarol.
+Route::get('/playground', [PlaygroundController::class, 'index'])->name('playground.index');
+Route::get('/playground/{demo}', [PlaygroundController::class, 'show'])->name('playground.show');
 // Az arak oldala a sablonok also hatarat is kiirja, ezert mar nem
 // eleg egy Route::view - az erteknek a kontrollerbol kell jonnie, hogy
 // egy arvaltozas ne hagyjon hazug szamot ezen a lapon.

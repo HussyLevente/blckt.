@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title', __('Website Templates | blckt. — Ready-Made Sites from 50 000 Ft'))
-@section('meta_description', __('Six designs in three packages from 50 000 Ft, two of them live to click through right now. I swap in your text and photos and put it live in days — same hand-written code as a custom build, without the wait.'))
+@section('meta_description', __('Six designs in three packages from 50 000 Ft. Try one with your own text and photos first — free, in your browser. Then I swap your content in and put it live in days, with the same hand-written code as a custom build.'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
@@ -52,7 +52,11 @@
         ],
         [
             'q' => __('Can I see it with my content before it goes live?'),
-            'a' => __('Yes. You get a private preview link with your text and photos already in place. Nothing is published until you have looked at it and said go.'),
+            'a' => __('Twice over. Before you order anything, the playground lets you put your own text and photos into a live template yourself, free and without signing up. Then once you order, you get a private preview link with everything in place. Nothing is published until you have looked at it and said go.'),
+        ],
+        [
+            'q' => __('Does the playground send you my text and photos?'),
+            'a' => __('No. It runs entirely in your browser and never uploads anything. Your photos stay on your device, and I cannot see what you typed — if you want to show me, send a screenshot. The trade-off is that your version only exists in that one browser: it will not follow you to another device.'),
         ],
     ];
 @endphp
@@ -132,13 +136,39 @@
                 <span class="figure-value">{{ $fastest }}</span>
                 <span class="figure-label">{{ trans_choice('day at the fastest|days at the fastest', $fastest) }}</span>
             </div>
-            {{-- Ez a szam a demokbol jon, nem kezzel beirva: amint egy uj
-                 demo bekerul, magatol nő - es amig nem, addig nem allitunk
-                 tobbet, mint ami tenyleg megnezheto. --}}
+            {{-- Ez a szam a playground kontrolleretol jon, nem kezzel
+                 beirva: amint egy uj demo szerkesztheto lesz, magatol nő -
+                 es amig nem, addig nem allitunk tobbet a valosagnal. --}}
             <div>
-                <span class="figure-value">{{ $liveDemos }}</span>
-                <span class="figure-label">{{ __('live to click through') }}</span>
+                <span class="figure-value">{{ $playgrounds }}</span>
+                <span class="figure-label">{{ __('you can edit yourself') }}</span>
             </div>
+        </div>
+    </section>
+
+    {{-- ── Playground ───────────────────────────────────────────── --}}
+    <section class="pg-band" aria-labelledby="pg-band-title">
+        <div class="shell pg-band-inner">
+            <div class="pg-band-copy" data-reveal>
+                <span class="t8 pg-band-eyebrow">{{ __('Free, no sign-up') }}</span>
+
+                <h2 class="t2 pg-band-title" id="pg-band-title">{{ __('Try one with your own words and photos.') }}</h2>
+
+                <p class="t5 pg-band-lede">{{ __('Before you spend anything, open a template and rewrite it. Type over the headlines, drop in photos from your phone, set your brand colour, and look at it on a phone-width screen. It runs in your browser — nothing is uploaded, nothing is sent to me, and your version is still there when you come back.') }}</p>
+
+                <div class="actions">
+                    <a href="{{ route('playground.index') }}" class="btn btn-solid">{{ __('Open the playground') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                    <span class="t8 pg-band-count">{{ trans_choice(':count demo ready to edit|:count demos ready to edit', $playgrounds) }}</span>
+                </div>
+            </div>
+
+            <ul class="pg-band-list t6" data-reveal style="--reveal-index: 1">
+                <li>{{ __('Rewrite every headline, paragraph and button') }}</li>
+                <li>{{ __('Swap any photo for one of your own') }}</li>
+                <li>{{ __('Set your brand colour and watch the design follow it') }}</li>
+                <li>{{ __('Check it at desktop, tablet and phone width') }}</li>
+                <li>{{ __('Come back tomorrow — your changes are still there') }}</li>
+            </ul>
         </div>
     </section>
 
@@ -229,11 +259,13 @@
                         <div class="tpl-card-foot">
                             @include('partials.licence', ['template' => $template])
 
-                            {{-- Ahol all elo demo, ott az a legerosebb link a
-                                 kartyan - a tobbi allitast az bizonyitja. --}}
+                            {{-- Ahol all elo demo, ott a playground a legerosebb
+                                 link a kartyan: a tobbi allitast az bizonyitja
+                                 be, mert ott a latogato sajat tartalma kerul a
+                                 tervbe. --}}
                             @if ($template['has_demo'])
-                                <a href="{{ $template['demos'][0]['url'] }}" class="link-arrow link-underline t8" target="_blank" rel="noopener">
-                                    {{ __('Live demo') }} <span class="arrow-ne" aria-hidden="true">&#8599;</span>
+                                <a href="{{ $template['demos'][0]['playground'] }}" class="link-arrow link-underline t8">
+                                    {{ __('Try it yourself') }} <span class="arrow" aria-hidden="true">&#8594;</span>
                                 </a>
                             @else
                                 <a href="{{ $template['url'] }}" class="link-arrow link-underline t8">

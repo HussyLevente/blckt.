@@ -1,0 +1,396 @@
+/* ============================================================================
+   Sablon-playground
+
+   A keret es a bongeszo-chrome a templates.css-bol jon (.tpl-frame,
+   .tpl-chrome) - itt csak az van, ami a szerkesztesehez kell: a vezerlosav,
+   a kep-panel es a lap koruli magyarazat.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------
+   1. Vezerlosav
+   Ragados: hosszu oldalon is kezugyben marad a mod-valto es a
+   visszavonas. A fejlec 72px magas, ezert all pont ott alatta.
+   --------------------------------------------------------------- */
+.pg-bar {
+    position: sticky;
+    top: 72px;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    padding: var(--space-4) 0;
+    background-color: var(--paper);
+    border-bottom: 1px solid var(--line);
+}
+
+.pg-bar-group {
+    display: flex;
+    gap: var(--space-1);
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+}
+
+/* A sav vege jobbra tapad, hogy a "kezdjuk ujra" ne keveredjen ossze a
+   gyakran hasznalt valtokkal. */
+.pg-bar-end {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-left: auto;
+}
+
+.pg-btn {
+    padding: var(--space-2) var(--space-4);
+    border: 0;
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+}
+
+.pg-btn:hover { color: var(--ink); }
+
+.pg-btn.is-active {
+    background-color: var(--invert-bg);
+    color: var(--invert-ink);
+}
+
+.pg-btn[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pg-btn[disabled]:hover { color: var(--ink-muted); }
+
+.pg-bar-end .pg-btn,
+.pg-panel .pg-btn {
+    border: 1px solid var(--line);
+}
+
+.pg-btn-quiet { color: var(--ink-faint); }
+
+/* ---------------------------------------------------------------
+   2. Szinvalaszto
+   A rendszer sajat szinvalasztoja marad, csak a kerete lesz a lape: sajat
+   felulettel egyik telefonon sem lenne jobb, mint a rendszere.
+   --------------------------------------------------------------- */
+.pg-swatch {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 3px 3px 3px var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+}
+
+.pg-swatch-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+.pg-swatch input[type='color'] {
+    width: 34px;
+    height: 26px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.pg-swatch input[type='color']::-webkit-color-swatch-wrapper { padding: 2px; }
+.pg-swatch input[type='color']::-webkit-color-swatch {
+    border: 0;
+    border-radius: var(--radius-pill);
+}
+.pg-swatch input[type='color']::-moz-color-swatch {
+    border: 0;
+    border-radius: var(--radius-pill);
+}
+
+.pg-status {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+/* ---------------------------------------------------------------
+   3. Utmutato / elo visszajelzes
+   Egy sor, ami vagy azt mondja, mit lehet csinalni, vagy azt, hogy mi
+   tortent az elobb. Ket kulon helyre tenni ugyanezt csak zaj lenne.
+   --------------------------------------------------------------- */
+.pg-hint {
+    margin: var(--space-5) 0 var(--space-6);
+    font-size: var(--text-8);
+    color: var(--ink-muted);
+    min-height: 1.4em;
+}
+
+.pg-noscript {
+    padding: var(--space-5);
+    margin-bottom: var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-7);
+    color: var(--ink-body);
+}
+
+/* ---------------------------------------------------------------
+   4. A keret
+   Magasabb, mint a sablonoldali nezegetoe: itt ez a lap fo tartalma,
+   nem egy illusztracio mellette.
+   --------------------------------------------------------------- */
+.pg-shell {
+    margin-inline: auto;
+    transition: max-width 0.45s var(--ease-out-expo);
+}
+
+.pg-frame { display: block; }
+
+.pg-stage {
+    display: block;
+    position: relative;
+    height: min(78vh, 860px);
+    background-color: var(--paper-sunken);
+}
+
+.pg-stage iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.pg-shell.is-narrow .pg-frame { box-shadow: var(--shadow-medium); }
+
+/* ---------------------------------------------------------------
+   5. Kep-panel
+   A kereten belul lebego buborek helyett a keret ALATT nyilik: iframe
+   folott pozicionalni gorgetes kozben torekeny, telefonon pedig
+   hasznalhatatlan lenne.
+   --------------------------------------------------------------- */
+.pg-panel {
+    margin-top: var(--space-6);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--paper-raised);
+    box-shadow: var(--shadow-card);
+}
+
+.pg-panel[hidden] { display: none; }
+
+.pg-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--line);
+}
+
+.pg-panel-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-6);
+    padding: var(--space-5);
+}
+
+.pg-file {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    cursor: pointer;
+}
+
+.pg-file-label,
+.pg-link-label {
+    font-size: var(--text-7);
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.pg-file input[type='file'] {
+    font-size: var(--text-8);
+    color: var(--ink-muted);
+}
+
+.pg-file input[type='file']::file-selector-button {
+    margin-right: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.pg-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.pg-link-row {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.pg-link-row input[type='url'] {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    color: var(--ink);
+    font-size: var(--text-8);
+}
+
+.pg-link-row input[type='url']:focus-visible {
+    outline: none;
+    border-color: var(--ink);
+}
+
+/* ---------------------------------------------------------------
+   6. Magyarazat a lap alatt
+   --------------------------------------------------------------- */
+.pg-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+}
+
+.pg-steps li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+}
+
+.pg-step-index {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+}
+
+.pg-steps p { color: var(--ink-muted); }
+
+.pg-note {
+    margin-top: var(--space-16);
+    padding: var(--space-10);
+    border-radius: var(--radius-card);
+    background-color: var(--paper-sunken);
+    max-width: 84ch;
+}
+
+.pg-note p {
+    margin-top: var(--space-4);
+    color: var(--ink-muted);
+}
+
+/* ---------------------------------------------------------------
+   7. Valtas masik demora
+   --------------------------------------------------------------- */
+.pg-others {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-6);
+}
+
+.pg-others-wide {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.pg-other {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-8);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.3s ease, transform 0.45s var(--ease-out-expo);
+}
+
+.pg-other:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-3px);
+}
+
+.pg-other-name { font-weight: 500; }
+
+.pg-other-blurb {
+    color: var(--ink-muted);
+    margin-bottom: var(--space-4);
+}
+
+.pg-other .link-arrow { margin-top: auto; }
+
+/* ---------------------------------------------------------------
+   8. Keskeny nezet
+   --------------------------------------------------------------- */
+@media (max-width: 900px) {
+    .pg-bar {
+        top: 64px;
+        gap: var(--space-3);
+    }
+
+    /* Telefonon a sav vege sajat sorba kerul, kulonben a statuszszoveg
+       kiszoritja a gombokat. */
+    .pg-bar-end {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .pg-panel-body { grid-template-columns: minmax(0, 1fr); }
+
+    .pg-steps {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-8);
+    }
+
+    .pg-note { padding: var(--space-6); }
+
+    .pg-stage { height: min(72vh, 640px); }
+}
+
+@media (max-width: 620px) {
+    /* A szelesseg-valtonak telefonon nincs ertelme: a keret ugyis
+       keskenyebb, mint a legkisebb valaszthato ertek. */
+    .pg-bar-widths { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pg-shell,
+    .pg-other {
+        transition: none;
+    }
+
+    .pg-other:hover { transform: none; }
+}
