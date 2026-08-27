@@ -31,3 +31,9 @@ h1, h2 { font: 500 clamp(72px, 10vw, 154px) / .88 var(--serif); letter-spacing: 
 @media (min-width: 1600px) { .section-pad { padding-left: 12vw; padding-right: 12vw; }.hero { column-gap: 7vw; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
 .calendar-link { color: #b9bab4; border-bottom-color: #454641; }
+
+/* Nagyithato kepnezegeto: a kep sajat transformot kap, ezert a keret nem
+   vaghatja le - a tullogo resz a huzassal jon be. */
+.lightbox img { transition: transform .25s ease; transform-origin: center; will-change: transform; }
+.lightbox.is-zoomed { cursor: grab; }
+.lightbox.is-zoomed .lightbox-caption { opacity: .25; }

@@ -91,3 +91,53 @@ document.querySelectorAll('a, button, .magnetic').forEach((element) => {
   element.addEventListener('mouseenter', () => cursorRing.classList.add('is-hover'));
   element.addEventListener('mouseleave', () => cursorRing.classList.remove('is-hover'));
 });
+
+/* --- Javitas: nagyitas es jobbklikk-vedelem -------------------------------
+   Az APERTURE sablon "nagyithato kepnezegetot" es "jobbklikk-vedelmet"
+   iger a galerian; egyik sem volt benne. A nagyitas kattintasra vagy a
+   +/- billentyukkel valt, es a kepet huzva lehet mozgatni. */
+document.addEventListener('DOMContentLoaded', function () {
+  var box = document.querySelector('.lightbox');
+  if (!box) return;
+  var img = box.querySelector('img');
+  var zoom = 1, x = 0, y = 0, dragging = false, sx = 0, sy = 0;
+
+  var apply = function () {
+    img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + zoom + ')';
+    img.style.cursor = zoom > 1 ? (dragging ? 'grabbing' : 'grab') : 'zoom-in';
+    box.classList.toggle('is-zoomed', zoom > 1);
+  };
+  var setZoom = function (next) {
+    zoom = Math.min(4, Math.max(1, next));
+    if (zoom === 1) { x = 0; y = 0; }
+    apply();
+  };
+
+  img.addEventListener('click', function (e) { e.stopPropagation(); setZoom(zoom >= 4 ? 1 : zoom + 1); });
+  img.addEventListener('wheel', function (e) { e.preventDefault(); setZoom(zoom + (e.deltaY < 0 ? 0.3 : -0.3)); }, { passive: false });
+  img.addEventListener('mousedown', function (e) { if (zoom === 1) return; e.preventDefault(); dragging = true; sx = e.clientX - x; sy = e.clientY - y; apply(); });
+  window.addEventListener('mousemove', function (e) { if (!dragging) return; x = e.clientX - sx; y = e.clientY - sy; apply(); });
+  window.addEventListener('mouseup', function () { if (!dragging) return; dragging = false; apply(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (!box.classList.contains('is-open')) return;
+    if (e.key === '+' || e.key === '=') setZoom(zoom + 0.5);
+    if (e.key === '-') setZoom(zoom - 0.5);
+    if (e.key === '0' || e.key === 'Escape') setZoom(1);
+  });
+
+  // Minden lightbox-nyitas alaphelyzetbol induljon.
+  new MutationObserver(function () { if (!box.classList.contains('is-open')) setZoom(1); })
+    .observe(box, { attributes: true, attributeFilter: ['class'] });
+
+  apply();
+});
+
+/* A galeria kepei nem menthetok jobbklikkel. Nem masolasvedelem - annyit
+   tesz, hogy a kep nem veletlenul kerul le valakinek a gepere. */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.gallery img, .lightbox img, .work-grid img, .image-frame img').forEach(function (el) {
+    el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    el.setAttribute('draggable', 'false');
+  });
+});

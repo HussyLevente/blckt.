@@ -13,3 +13,32 @@ body{font-family:'DM Sans',sans-serif}.hero h1,.page-heading h1,.story-title h1,
 @media(min-width:800px){.site-header{justify-content:flex-start!important}.desktop-nav{margin:auto 0}.desktop-nav{gap:1.1rem}.menu-section article{grid-template-columns:5rem 1fr auto}.menu-item-image{height:5rem;width:5rem}}
 @media(min-width:800px){.menu-main .page-heading{max-width:none;text-align:center}.menu-main .page-heading h1{margin-left:auto;margin-right:auto}.menu-main .page-heading p:last-child{margin-left:auto;margin-right:auto}}
 @media(max-width:700px){.page-heading{padding-top:7.5rem}.menu-heading-row{text-align:center}.menu-section article{gap:.7rem;grid-template-columns:4.25rem 1fr auto}.menu-item-image{height:4.25rem;width:4.25rem}.story-text-image{height:70vw;margin:2rem 0 0}.story-text{display:grid;gap:0;grid-template-columns:1fr}.story-text>div{margin-top:2rem}.story-hero-link{margin-top:-.5rem}}
+
+/* --- Javitas: allergenjelolesek + jelmagyarazat ---------------------------
+   A sablon igeri oket, a demoban viszont egyetlen jeloles sem volt. A kodok
+   a fogas leirasa ala kerulnek, a jelmagyarazat pedig az etlap vegere. */
+.allergen { font-family: var(--mono, inherit); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--clay); margin: 6px 0 0; }
+.allergen abbr { text-decoration: none; border: 0; }
+.allergen-legend { border-top: 1px solid var(--line); margin-top: 60px; padding-top: 22px; font-size: 12px; line-height: 1.5; color: var(--ink); opacity: .7; max-width: 60ch; }
+
+/* --- Javitas: "most nyitva / most zarva" jelzes --------------------------
+   Formaval is kulonbozik, nem csak szinnel: nyitva = tomor pont, zarva =
+   ures gyuru. Igy szinlatas-zavarral is olvashato. */
+.open-now { display: inline-flex; align-items: center; gap: 7px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.open-now::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid currentColor; }
+.open-now.is-open::before { background: currentColor; }
+.open-now.is-open { color: var(--lime); }
+.open-now.is-closed { color: var(--clay); }
+
+/* --- Javitas: az etlap osszelapult tablet-szelessegen ---------------------
+   700 es ~1100px kozott harom egymasba agyazott racs osztozott a helyen
+   (.menu-layout 12rem oldalsav, .menu-section 10rem kep, article 4.25rem
+   kep), a 12vw-es oldalpadding mellett. 900px-en a fogas nevenek 116px
+   maradt, es szavankent tort. Ebben a savban az oldalsav a lista fole
+   kerul, a padding pedig osszehuzodik. */
+@media (min-width: 701px) and (max-width: 1100px) {
+    .menu-layout { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-inline: clamp(1rem, 5vw, 3rem); }
+    .menu-index { position: static; flex-direction: row; flex-wrap: wrap; gap: 1.25rem; }
+    .menu-section { grid-template-columns: 8rem 1fr; gap: 0 1.5rem; }
+    .menu-section .menu-course-image { width: 8rem; height: 8rem; }
+}

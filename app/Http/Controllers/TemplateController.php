@@ -553,7 +553,7 @@ class TemplateController extends Controller
                 'includes' => [
                     ['en' => 'Card payment and bank transfer', 'hu' => 'Bankkártyás fizetés és átutalás'],
                     ['en' => 'Customer accounts with order history', 'hu' => 'Vásárlói fiókok rendeléstörténettel'],
-                    ['en' => 'Admin panel: add finished jobs yourself', 'hu' => 'Admin felület: az elkészült munkákat magad töltöd fel'],
+                    ['en' => 'Admin panel: products, prices, stock, orders', 'hu' => 'Admin felület: termékek, árak, készlet, rendelések'],
                 ],
                 'demos' => [
                     [

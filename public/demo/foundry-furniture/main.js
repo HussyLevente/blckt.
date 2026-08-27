@@ -107,3 +107,31 @@ function init() {
   window.addEventListener('scroll', () => parallax.forEach((image) => { const offset = (window.scrollY - image.getBoundingClientRect().top) * .035; image.style.transform = `translateY(${Math.max(-18, Math.min(18, offset))}px)`; }), { passive: true });
 }
 document.addEventListener('DOMContentLoaded', init);
+
+/* --- Javitas: fizetesi es szallitasi mod ---------------------------------
+   Atutalasnal a kartyamezok nemcsak elrejtoznek, hanem a required is
+   lekerul roluk - kulonben az urlap egy lathatatlan mezore hivatkozva
+   tagadna meg a bekuldest, es a latogato nem ertene, mi a baj. */
+document.addEventListener('DOMContentLoaded', function () {
+  var payment = document.querySelector('[data-payment]');
+  var fields = document.querySelector('[data-card-fields]');
+  var note = document.querySelector('[data-transfer-note]');
+  if (!payment || !fields) return;
+
+  var sync = function () {
+    var transfer = payment.value === 'transfer';
+    fields.hidden = transfer;
+    if (note) note.hidden = !transfer;
+    fields.querySelectorAll('input').forEach(function (input) {
+      if (transfer) {
+        input.dataset.wasRequired = input.required ? '1' : '';
+        input.required = false;
+      } else if (input.dataset.wasRequired === '1') {
+        input.required = true;
+      }
+    });
+  };
+
+  payment.addEventListener('change', sync);
+  sync();
+});

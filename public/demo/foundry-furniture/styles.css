@@ -135,3 +135,9 @@ h2 { font-size: clamp(55px, 8vw, 116px); line-height: .8; letter-spacing: -.035e
   .header-profile { margin-right: 0; } .site-footer { display: block; padding: 10vh 7vw 6vh; } .footer-copy { margin-top: 45px; } .footer-meta { margin-top: 60px; gap: 20px; flex-direction: column; } .profile-intro { display: block; } .profile-intro .display-note { margin-top: 45px; }
   .cart-layout h1, .checkout-layout h1, .contact-layout h1 { margin-bottom: 6vh; } .summary, .aside-image { margin-top: 70px; } .cart-item { grid-template-columns: 80px 1fr; gap: 15px; } .cart-item img { width: 80px; height: 100px; } .cart-item > :last-child { grid-column: 2; } .form-grid, .stats { grid-template-columns: 1fr; } .admin-side { position: static; width: 100%; height: auto; padding: 13vh 7vw 5vh; border-right: 0; } .admin-side nav { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; } .dashboard { padding: 5vh 7vw 12vh; } .dashboard-head { display: block; } .data-table { display: block; overflow-x: auto; white-space: nowrap; }
 }
+
+/* Fizetesi/szallitasi valaszto es az atutalas magyarazata. A select a
+   demo sajat mezo-stilusat orokli, hogy ne logjon ki a sorbol. */
+.field select { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); color: inherit; padding: 13px 0; outline: 0; font: inherit; }
+.field select option { background: #fff; color: #1c1c1a; }
+.transfer-note { border-left: 2px solid currentColor; margin: 22px 0 0; padding-left: 14px; font-size: 12px; line-height: 1.55; opacity: .75; }

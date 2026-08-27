@@ -7,3 +7,22 @@
 .reveal-line{opacity:0;transform:translateY(105%);transition:opacity 1s var(--ease),transform 1s var(--ease);overflow:hidden}.is-visible .reveal-line,.reveal-line.is-visible{opacity:1;transform:translateY(0)}.reveal-line:nth-child(2){transition-delay:.08s}.reveal-line:nth-child(3){transition-delay:.16s}.reveal-line:nth-child(4){transition-delay:.24s}.reveal-line:nth-child(5){transition-delay:.32s}
 @media(max-width:700px){body{padding-bottom:72px}.side-nav{position:relative;inset:auto;width:100%;height:70px;border-right:0;border-bottom:1px solid var(--line);padding:0 22px;flex-direction:row;justify-content:space-between}.nav-links,.nav-note{display:none}.mobile-footer{position:fixed;display:flex;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;gap:8px;background:var(--ink);padding:8px;border-radius:30px;box-shadow:0 8px 24px #20211e26}.mobile-footer a{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:var(--paper);font-size:10px}.mobile-footer a.active{background:var(--terra)}.page-grid{margin-left:0;padding:48px 22px}.display-title{font-size:clamp(58px,18vw,105px);letter-spacing:-3px}.italic{margin-left:12vw}.home-hero{display:flex;flex-direction:column;padding-top:50px;min-height:auto;gap:50px}.hero-image{height:58vh;margin:0 9vw 0 0;order:2}.hero-stamp{top:61%;left:auto;right:2%;font-size:13px}.hero-foot{width:100%;margin-top:45px}.manifesto{display:block;min-height:70vh;padding-top:70px}.manifesto-copy{font-size:34px;margin:70px 0}.manifesto .text-link{float:right}.home-strip{display:flex;flex-direction:column;gap:35px;align-items:stretch;min-height:auto;padding-bottom:90px}.strip-image{height:54vh;margin:0 16vw 0 0}.large-note{font-size:38px;margin:24px 0 45px}.page-heading{display:block;min-height:auto;margin-bottom:75px}.heading-aside{margin-top:45px}.menu-layout{display:block;padding-top:25px}.menu-index{margin-bottom:60px}.menu-time{font-size:48px;margin-top:25px}.menu-items{padding-left:25px}.menu-note{margin-top:65px}.about-main{display:flex;flex-direction:column;gap:45px;padding-bottom:90px}.about-heading{min-height:auto;margin-bottom:30px}.about-feature{height:55vh;order:2;margin:0 13vw 0 0}.about-copy{order:3;padding:0}.body-copy{font-size:28px;margin:32px 0}.about-quote{position:relative;left:20%;bottom:auto;order:4;margin:20px 0 0;font-size:25px}.contact-main{display:flex;flex-direction:column;gap:55px;min-height:auto}.contact-heading{min-height:auto}.contact-details,.contact-form{display:block}.contact-form label{margin-bottom:33px}.contact-form input,.contact-form textarea{font-size:30px}.reveal-line{transform:translateY(40px)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* --- Javitas: allergenjelolesek ------------------------------------------
+   A sablon igeri oket, a demoban viszont egyetlen jeloles sem volt. A betuk
+   a nev es az ar koze kerulnek; a nev viszi a maradek helyet, igy az ar a
+   sor vegen marad. Az abbr title miatt eger ala huzva es kepernyoolvasoval
+   is kiderul, mit jelentenek. */
+.menu-items div { gap: 14px; }
+.menu-items span { flex: 1; }
+.allergen { font-style: normal; font-size: 10px; letter-spacing: .08em; color: var(--terra); white-space: nowrap; align-self: center; }
+.allergen abbr { text-decoration: none; border: 0; }
+
+/* --- Javitas: "most nyitva / most zarva" jelzes --------------------------
+   Formaval is kulonbozik, nem csak szinnel: nyitva = tomor pont, zarva =
+   ures gyuru. Igy szinlatas-zavarral is olvashato. */
+.open-now { display: inline-flex; align-items: center; gap: 7px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.open-now::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid currentColor; }
+.open-now.is-open::before { background: currentColor; }
+.open-now.is-open { color: #4f7a4f; }
+.open-now.is-closed { color: var(--muted); }

@@ -14,3 +14,31 @@ function wireAuthToggle(){const form=document.querySelector('form[data-auth]');c
 function renderProduct(){const name=document.querySelector('[data-detail-name]');if(!name)return;const item=product(new URLSearchParams(location.search).get('id'))||PRODUCTS[0];document.title=item.name+' — CARGO/00';document.querySelector('[data-detail-type]').textContent=item.type+' / ARCHIVE 001';name.innerHTML=item.name.replace(' / ','<br><span>/</span> ');document.querySelector('[data-detail-price]').textContent='$'+item.price+' USD';document.querySelector('[data-detail-description]').textContent='A field-tested silhouette engineered for the hours after midnight. '+item.name+' pairs a low-profile technical build with hard-wearing traction and a signal-red finish made to cut through the static.';document.querySelector('[data-detail-image]').innerHTML='<img src="'+item.image+'" alt="'+item.name+' sneaker">';const sizePanel=document.createElement('div');sizePanel.className='size-panel';sizePanel.innerHTML='<p class="eyebrow">Select size / US</p><div class="size-options">'+['7','8','9','10','11','12'].map(size=>'<button type="button" class="size-option" data-size="'+size+'">'+size+'</button>').join('')+'</div>';document.querySelector('[data-detail-description]').after(sizePanel);let selectedSize='';sizePanel.addEventListener('click',event=>{const button=event.target.closest('[data-size]');if(!button)return;selectedSize=button.dataset.size;sizePanel.querySelectorAll('[data-size]').forEach(option=>option.classList.toggle('selected',option===button))});const save=document.querySelector('[data-detail-save]');const refreshSave=()=>{const saved=get('cargo_saved').includes(item.id);save.textContent=saved?'♥':'♡';save.classList.toggle('saved',saved)};save.addEventListener('click',()=>{let saved=get('cargo_saved');saved=saved.includes(item.id)?saved.filter(id=>id!==item.id):[...saved,item.id];set('cargo_saved',saved);refreshSave()});document.querySelector('[data-detail-add]').addEventListener('click',event=>{if(!selectedSize){event.currentTarget.textContent='SELECT A SIZE';return}const cart=get('cargo_cart'),existing=cart.find(entry=>entry.id===item.id&&entry.size===selectedSize);existing?existing.qty++:cart.push({id:item.id,size:selectedSize,qty:1});set('cargo_cart',cart);renderRail();event.currentTarget.textContent='ADDED TO BAG'});refreshSave()}
 function applyTopNav(){document.documentElement.style.setProperty('--acid','#ff3030');const style=document.createElement('style');style.textContent='.rail{left:0;right:0;bottom:auto;width:auto;height:72px;border-right:0;border-bottom:1px solid var(--line);flex-direction:row;padding:0 28px;font-family:var(--display)}.mark{writing-mode:horizontal-tb}.rail-links{flex-direction:row;gap:28px}.rail-links a{writing-mode:horizontal-tb;font-family:var(--display);font-size:9px;display:flex;align-items:center;gap:7px}.rail-links a span,.rail-bottom span{font-size:14px;color:var(--acid)}.rail-bottom{flex-direction:row;gap:18px;font-family:var(--display)}.page{margin-left:0;padding-top:72px}.save{display:grid;place-items:center;color:var(--acid);background:rgba(5,5,5,.9);border-color:var(--acid);font-size:22px;line-height:1}@media(max-width:760px){.rail{height:62px;padding:0 14px}.rail-links{gap:13px}.rail-links a{font-size:8px;gap:4px}.nav-label{display:none}.rail-bottom{gap:10px}.page{padding-top:62px}}';document.head.appendChild(style)}
 document.addEventListener('DOMContentLoaded',()=>{applyTopNav();renderRail();wireShop();wireCart();wireForms();wireAuthToggle();renderAdmin();renderProduct();reveal();magnetic()});
+
+/* --- Javitas: fizetesi es szallitasi mod ---------------------------------
+   Atutalasnal a kartyamezok nemcsak elrejtoznek, hanem a required is
+   lekerul roluk - kulonben az urlap egy lathatatlan mezore hivatkozva
+   tagadna meg a bekuldest, es a latogato nem ertene, mi a baj. */
+document.addEventListener('DOMContentLoaded', function () {
+  var payment = document.querySelector('[data-payment]');
+  var fields = document.querySelector('[data-card-fields]');
+  var note = document.querySelector('[data-transfer-note]');
+  if (!payment || !fields) return;
+
+  var sync = function () {
+    var transfer = payment.value === 'transfer';
+    fields.hidden = transfer;
+    if (note) note.hidden = !transfer;
+    fields.querySelectorAll('input').forEach(function (input) {
+      if (transfer) {
+        input.dataset.wasRequired = input.required ? '1' : '';
+        input.required = false;
+      } else if (input.dataset.wasRequired === '1') {
+        input.required = true;
+      }
+    });
+  };
+
+  payment.addEventListener('change', sync);
+  sync();
+});

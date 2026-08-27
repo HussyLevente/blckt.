@@ -33,3 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+/* Nyitva most? A nyitvatartas a jelolesben all (data-days / data-hours),
+   igy egy uj nyitvatartashoz nem kell a szkriptet atirni. */
+document.addEventListener('DOMContentLoaded', function () {
+  var toMinutes = function (t) { var p = t.split(':'); return (+p[0]) * 60 + (+p[1]); };
+
+  document.querySelectorAll('[data-open-now]').forEach(function (el) {
+    var days = el.dataset.days.split(',').map(Number);
+    var range = el.dataset.hours.split('-');
+    var now = new Date();
+    var minutes = now.getHours() * 60 + now.getMinutes();
+    var open = days.indexOf(now.getDay()) !== -1
+      && minutes >= toMinutes(range[0])
+      && minutes < toMinutes(range[1]);
+
+    el.textContent = open ? 'Open now' : 'Closed now';
+    el.classList.add(open ? 'is-open' : 'is-closed');
+    el.title = 'Opening hours ' + range[0] + '–' + range[1];
+  });
+});

@@ -80,3 +80,12 @@
     });
   }
 })();
+
+/* --- Javitas: jobbklikk-vedelem a kepeken --------------------------------
+   Az APERTURE sablon igeri; ebbol a demobol hianyzott. */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('img').forEach(function (el) {
+    el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    el.setAttribute('draggable', 'false');
+  });
+});
