@@ -96,7 +96,10 @@
 
                 {{-- Allando, egyertelmu utvonal a kapcsolat oldalra. Ez az egyetlen
                      tomor gomb a fejlecben, hogy ne versenyezzen mas akcioval. --}}
-                <a href="/contact" class="btn btn-solid header-cta" @if (request()->is('contact')) aria-current="page" @endif>
+                {{-- A magneses huzas szandekosan gyenge (0.18): a fejlecben a
+                     gomb kozel all a navigaciohoz, egy nagyobb kiterjedes mar
+                     eltalalhatatlanna tenne. --}}
+                <a href="/contact" class="btn btn-solid header-cta" data-magnetic="0.18" @if (request()->is('contact')) aria-current="page" @endif>
                     {{ __('Start a project') }}
                     <span class="arrow" aria-hidden="true">&#8594;</span>
                 </a>
@@ -203,8 +206,12 @@
         </div>
     </div>
 
+    {{-- A mozgas-mag ELSOKENT fut: o nyitja az oldal egyetlen
+         requestAnimationFrame ciklusat, es a tobbi szkript abba kot be
+         (window.blcktMotion), ahelyett hogy sajat gorgetes-figyelot nyitna.
+         Mindketto "defer", tehat a sorrend garantalt. --}}
+    <script src="{{ \App\Support\Asset::url('assets/js/motion.js') }}" defer></script>
     <script src="{{ \App\Support\Asset::url('assets/js/site.js') }}" defer></script>
-    <script src="{{ \App\Support\Asset::url('assets/js/reveal.js') }}" defer></script>
     <script src="{{ \App\Support\Asset::url('assets/js/lightbox.js') }}" defer></script>
     <script src="{{ \App\Support\Asset::url('assets/js/saved.js') }}" defer></script>
     @stack('scripts')

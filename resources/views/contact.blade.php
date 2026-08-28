@@ -28,8 +28,8 @@
     <section class="page-head shell" aria-labelledby="contact-title">
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Contact') }}</span>
         <h1 class="t1 page-head-title optical-left" id="contact-title">
-            <span class="mask">{{ __('Got a project') }}</span>
-            <span class="mask">{{ __('in mind?') }}</span>
+            <span class="split-line" data-split="words">{{ __('Got a project') }}</span>
+            <span class="split-line" data-split="words">{{ __('in mind?') }}</span>
         </h1>
     </section>
 

@@ -12,7 +12,7 @@
 <article class="tpl-card" data-reveal data-saved-item data-type="template" data-id="{{ $template['slug'] }}">
     {{-- A kep dekorativ: a nev, az agazat es az ar kozvetlenul alatta all
          szovegkent, ezert a kepernyoolvaso nem hallana tole semmi ujat. --}}
-    <a href="{{ $template['url'] }}" class="tpl-card-media" tabindex="-1" aria-hidden="true">
+    <a href="{{ $template['url'] }}" class="tpl-card-media" data-unveil tabindex="-1" aria-hidden="true">
         @include('partials.template-preview', ['template' => $template, 'eager' => $eager])
         <span class="tpl-card-open">
             {{ __('Look inside') }} <span class="arrow" aria-hidden="true">&#8594;</span>

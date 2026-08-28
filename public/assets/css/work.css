@@ -955,3 +955,40 @@ a.visit:hover {
     color: var(--ink);
     font-weight: 600;
 }
+
+
+/* ---------------------------------------------------------------
+   11. Zaro felhivas
+   Ket lap hasznalja (cimlap, rolam), ezert nem a home.css-ben ul:
+   a rolam oldal azt nem tolti be, es a szekcio stilus nelkul maradt.
+   --------------------------------------------------------------- */
+.closer {
+    padding-block: var(--space-41);
+    text-align: center;
+    border-top: 1px solid var(--line);
+}
+
+.closer-title {
+    max-width: 16ch;
+    margin-inline: auto;
+}
+
+.closer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+}
+
+.closer-note {
+    margin-top: var(--space-8);
+    color: var(--ink-faint);
+}
+
+@media (max-width: 768px) {
+    .closer {
+        padding-block: var(--space-24);
+    }
+}

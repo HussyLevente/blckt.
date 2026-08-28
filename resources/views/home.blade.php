@@ -21,16 +21,23 @@
     <section class="hero shell" aria-labelledby="hero-title">
         <p class="t8 hero-eyebrow">{{ __('Design studio — Budapest, Hungary') }}</p>
 
+        {{-- A cimsor szavankent lep be, nem soronkent. Ez a lap legelso
+             mozdulata, es ez az egyetlen hely, ahol a lassabb, reszletesebb
+             belepes indokolt - lejjebb mar a soronkenti eleg.
+             A ket sor kozotti lepcsot a JS szamolja, hogy forditaskor is
+             helyes maradjon. --}}
         <h1 class="t1 hero-title optical-left" id="hero-title">
-            <span class="mask">{{ __('I build your future') }}</span>
-            <span class="mask">{{ __('so you don’t have to.') }}</span>
+            <span class="split-line" data-split="words">{{ __('I build your future') }}</span>
+            <span class="split-line" data-split="words">{{ __('so you don’t have to.') }}</span>
         </h1>
 
         <p class="t5 hero-lede" data-reveal style="--reveal-index: 3">{{ __('Custom websites and premium clothing, designed and built by one person from the first call to launch.') }}</p>
 
+        {{-- A hero-ban all a legtobb hely a gomb korul, ezert itt erosebb a
+             magneses huzas, mint a fejlecben. --}}
         <div class="hero-actions" data-reveal style="--reveal-index: 4">
-            <a href="/websites" class="btn btn-solid">{{ __('See the work') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
-            <a href="/contact" class="btn">{{ __('Start a project') }}</a>
+            <a href="/websites" class="btn btn-solid" data-magnetic="0.25" data-magnetic="0.3">{{ __('See the work') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+            <a href="/contact" class="btn" data-magnetic="0.3">{{ __('Start a project') }}</a>
         </div>
 
         {{-- Csak ellenorizheto allitas: a szam a tenylegesen lathato elo
@@ -60,7 +67,7 @@
             <p class="t6 section-head-note">{{ __('Every project started with something broken. Open one for the full story, the before-and-after, and a walkthrough of the site in motion.') }}</p>
         </header>
 
-        <div class="work-grid">
+        <div class="work-grid" data-skew="2">
             @foreach ($featured as $index => $project)
                 {{-- Egyetlen kiemelt munka teljes szelessegben all: felezve
                      furcsa, felig ures sort hagyna maga mellett. --}}
@@ -85,12 +92,36 @@
     <section class="statement">
         <div class="shell">
             <div class="statement-inner">
+                {{-- Harom rovid, kemeny mondat - szavankent erkeznek, mert
+                     igy mindegyik kap egy sajat utemet. Egyben belepve ez a
+                     harom sor egyetlen blokknak latszana. --}}
                 <h2 class="t2 optical-left">
-                    <span class="mask">{{ __('No page builders.') }}</span>
-                    <span class="mask">{{ __('No agency layers.') }}</span>
-                    <span class="mask">{{ __('No outsourced taste.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('No page builders.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('No agency layers.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('No outsourced taste.') }}</span>
                 </h2>
-                <span class="t8 statement-mark" data-reveal style="--reveal-index: 3">blckt.&trade;</span>
+                <span class="t8 statement-mark" data-reveal data-drift style="--reveal-index: 3">blckt.&trade;</span>
+            </div>
+        </div>
+    </section>
+
+    {{-- ── Ribbon ───────────────────────────────────────────────── --}}
+    {{-- Az egyetlen elem az oldalon, ami akkor is mozog, ha a latogato nem
+         csinal semmit. A sebessegebe belejatszik a gorgetes, ezert nem
+         fuggetlenul jaro disz, hanem a lap sajat lendulete - lefele haladva
+         gyorsul, felfele megfordul.
+
+         aria-hidden, mert a tartalma szo szerint ugyanaz, mint a lentebbi
+         "Amit csinalok" szekcio: a kepernyoolvasonak ez csak ismetles lenne.
+         Ez egyben azt is megoldja, hogy a vegtelen sodrashoz szukseges
+         masodik peldany ne hangozzon el ketszer. --}}
+    <section class="ribbon" aria-hidden="true">
+        <div class="marquee" data-marquee="34">
+            <div class="marquee-track">
+                @foreach ([__('Custom websites'), __('Website templates'), __('Redesigns'), __('Clothing'), __('Budapest')] as $word)
+                    <span class="ribbon-word">{{ $word }}</span>
+                    <span class="ribbon-dot">&bull;</span>
+                @endforeach
             </div>
         </div>
     </section>
@@ -123,7 +154,7 @@
             </div>
 
             <div class="tpl-band-foot">
-                <a href="{{ route('templates.index') }}" class="btn btn-solid">
+                <a href="{{ route('templates.index') }}" class="btn btn-solid" data-magnetic="0.25">
                     {{ trans_choice('See the :count template|See all :count templates', $templateCount) }}
                     <span class="arrow" aria-hidden="true">&#8594;</span>
                 </a>
@@ -223,7 +254,7 @@
                 @foreach ($garments as $garment)
                     <li class="slide" role="group" aria-roledescription="{{ __('slide') }}" aria-label="{{ $loop->iteration }} / {{ $loop->count }}">
                         <a href="{{ route('clothing.show', $garment['slug']) }}" class="slide-link">
-                            <span class="frame frame-zoom slide-frame">
+                            <span class="frame frame-zoom slide-frame" data-unveil>
                                 <img
                                     src="{{ asset($garment['thumbnail']) }}"
                                     alt="{{ $garment['name'] }}"
@@ -256,12 +287,12 @@
     <section class="closer">
         <div class="shell">
             <h2 class="t2 closer-title">
-                <span class="mask">{{ __('Two build slots') }}</span>
-                <span class="mask">{{ __('open per quarter.') }}</span>
+                <span class="split-line" data-split="words">{{ __('Two build slots') }}</span>
+                <span class="split-line" data-split="words">{{ __('open per quarter.') }}</span>
             </h2>
 
             <div class="closer-actions" data-reveal style="--reveal-index: 2">
-                <a href="/contact" class="btn btn-solid">{{ __('Start a project') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                <a href="/contact" class="btn btn-solid" data-magnetic="0.25">{{ __('Start a project') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                 <a href="mailto:hello@blckt.hu" class="btn">hello@blckt.hu</a>
             </div>
 

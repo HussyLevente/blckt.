@@ -20,7 +20,7 @@
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Saved') }}</span>
 
         <h1 class="t1 page-head-title optical-left" id="saved-title">
-            <span class="mask">{{ __('Your shortlist.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Your shortlist.') }}</span>
         </h1>
 
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 2">{{ __('Whatever you saved while looking around, in the order you saved it. The list lives in this browser only — nothing is uploaded, and I cannot see it. Send me the names when you have decided.') }}</p>
@@ -42,7 +42,7 @@
             <p class="t4">{{ __('Nothing saved yet.') }}</p>
             <p class="t6 saved-empty-note">{{ __('Open the catalogue and press Save on anything worth coming back to. It stays here until you remove it or clear your browser data.') }}</p>
             <div class="actions" style="margin-top: var(--space-8)">
-                <a href="{{ route('templates.index') }}" class="btn btn-solid">{{ __('Browse the templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                <a href="{{ route('templates.index') }}" class="btn btn-solid" data-magnetic="0.25">{{ __('Browse the templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
             </div>
         </div>
     </section>

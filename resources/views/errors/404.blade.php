@@ -15,7 +15,7 @@
         <p class="t5 error-message">{{ __('The link might be broken, or the page moved. Let’s get you back on track.') }}</p>
 
         <div class="error-actions">
-            <a href="/" class="btn btn-solid">{{ __('Back to home') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+            <a href="/" class="btn btn-solid" data-magnetic="0.25">{{ __('Back to home') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
             <a href="/websites" class="btn">{{ __('See the work') }}</a>
             <a href="/contact" class="btn">{{ __('Contact') }}</a>
         </div>

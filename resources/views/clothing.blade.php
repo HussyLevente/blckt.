@@ -23,18 +23,18 @@
             <span class="t8 ink-faint">{{ __('blckt. collection') }}</span>
 
             <h1 class="t2 optical-left" id="shop-title" style="margin-top: var(--space-6)">
-                <span class="mask">{{ __('Wearable,') }}</span>
-                <span class="mask">{{ __('not disposable.') }}</span>
+                <span class="split-line" data-split="words">{{ __('Wearable,') }}</span>
+                <span class="split-line" data-split="words">{{ __('not disposable.') }}</span>
             </h1>
 
             <p class="t5 shop-hero-lede" data-reveal style="--reveal-index: 2">{{ __('Heavyweight cotton, graphic-led, printed in small batches in Hungary. Every piece is designed in-house — no outsourced taste, no seasonal filler.') }}</p>
 
             <div class="shop-hero-actions" data-reveal style="--reveal-index: 3">
-                <a href="{{ route('clothing.collection') }}" class="btn btn-solid">{{ __('Shop the collection') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                <a href="{{ route('clothing.collection') }}" class="btn btn-solid" data-magnetic="0.25">{{ __('Shop the collection') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
             </div>
         </div>
 
-        <div class="shop-hero-figure" data-reveal="scale">
+        <div class="shop-hero-figure" data-unveil>
             <img src="{{ asset('assets/imgs/brand/blckt_coll_main.webp') }}" alt="{{ __('The blckt. clothing collection') }}" {!! \App\Support\Media::sizeAttrs('assets/imgs/brand/blckt_coll_main.webp') !!} fetchpriority="high" decoding="async">
         </div>
     </section>
@@ -67,11 +67,11 @@
         <div class="shell">
             <div class="statement-inner">
                 <h2 class="t2 optical-left">
-                    <span class="mask">{{ __('Designed for the') }}</span>
-                    <span class="mask">{{ __('fifth wash, not') }}</span>
-                    <span class="mask">{{ __('the first photo.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('Designed for the') }}</span>
+                    <span class="split-line" data-split="words">{{ __('fifth wash, not') }}</span>
+                    <span class="split-line" data-split="words">{{ __('the first photo.') }}</span>
                 </h2>
-                <span class="t8 statement-mark" data-reveal style="--reveal-index: 3">blckt.&trade;</span>
+                <span class="t8 statement-mark" data-reveal data-drift style="--reveal-index: 3">blckt.&trade;</span>
             </div>
         </div>
     </section>

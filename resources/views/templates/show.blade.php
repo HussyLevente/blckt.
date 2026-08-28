@@ -57,7 +57,7 @@
             <span class="t8 ink-faint">{{ $template['tier_name'] }} &middot; {{ $template['sector'] }}</span>
 
             <h1 class="t1 tpl-head-title optical-left" id="template-title">
-                <span class="mask">{{ $template['name'] }}</span>
+                <span class="split-line" data-split="words">{{ $template['name'] }}</span>
             </h1>
 
             <p class="t5 tpl-head-tagline" data-reveal style="--reveal-index: 2">{{ $template['tagline'] }}</p>
@@ -67,7 +67,7 @@
                     <span class="btn" aria-disabled="true">{{ __('All :cap licences sold', ['cap' => $cap]) }}</span>
                     <a href="{{ route('templates.index') }}" class="btn">{{ __('See the other templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                 @else
-                    <a href="/contact" class="btn btn-solid">{{ __('Claim this one') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                    <a href="/contact" class="btn btn-solid" data-magnetic="0.25">{{ __('Claim this one') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                     @if ($template['has_demo'])
                         <a href="{{ $template['demos'][0]['playground'] }}" class="btn">{{ __('Try it with your own content') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                     @else

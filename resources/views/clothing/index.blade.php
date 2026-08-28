@@ -41,8 +41,8 @@
     <section class="page-head shell" aria-labelledby="collection-title">
         <span class="t8 page-head-eyebrow ink-faint">{{ __('blckt. collection') }}</span>
         <h1 class="t1 page-head-title optical-left" id="collection-title">
-            <span class="mask">{{ __('Everything') }}</span>
-            <span class="mask">{{ __('in one place.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Everything') }}</span>
+            <span class="split-line" data-split="words">{{ __('in one place.') }}</span>
         </h1>
     </section>
 

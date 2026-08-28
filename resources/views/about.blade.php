@@ -28,7 +28,7 @@
     <section class="page-head shell" aria-labelledby="about-title">
         <span class="t8 page-head-eyebrow ink-faint">{{ __('About') }}</span>
         <h1 class="t1 page-head-title optical-left" id="about-title">
-            <span class="mask">{{ __('I am blckt.') }}</span>
+            <span class="split-line" data-split="words">{{ __('I am blckt.') }}</span>
         </h1>
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 2">{{ __('A solo studio from Hungary building clothes and websites that don’t apologize for existing.') }}</p>
 
@@ -69,8 +69,8 @@
 
         <div class="about-cards" data-reveal-group="loose">
             <a href="/websites" class="about-card">
-                <span class="frame frame-zoom">
-                    <img src="{{ asset('assets/imgs/websites/juiced/juiced_whole1.jpg') }}" alt="" {!! \App\Support\Media::sizeAttrs('assets/imgs/websites/juiced/juiced_whole1.jpg') !!} loading="lazy" decoding="async">
+                <span class="frame frame-zoom" data-unveil>
+                    <img src="{{ asset('assets/imgs/websites/juiced/juiced_after.jpg') }}" alt="" {!! \App\Support\Media::sizeAttrs('assets/imgs/websites/juiced/juiced_after.jpg') !!} loading="lazy" decoding="async">
                 </span>
                 <div class="about-card-body">
                     <span class="t8 ink-faint">01 — {{ __('Websites') }}</span>
@@ -84,7 +84,7 @@
             </a>
 
             <a href="/clothing" class="about-card">
-                <span class="frame frame-zoom">
+                <span class="frame frame-zoom" data-unveil>
                     <img src="{{ asset('assets/imgs/brand/blckt_coll_main.webp') }}" alt="" {!! \App\Support\Media::sizeAttrs('assets/imgs/brand/blckt_coll_main.webp') !!} loading="lazy" decoding="async">
                 </span>
                 <div class="about-card-body">
@@ -101,7 +101,7 @@
         <header class="section-head">
             <div>
                 <span class="t8 ink-faint">{{ __('Values') }}</span>
-                <h2 class="t2 section-head-title" id="values-title">{{ __('Three things I won’t compromise on.') }}</h2>
+                <h2 class="t2 section-head-title" id="values-title">{{ __('Two things I won’t compromise on.') }}</h2>
             </div>
         </header>
 
@@ -109,7 +109,6 @@
             @foreach ([
                 [__('No filler.'), __('If it doesn’t earn its place on the page or on the shirt, it doesn’t ship. No stock photography, no lorem ipsum, no decoration for decoration’s sake.')],
                 [__('Built to last.'), __('Heavyweight cotton. Real code, not page-builder duct tape. I design for the fifth wash and the fifth deploy, not just the first screenshot.')],
-                [__('Small on purpose.'), __('I turn down more work than I take. Every project gets my full attention because there is never five other projects competing for it.')],
             ] as [$title, $body])
                 <div class="accordion-item">
                     <button type="button" class="accordion-trigger">
@@ -123,15 +122,41 @@
         </div>
     </section>
 
-    <section class="section-tight shell" aria-labelledby="founder-title">
-        <div class="split">
-            <div data-reveal>
+    <section class="section shell" aria-labelledby="founder-title">
+        <div class="founder">
+            {{-- A portre a sotet oldalon is megall: fekete hatteru felvetel,
+                 ezert nem kap kulon keretet, csak a racs tartja meg. --}}
+            <figure class="founder-portrait" data-reveal>
+                <img
+                    src="{{ asset('assets/imgs/portrait.webp') }}"
+                    alt="{{ __('Levente Hussy, the founder of blckt.') }}"
+                    {!! \App\Support\Media::sizeAttrs('assets/imgs/portrait.webp') !!}
+                    loading="lazy"
+                    decoding="async"
+                >
+            </figure>
+
+            <div class="founder-body" data-reveal style="--reveal-index: 1">
                 <span class="t8 ink-faint">{{ __('The founder') }}</span>
-                <h2 class="t3" id="founder-title" style="margin-top: var(--space-5)">Levente Hussy</h2>
-            </div>
-            <div class="split-body" data-reveal style="--reveal-index: 1">
-                <p class="t5">{{ __('21 years old, studying Economic Informatics at Budapest Business School (BGE). Design, code, clothing, and websites — all one person, on purpose.') }}</p>
+                <h2 class="t2 founder-name" id="founder-title">Hussy Levente</h2>
+
+                <p class="t5 founder-lede">{{ __('21 years old, studying Economic Informatics at Budapest Business School (BGE). Design, code, clothing, and websites — all one person, on purpose.') }}</p>
                 <p class="t6">{{ __('I work in Figma and a code editor, and nothing in between. That means the person who designs your site is the person who builds it, so nothing gets lost in a handover that never happens.') }}</p>
+
+                <dl class="founder-facts">
+                    <div>
+                        <dt>{{ __('Based in') }}</dt>
+                        <dd>Solymár</dd>
+                    </div>
+                    <div class="founder-fact-wide">
+                        <dt>{{ __('Works in') }}</dt>
+                        <dd>Laravel, Figma, PHP, CSS, HTML5, JavaScript, C#</dd>
+                    </div>
+                    <div>
+                        <dt>{{ __('Answers in') }}</dt>
+                        <dd>{{ __('Hungarian & English') }}</dd>
+                    </div>
+                </dl>
             </div>
         </div>
     </section>
@@ -139,11 +164,11 @@
     <section class="closer" style="border-top: 1px solid var(--line)">
         <div class="shell">
             <h2 class="t2 closer-title">
-                <span class="mask">{{ __('Let’s make') }}</span>
-                <span class="mask">{{ __('something remarkable.') }}</span>
+                <span class="split-line" data-split="words">{{ __('Let’s make') }}</span>
+                <span class="split-line" data-split="words">{{ __('something remarkable.') }}</span>
             </h2>
             <div class="closer-actions" data-reveal style="--reveal-index: 2">
-                <a href="/contact" class="btn btn-solid">{{ __('Start a project') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                <a href="/contact" class="btn btn-solid" data-magnetic="0.25">{{ __('Start a project') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                 <a href="/websites" class="btn">{{ __('See the work') }}</a>
             </div>
         </div>
@@ -152,5 +177,4 @@
 
 @push('scripts')
     <script src="{{ \App\Support\Asset::url('assets/js/accordion.js') }}" defer></script>
-    <script src="{{ \App\Support\Asset::url('assets/js/about.js') }}" defer></script>
 @endpush

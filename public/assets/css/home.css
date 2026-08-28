@@ -29,7 +29,7 @@
 }
 
 /* A masodik sor halkabb - a mondat igy ket ritmusban erkezik */
-.hero-title .mask:nth-child(2) {
+.hero-title .split-line:nth-child(2) {
     color: var(--ink-muted);
 }
 
@@ -102,6 +102,30 @@
 }
 
 /* ---------------------------------------------------------------
+   1/b. Szalag
+   ----------------------------------------------------------------
+   Nagy, halk tipografia egy vekony savban. A meret a cimsor-skalarol
+   jon, de a szin a halvany fokozat: a szalagnak jelen kell lennie,
+   nem elvinnie a figyelmet. A mozgast a motion.js adja.
+   --------------------------------------------------------------- */
+.ribbon {
+    padding-block: var(--space-16);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+}
+
+.ribbon-word {
+    font-size: var(--text-3);
+    letter-spacing: -0.02em;
+    color: var(--ink-faint);
+}
+
+.ribbon-dot {
+    font-size: var(--text-4);
+    color: var(--line-strong);
+}
+
+/* ---------------------------------------------------------------
    2. Allitas-szekcio
    Egy nagy mondat, sok levegovel - a szekciok kozotti szunet.
    --------------------------------------------------------------- */
@@ -115,7 +139,7 @@
    A "ch" mindig az ELEM sajat betumeretehez mer, ez a doboz viszont 18px-es
    folyoszoveget orokol - a 22ch igy ~248px lett, amibe a 96px-es cimsor
    sorai nem fertek be, es otsoros, bal oldalra szorult oszlop lett belole.
-   A harom sort amugy is kezzel torjuk (harom .mask), tehat nincs mit
+   A harom sort amugy is kezzel torjuk (harom .split-line), tehat nincs mit
    korlatozni: a racs szelessege a hatar. */
 .statement-inner {
     max-width: none;
@@ -372,36 +396,3 @@
     }
 }
 
-/* ---------------------------------------------------------------
-   5. Zaro felhivas
-   --------------------------------------------------------------- */
-.closer {
-    padding-block: var(--space-41);
-    text-align: center;
-    border-top: 1px solid var(--line);
-}
-
-.closer-title {
-    max-width: 16ch;
-    margin-inline: auto;
-}
-
-.closer-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-4);
-    margin-top: var(--space-12);
-}
-
-.closer-note {
-    margin-top: var(--space-8);
-    color: var(--ink-faint);
-}
-
-@media (max-width: 768px) {
-    .closer {
-        padding-block: var(--space-24);
-    }
-}

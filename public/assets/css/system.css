@@ -106,6 +106,22 @@
     --reveal-stagger: 55ms;
     --reveal-stagger-loose: 80ms;
 
+    /* Kinetikus tipografia. A darabolt cimsor tovabb tart, mint egy sima
+       belepes: itt a lepcso maga a hatas, es ahhoz kell ido, hogy a szem
+       vegigkovesse a soron. A betunkenti valtozat lepcsoje sokkal
+       surubb - annyi darab van, hogy azonos kozzel a sor vege mar
+       kinosan kesne. */
+    --split-duration: 0.85s;
+    --split-stagger: 45ms;
+    --split-stagger-chars: 16ms;
+
+    /* Kepek felfedese: a takaro elhuzodik, a kep kozben visszaall
+       alapmeretre. A ketto SZANDEKOSAN nem egyszerre er veget - a lassabb
+       kep adja a melyseget. */
+    --unveil-duration: 1s;
+    --unveil-image-duration: 1.4s;
+    --unveil-image-scale: 1.12;
+
     --theme-transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
@@ -303,7 +319,10 @@ ol {
 .t2 {
     font-size: var(--text-2);
     font-weight: 600;
-    line-height: 0.88;
+    /* 0.88 csak egysoros cimsornal all meg. Tobb sorra torve a betu
+       magasabb volt, mint a sor, es a ket sor osszecsuszott - az
+       ekezetes nagybetuk (Ö, Á) miatt latvanyosan. */
+    line-height: 0.95;
     letter-spacing: -0.038em;
 }
 
@@ -707,6 +726,9 @@ ol {
    10. Kepkeretek
    --------------------------------------------------------------- */
 .frame {
+    /* Blokk, kulonben a rajta beallitott aspect-ratio nem ervenyesul:
+       ez egy <span>, es az inline dobozokra a szabaly nem vonatkozik. */
+    display: block;
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-card);

@@ -23,7 +23,7 @@
 @endphp
 
 <article class="work-card {{ $wide ? 'work-card-wide' : '' }}" data-reveal>
-    <a href="{{ $url }}" class="work-card-media" tabindex="-1" aria-hidden="true">
+    <a href="{{ $url }}" class="work-card-media" data-unveil tabindex="-1" aria-hidden="true">
         <img
             src="{{ asset($project['card']) }}"
             alt=""

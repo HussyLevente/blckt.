@@ -115,8 +115,8 @@
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Website templates') }}</span>
 
         <h1 class="t1 page-head-title optical-left" id="templates-title">
-            <span class="mask">{{ __('Already built.') }}</span>
-            <span class="mask">{{ __('Yours this week.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Already built.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Yours this week.') }}</span>
         </h1>
 
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Six designs, in the same three packages as my custom work — and :count live demos you can open and click through right now. You pick one, send your text and photos, and I put your business inside it. Same code as my custom builds; the design just existed before you asked for it.', ['count' => $demoCount]) }}</p>
@@ -157,7 +157,7 @@
                 <p class="t5 pg-band-lede">{{ __('Before you spend anything, open a template and rewrite it. Type over the headlines, drop in photos from your phone, set your brand colour, and look at it on a phone-width screen. It runs in your browser — nothing is uploaded, nothing is sent to me, and your version is still there when you come back.') }}</p>
 
                 <div class="actions">
-                    <a href="{{ route('playground.index') }}" class="btn btn-solid">{{ __('Open the playground') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+                    <a href="{{ route('playground.index') }}" class="btn btn-solid" data-magnetic="0.25">{{ __('Open the playground') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
                     <span class="t8 pg-band-count">{{ trans_choice(':count demo ready to edit|:count demos ready to edit', $playgrounds) }}</span>
                 </div>
             </div>
@@ -278,9 +278,9 @@
         <div class="shell">
             <div class="statement-inner">
                 <h2 class="t2 optical-left">
-                    <span class="mask">{{ __('Still my design.') }}</span>
-                    <span class="mask">{{ __('Still my code.') }}</span>
-                    <span class="mask">{{ __('Just not only yours.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('Still my design.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('Still my code.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('Just not only yours.') }}</span>
                 </h2>
                 <span class="t8 statement-mark" data-reveal style="--reveal-index: 3">{{ __('That is the entire difference.') }}</span>
             </div>

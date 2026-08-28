@@ -44,8 +44,8 @@
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Web projects') }}</span>
 
         <h1 class="t1 page-head-title optical-left" id="page-title">
-            <span class="mask">{{ __('Built by hand.') }}</span>
-            <span class="mask">{{ __('Live on the internet.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Built by hand.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Live on the internet.') }}</span>
         </h1>
 
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Client sites you can open right now, and the design projects that came before them. Every screen below was designed in Figma and written by hand — no templates, no page builders.') }}</p>

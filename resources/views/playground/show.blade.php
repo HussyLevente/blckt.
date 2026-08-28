@@ -52,8 +52,8 @@
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Playground') }} &middot; {{ $demo['template']['name'] }}</span>
 
         <h1 class="t1 page-head-title optical-left" id="pg-title">
-            <span class="mask">{{ __('Put your own words') }}</span>
-            <span class="mask">{{ __('in it. Right now.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Put your own words') }}</span>
+            <span class="split-line" data-split="words">{{ __('in it. Right now.') }}</span>
         </h1>
 
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('This is the real :name template, running live. Rewrite any line, drop in your own photos, set your brand colour — and see whether it still looks like you. Nothing is uploaded anywhere, and nothing is sent to me.', ['name' => $demo['name']]) }}</p>

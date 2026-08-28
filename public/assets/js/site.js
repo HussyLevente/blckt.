@@ -18,36 +18,60 @@
     });
 
     /* ---------------------------------------------------------------
+       Gorgetes-fuggo rajzolas
+       ----------------------------------------------------------------
+       A motion.js kozos ciklusaba kotunk be, hogy ne nyiljon meg egy
+       sokadik parhuzamos gorgetes-figyelo: az egesz oldalon egyetlen
+       requestAnimationFrame hurok fut. A tartalek ut csak akkor lep
+       eletbe, ha a mozgas-mag valamiert nem toltodott be - de az is
+       kepkockahoz kotve rajzol.
+
+       A rajzolo fuggveny CSAK irhat. Merni (getBoundingClientRect,
+       offsetHeight, scrollHeight) itt tilos: az a kepkockan belul
+       kikenyszeritene egy elrendezes-szamolast.
+       --------------------------------------------------------------- */
+    function onScrollFrame(render) {
+        var motion = window.blcktMotion;
+
+        if (motion) {
+            motion.subscribe(null, function (view) {
+                render(view.scrollY, view.lastY);
+            });
+            return;
+        }
+
+        var lastY = window.pageYOffset;
+        var ticking = false;
+
+        window.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+                ticking = false;
+                var y = window.pageYOffset;
+                render(y, lastY);
+                lastY = y;
+            });
+        }, { passive: true });
+
+        render(window.pageYOffset, window.pageYOffset);
+    }
+
+    /* ---------------------------------------------------------------
        Fejlec: uveg-hatter gorgetesre, elrejtes lefele haladva
        --------------------------------------------------------------- */
     function initHeader() {
         var header = document.getElementById('site-header');
         if (!header) return;
 
-        var lastY = window.scrollY;
-        var ticking = false;
-
-        function render() {
-            ticking = false;
-            var y = window.scrollY;
-
+        onScrollFrame(function (y, lastY) {
             header.classList.toggle('is-scrolled', y > 24);
 
             // Nyitott mobilmenu mellett a fejlec marad, kulonben a bezaro
             // gomb is elcsuszna a kepernyorol.
             var menuOpen = document.body.classList.contains('no-scroll');
             header.classList.toggle('is-hidden', !menuOpen && y > lastY && y > 140);
-
-            lastY = y;
-        }
-
-        window.addEventListener('scroll', function () {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(render);
-        }, { passive: true });
-
-        render();
+        });
     }
 
     /* ---------------------------------------------------------------
@@ -128,18 +152,21 @@
         var btn = document.getElementById('scroll-top');
         if (!btn) return;
 
-        var ticking = false;
-
-        window.addEventListener('scroll', function () {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(function () {
-                ticking = false;
-                btn.classList.toggle('is-visible', window.scrollY > 600);
-            });
-        }, { passive: true });
+        onScrollFrame(function (y) {
+            btn.classList.toggle('is-visible', y > 600);
+        });
 
         btn.addEventListener('click', function () {
+            // Bekapcsolt lagy gorgetes mellett a natv scrollTo es a Lenis
+            // egyszerre huznak - a gorgetest annak kell vegeznie, aki az
+            // allapotot tartja.
+            var motion = window.blcktMotion;
+
+            if (motion && motion.lenis) {
+                motion.lenis.scrollTo(0);
+                return;
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }

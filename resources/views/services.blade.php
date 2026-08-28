@@ -135,8 +135,8 @@
     <section class="page-head shell" aria-labelledby="services-title">
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Services & pricing') }}</span>
         <h1 class="t1 page-head-title optical-left" id="services-title">
-            <span class="mask">{{ __('Three packages.') }}</span>
-            <span class="mask">{{ __('Fixed prices.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Three packages.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Fixed prices.') }}</span>
         </h1>
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('No “contact us for pricing” wall and no hourly rate that quietly grows. Pick the package that fits, and that is the number — half before I start, half when you get the code.') }}</p>
     </section>
@@ -222,9 +222,9 @@
         <div class="shell">
             <div class="statement-inner">
                 <h2 class="t2 optical-left">
-                    <span class="mask">{{ __('No agency layers.') }}</span>
-                    <span class="mask">{{ __('No account manager.') }}</span>
-                    <span class="mask">{{ __('Just me.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('No agency layers.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('No account manager.') }}</span>
+                    <span class="split-line" data-split="words">{{ __('Just me.') }}</span>
                 </h2>
                 <span class="t8 statement-mark" data-reveal style="--reveal-index: 3">{{ __('That is the whole pitch.') }}</span>
             </div>

@@ -22,8 +22,8 @@
         <span class="t8 page-head-eyebrow ink-faint">{{ __('Playground') }}</span>
 
         <h1 class="t1 page-head-title optical-left" id="pg-index-title">
-            <span class="mask">{{ __('Try it with') }}</span>
-            <span class="mask">{{ __('your own stuff.') }}</span>
+            <span class="split-line" data-split="words">{{ __('Try it with') }}</span>
+            <span class="split-line" data-split="words">{{ __('your own stuff.') }}</span>
         </h1>
 
         <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Pick a live demo below and rewrite it. Your words, your photos, your brand colour — in the real template, in your browser, before any money changes hands. Nothing is uploaded and nothing is sent to me.') }}</p>
@@ -89,7 +89,7 @@
         </div>
 
         <div class="actions actions-spaced" data-reveal>
-            <a href="{{ route('templates.index') }}" class="btn btn-solid">{{ __('See all six templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
+            <a href="{{ route('templates.index') }}" class="btn btn-solid" data-magnetic="0.25">{{ __('See all six templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></a>
             <a href="{{ route('services') }}" class="btn">{{ __('Or price a custom build') }}</a>
         </div>
     </section>

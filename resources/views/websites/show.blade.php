@@ -83,7 +83,7 @@
                     @endif
 
                     <h1 class="t2 optical-left">
-                        <span class="mask">{{ $project['tagline'] }}</span>
+                        <span class="split-line" data-split="words">{{ $project['tagline'] }}</span>
                     </h1>
 
                     <div class="project-actions" data-reveal style="--reveal-index: 2">

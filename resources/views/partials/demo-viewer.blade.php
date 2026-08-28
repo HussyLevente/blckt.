@@ -76,7 +76,7 @@
         <div class="demo-actions">
             {{-- Ez tobbet mond, mint a demo maga: itt a latogato a SAJAT
                  tartalmaval probalhatja fel a tervet. --}}
-            <a href="{{ $first['playground'] }}" class="btn btn-solid" data-demo-playground>
+            <a href="{{ $first['playground'] }}" class="btn btn-solid" data-magnetic="0.25" data-demo-playground>
                 {{ __('Try it with your own text and photos') }} <span class="arrow" aria-hidden="true">&#8594;</span>
             </a>
 

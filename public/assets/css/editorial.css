@@ -620,3 +620,106 @@
 @media (max-width: 640px) {
     .addons { grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
 }
+
+/* ---------------------------------------------------------------
+   8. Alapito
+   A portre nem dekoracio: ez az egyetlen hely az oldalon, ahol arc
+   van. Ezert kap sajat oszlopot, nem egy kis kerek belyegkepet.
+   --------------------------------------------------------------- */
+.founder {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: var(--space-16);
+    align-items: center;
+}
+
+.founder-portrait {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    /* A felvetel fekete hatteru, ezert vilagos temaban is sotet folt
+       marad - szandekosan. A sunken hatter csak addig latszik, amig a
+       kep megerkezik. */
+    background-color: var(--paper-sunken);
+    aspect-ratio: 4 / 5;
+}
+
+.founder-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* A fej a kep felso haromnegyedeben ul; kozepre vagva a homlok
+       levagodna. */
+    object-position: center 30%;
+}
+
+.founder-name {
+    margin-top: var(--space-4);
+}
+
+.founder-lede {
+    margin-top: var(--space-8);
+    max-width: 46ch;
+}
+
+.founder-body > p + p {
+    margin-top: var(--space-5);
+    color: var(--ink-muted);
+}
+
+/* Negy savra osztva, mert a harom ertek nem egyforma hosszu: a
+   technologia-lista ketszer annyi helyet kap, kulonben harom sorra
+   toredezne, mig a masik ketto egysoros marad. */
+.founder-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+}
+
+.founder-fact-wide {
+    grid-column: span 2;
+}
+
+.founder-facts dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.founder-facts dd {
+    margin-top: var(--space-2);
+    font-size: var(--text-7);
+    color: var(--ink);
+}
+
+@media (max-width: 900px) {
+    .founder {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-10);
+    }
+
+    /* Telefonon a portre szelesebb es alacsonyabb: allo kepkent az
+       egesz elso kepernyot elvinne. */
+    .founder-portrait {
+        aspect-ratio: 3 / 2;
+    }
+
+    .founder-facts {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-5);
+    }
+
+    .founder-fact-wide {
+        grid-column: auto;
+    }
+
+    .founder-facts div + div {
+        padding-top: var(--space-5);
+        border-top: 1px solid var(--line);
+    }
+}

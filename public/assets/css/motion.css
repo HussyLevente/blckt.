@@ -8,6 +8,18 @@
 
    A --reveal-index a sorrendet vezerli: a JS csak ezt es az .is-in osztalyt
    irja, minden idozites innen jon.
+
+   KET SZABALY tartja a 60 kepkockat, es minden itteni szabaly ezekbol kovetkezik:
+
+     1. Csak transform es opacity animalodik. Ez a ketto a kompozitoron fut, a
+        fo szal blokkolasa nelkul. Ami elrendezest szamoltat (width, height,
+        top, margin) vagy ujrafestest (box-shadow, filter, background-position),
+        az nem kerulhet tranzicioba.
+
+     2. A will-change ideiglenes. Minden bekapcsolt will-change egy nyitva
+        tartott GPU-reteg; egy hosszu oldalon szazaval nyitva hagyva tobbet
+        ront, mint amennyit hasznal. Ezert a belepesnel az .is-settled, a
+        parallaxnal az .is-live veszi vissza, amint a mozgas veget ert.
    ============================================================================ */
 
 [data-reveal] {
@@ -74,26 +86,194 @@
 }
 
 /* ---------------------------------------------------------------
-   Maszkolt cimsor: a sorok egy levagott savbol csusznak fel.
-   A .mask-line csomagolot a JS teszi be, hogy a jelolesben ne kelljen.
+   Kinetikus tipografia
+   ----------------------------------------------------------------
+   Nem a sor, hanem a SZO (vagy a betu) uszik fel a sajat levagott
+   savjabol - ez az egyetlen cimsor-belepo az oldalon.
+   Egy tipografia-vezerelt oldalon ez a legerosebb belepo, mert magat a
+   tartalmat mozgatja, nem egy dobozt korulotte.
+
+   A darabokat a JS teszi be (initSplit), a jelolesben csak a
+   data-split attributum all.
    --------------------------------------------------------------- */
-.mask {
-    display: block;
+.split-part {
+    display: inline-block;
     overflow: hidden;
-    /* A leszallo szarak (g, y, j) kulonben levagodnanak a savnal */
-    padding-bottom: 0.12em;
-    margin-bottom: -0.12em;
+    /* Fent es lent is kell hely a vago savban: alul a leszallo szarak
+       (g, y, j), felul a magyar ekezetes nagybetuk (E, O, U) lognak ki a
+       sorbol, es enelkul a vago doboz elmetszene oket. */
+    padding-top: 0.14em;
+    margin-top: -0.14em;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+    vertical-align: bottom;
 }
 
-.mask > .mask-line {
+/* Tobbsoros cimsornal minden sor kulon elem, ezert a sorszamozas
+   soronkent ujraindulna - a masodik sor egyszerre lepne be az elsovel.
+   A --split-offset tolja el a kesobbi sorokat annyival, ahany darab az
+   elottuk allo sorokban van. */
+.split-line {
     display: block;
-    transform: translateY(110%);
-    transition: transform 0.9s var(--ease-out-expo);
-    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger-loose));
 }
 
-.mask.is-in > .mask-line {
+.split-inner {
+    display: inline-block;
+    transform: translateY(115%);
+    transition: transform var(--split-duration) var(--ease-out-expo);
+    transition-delay: calc((var(--split-index, 0) + var(--split-offset, 0)) * var(--split-stagger));
+    will-change: transform;
+}
+
+[data-split].is-in .split-inner {
     transform: translateY(0);
+}
+
+/* A tranzicio utan elengedjuk a retegeket - egy szavankent darabolt
+   cimsor tucatnyi kompozit reteget jelentene, orokre nyitva. */
+[data-split].is-settled .split-inner {
+    will-change: auto;
+}
+
+[data-split='chars'] .split-inner {
+    transition-delay: calc((var(--split-index, 0) + var(--split-offset, 0)) * var(--split-stagger-chars));
+}
+
+/* ---------------------------------------------------------------
+   Kep-felfedes
+   ----------------------------------------------------------------
+   Egy tomor takaro huzodik el a kep elol, mikozben a kep maga
+   visszaall alapmeretre. Mindketto CSAK transform - egyetlen keppontot
+   sem kell ujrafesteni hozza.
+
+   Az elterjedt clip-path-os megoldas helyett SZANDEKOSAN ez all itt: a
+   clip-path animalasa ujrafestest valt ki minden kepkockan, a takaro
+   elcsusztatasa viszont tisztan a kompozitoron fut.
+   --------------------------------------------------------------- */
+[data-unveil] {
+    position: relative;
+    overflow: hidden;
+}
+
+[data-unveil]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-color: var(--paper);
+    transform: translateY(0);
+    transition: transform var(--unveil-duration) var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+    will-change: transform;
+}
+
+[data-unveil].is-in::after {
+    transform: translateY(-101%);
+}
+
+[data-unveil].is-settled::after {
+    will-change: auto;
+}
+
+[data-unveil] img {
+    transform: scale(var(--unveil-image-scale));
+    transition: transform var(--unveil-image-duration) var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+}
+
+[data-unveil].is-in img {
+    transform: scale(1);
+}
+
+/* ---------------------------------------------------------------
+   Gorgetesi sebesseg - a JS csak a --skew valtozot irja
+   ----------------------------------------------------------------
+   Gyors gorgetesnel a kep egy hajszalnyit megdol, majd megallaskor
+   visszasimul. Ettol lesz az oldalnak tomege: a mozgas anyagszeru
+   lesz, nem kapcsolgatott.
+   --------------------------------------------------------------- */
+[data-skew] {
+    transform: skewY(var(--skew, 0deg));
+    will-change: transform;
+}
+
+/* ---------------------------------------------------------------
+   Vegtelen szalag
+   ----------------------------------------------------------------
+   A .marquee-row-t a JS mozgatja, a masodik peldanyt is o teszi be.
+   A track jobb oldali parnazasa adja a ket peldany kozotti kozt -
+   ezert szamit bele az offsetWidth-be, es ezert lesz a korbeforgas
+   pontosan illeszkedo.
+   --------------------------------------------------------------- */
+.marquee {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+}
+
+.marquee-row {
+    display: flex;
+    flex: none;
+    transform: translate3d(var(--marquee-x, 0px), 0, 0);
+    will-change: transform;
+}
+
+.marquee-track {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--space-12);
+    padding-right: var(--space-12);
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------
+   Mutato-gyuru
+   ----------------------------------------------------------------
+   A helyzetet a JS irja kepkockankent, a meretet viszont a CSS
+   animalja. Ezert all a ketto KULON tulajdonsagban (translate es
+   scale): egyetlen transform-ban a kepkockankenti iras folyamatosan
+   ujrainditana a meret-tranziciot. Mindketto a kompozitoron fut.
+   --------------------------------------------------------------- */
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    translate: var(--cursor-x, 0px) var(--cursor-y, 0px);
+    scale: 0.6;
+    transition:
+        opacity 0.3s ease,
+        scale 0.35s var(--ease-out-quint),
+        background-color 0.35s ease;
+    will-change: translate, scale;
+}
+
+.cursor-ring.is-live {
+    opacity: 0.45;
+    scale: 1;
+}
+
+/* Interaktiv elem folott kitagul es halkan kitoltodik */
+.cursor-ring.is-over {
+    opacity: 0.9;
+    scale: 1.9;
+    background-color: rgba(var(--paper-rgb), 0.06);
+}
+
+/* Erintokepernyon nincs mutato, amit kiserni lehetne */
+@media (hover: none) {
+    .cursor-ring {
+        display: none;
+    }
 }
 
 /* ---------------------------------------------------------------
@@ -118,15 +298,128 @@
 
 /* ---------------------------------------------------------------
    Parallax - a JS csak a --parallax-y valtozot irja
+   ----------------------------------------------------------------
+   A will-change SZANDEKOSAN nem allandó: csak amig az elem a nezet
+   kozeleben van (.is-live, IntersectionObserver-bol). Korabban minden
+   parallax-elem eletre szolo kompozit reteget tartott nyitva, akkor is,
+   ha az oldal masik vegen allt.
    --------------------------------------------------------------- */
 [data-parallax] {
     transform: translate3d(0, var(--parallax-y, 0px), 0);
+}
+
+[data-parallax].is-live {
     will-change: transform;
 }
 
 /* ---------------------------------------------------------------
-   Oldalvaltas: a tartalom kihalvanyodik, mielott a bongeszo navigal
+   Magneses elemek
+   ----------------------------------------------------------------
+   A JS csak a ket eltolas-valtozot irja; a mozgas simitasat a kozos
+   ciklus lerp-je vegzi, nem tranzicio. Ezert amig a mozgas tart, a
+   transform-tranziciot ki kell venni: a lerp es a tranzicio egyutt
+   ket egymasra rakodo lassitas lenne, ami puhanak-lomhanak erzodik.
+
+   A .btn:active zsugorodasat kezzel kell megismetelnunk, kulonben az
+   (azonos sulyu, de korabbi) system.css szabaly transform-ja letorolne
+   az eltolast a kattintas pillanataban.
    --------------------------------------------------------------- */
+[data-magnetic] {
+    transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0);
+}
+
+[data-magnetic].is-magnetic {
+    will-change: transform;
+    transition-property: color, border-color;
+}
+
+.btn[data-magnetic]:active {
+    transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0) scale(0.97);
+}
+
+/* ---------------------------------------------------------------
+   Folyamatos, halk alapmozgas
+   ----------------------------------------------------------------
+   Nem diszites: a lassan lelegzo elem a szemnek horgony a statikus
+   tipografia mellett. Ezert nagyon kicsi az amplitudo (par pixel) es
+   nagyon hosszu a ciklus - amint eszreveheto, mar zavaro.
+
+   A will-change itt SZANDEKOSAN hianyzik: a bongeszo a futo transform-
+   animaciot magatol kompozit retegre teszi, es a nezetbol kigorduló
+   elem animaciojat vissza is fogja. Kezi will-change ezt csak elrontana.
+   --------------------------------------------------------------- */
+[data-drift] {
+    animation: drift var(--drift-duration, 11s) var(--ease-in-out-quint) infinite;
+}
+
+@keyframes drift {
+    0%,
+    100% { transform: translate3d(0, 0, 0); }
+    50%  { transform: translate3d(0, calc(var(--drift-distance, 7px) * -1), 0); }
+}
+
+/* Masodik fazis, hogy egymas melletti elemek ne egyszerre lelegezzenek -
+   az egyszerre mozgo csoport gepiesnek latszik. */
+[data-drift='offset'] {
+    animation-delay: calc(var(--drift-duration, 11s) / -3);
+}
+
+/* ---------------------------------------------------------------
+   Folyamatos hatter-reteg (ambient.js)
+   ----------------------------------------------------------------
+   Rogzitett, atkattinthato vaszon a tartalom MOGOTT. A z-index -1 es a
+   pointer-events: none egyutt biztositja, hogy sem a kattintast, sem a
+   szoveg kijelolest ne fogja el. Alapbol nincs bekotve az oldalba.
+   --------------------------------------------------------------- */
+.ambient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* A vaszon sajat rajza fuggetlen a tema-valtastol; ez csak azt
+       kerekiti le, hogy a valtas pillanataban ne ugorjon. */
+    transition: opacity 0.4s ease;
+}
+
+/* ---------------------------------------------------------------
+   Oldalvaltas
+   ----------------------------------------------------------------
+   Ahol a bongeszo tudja, a dokumentumok kozotti nezetvaltas intezi:
+   valodi atmenet, es nulla JS - vagyis nem kell a kattintast 160 ms-mal
+   kesleltetni, mint a tartalek uton. A fejlec sajat nevet kap, igy
+   AZ nem uszik at, hanem helyben marad az oldalak kozott.
+   --------------------------------------------------------------- */
+@view-transition {
+    navigation: auto;
+}
+
+.site-header {
+    view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+    animation: vt-fade-out 0.2s var(--ease-out-quint) both;
+}
+
+::view-transition-new(root) {
+    animation: vt-rise-in 0.44s var(--ease-out-expo) both;
+}
+
+@keyframes vt-fade-out {
+    to { opacity: 0; }
+}
+
+@keyframes vt-rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+/* Tartalek ut a nezetvaltast nem ismero bongeszoknek: a JS teszi fel az
+   osztalyt, mielott elnavigal. */
 body.is-leaving main,
 body.is-leaving .site-footer {
     opacity: 0;
@@ -191,6 +484,12 @@ body.is-leaving .site-footer {
    Csokkentett mozgas: minden azonnal a helyere kerul, semmi nem tunhet el
    --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+    /* A nezetvaltast teljesen kikapcsoljuk. Enelkul a bongeszo meg mindig
+       atusztatna az oldalakat - a beallitas eppen ezt keri, hogy ne. */
+    @view-transition {
+        navigation: none;
+    }
+
     *,
     *::before,
     *::after {
@@ -201,13 +500,54 @@ body.is-leaving .site-footer {
 
     [data-reveal],
     [data-reveal-group] > *,
-    .mask > .mask-line {
+    .split-inner {
         opacity: 1 !important;
         transform: none !important;
     }
 
+    /* A takaro azonnal felhuzva all, a kep alapmereten - vagyis a
+       vegallapot latszik, csak ut nelkul. */
+    [data-unveil]::after {
+        transform: translateY(-101%) !important;
+    }
+
+    [data-unveil] img,
+    [data-skew] {
+        transform: none !important;
+    }
+
+    /* A szalag masodik peldanya csak a vegtelen sodrashoz kellett;
+       allo szalagon ketszer mondana ugyanazt. */
+    .marquee-row > .marquee-track[aria-hidden='true'] {
+        display: none;
+    }
+
+    .marquee-row {
+        transform: none !important;
+    }
+
+    .cursor-ring {
+        display: none;
+    }
+
     [data-parallax] {
         --parallax-y: 0px;
+    }
+
+    [data-magnetic] {
+        --mag-x: 0px;
+        --mag-y: 0px;
+    }
+
+    [data-drift] {
+        animation: none !important;
+        transform: none;
+    }
+
+    /* A vaszon el sem indul (lasd ambient.js), de ha valamiert megis
+       kirajzolodott volna, itt eltunik. */
+    .ambient {
+        display: none;
     }
 
     body.is-leaving main,
