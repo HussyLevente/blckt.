@@ -48,7 +48,7 @@
             <span class="split-line" data-split="words">{{ __('Live on the internet.') }}</span>
         </h1>
 
-        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Client sites you can open right now, and the design projects that came before them. Every screen below was designed in Figma and written by hand — no templates, no page builders.') }}</p>
+        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 3">{{ __('Client sites you can open right now, the concept builds behind them, and the design projects that came before both. Every screen below was designed in Figma and written by hand — no templates, no page builders.') }}</p>
 
         <div class="figures" data-reveal-group>
             {{-- Egyes/tobbes szam: egyetlen munkanal a "sites" hibas lenne. --}}
@@ -56,6 +56,12 @@
                 <span class="figure-value">{{ count($live) }}</span>
                 <span class="figure-label">{{ trans_choice('live client site|live client sites', count($live)) }}</span>
             </div>
+            @if (count($concepts))
+                <div>
+                    <span class="figure-value">{{ count($concepts) }}</span>
+                    <span class="figure-label">{{ trans_choice('concept build|concept builds', count($concepts)) }}</span>
+                </div>
+            @endif
             <div>
                 <span class="figure-value">{{ count($designs) }}</span>
                 <span class="figure-label">{{ trans_choice('design project|design projects', count($designs)) }}</span>
@@ -90,6 +96,34 @@
             @endforeach
         </div>
     </section>
+
+    {{-- ── Concept builds ───────────────────────────────────────── --}}
+    {{-- Sajat kezzel epitett, elo cimen futo oldalak kitalalt markaval.
+         SZANDEKOSAN kulon szekcio: az elo ugyfelmunkak koze keverve
+         felnagyitanak a cimlapi szamot, a tervek koze keverve pedig
+         letagadnak a mukodo linket. Igy mindketto igaz marad. --}}
+    @if (count($concepts))
+        <section id="concepts" class="section shell" aria-labelledby="concepts-title">
+            <header class="section-head">
+                <div>
+                    <span class="status status-concept">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        {{ __('Concept build') }}
+                    </span>
+                    <h2 class="t2 section-head-title" id="concepts-title">{{ __('Built to prove it works.') }}</h2>
+                </div>
+                <p class="t6 section-head-note">{{ __('Live sites you can open right now, built end to end against a brand I made up. No client paid for these — they exist so you can click through the whole thing instead of taking my word for it.') }}</p>
+            </header>
+
+            <div class="work-grid">
+                @foreach ($concepts as $index => $project)
+                    {{-- A hajtas alatt all, ezert egyetlen kepe sem kaphat
+                         elore-toltest: az +1 eltolas gondoskodik errol. --}}
+                    @include('partials.project-card', ['project' => $project, 'index' => $index + 1])
+                @endforeach
+            </div>
+        </section>
+    @endif
 
     {{-- ── Design projects ──────────────────────────────────────── --}}
     <section id="designs" class="section shell" aria-labelledby="designs-title">

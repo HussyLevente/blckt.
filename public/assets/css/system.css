@@ -621,6 +621,20 @@ ol {
     50%      { opacity: 0.3; }
 }
 
+/* Koncepcio: valodi, megnyithato cimen fut, ezert a kerete TOMOR, mint az
+   elo munkake - nem szaggatott, mint a meg nem publikalt terve. A pont
+   viszont rombusz: monokrom rendszerben a forma viszi a kulonbseget, nem a
+   szin. Tomor pont = elo ugyfelmunka, rombusz = koncepcio, ures gyuru =
+   csak terv. Nem pulzal: a lelegzes az elo ugyfelmunkak jelzese marad. */
+.status-concept {
+    color: var(--ink-muted);
+}
+
+.status-concept .status-dot {
+    border-radius: 1px;
+    transform: rotate(45deg);
+}
+
 .status-pending {
     border-style: dashed;
     color: var(--ink-muted);

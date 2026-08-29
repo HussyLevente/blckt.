@@ -12,7 +12,6 @@
      * @var bool|null $wide  teljes szelessegu, kiemelt valtozat
      */
     $wide = $wide ?? false;
-    $live = $project['is_live'];
     $url = route('websites.show', $project['slug']);
     $figures = $project['figures'] ?? [];
 
@@ -33,10 +32,7 @@
             decoding="async"
         >
 
-        <span class="status {{ $live ? 'status-live' : 'status-pending' }} work-card-status">
-            <span class="status-dot" aria-hidden="true"></span>
-            {{ $live ? __('Live') : __('Design only') }}
-        </span>
+        @include('partials.project-status', ['project' => $project, 'extra' => 'work-card-status'])
 
         <span class="work-card-open">
             {{ __('Case study') }} <span class="arrow" aria-hidden="true">&#8594;</span>

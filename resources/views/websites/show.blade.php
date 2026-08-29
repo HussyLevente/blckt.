@@ -61,10 +61,7 @@
 
         {{-- ── Head ─────────────────────────────────────────────── --}}
         <section class="project-head shell">
-            <span class="status {{ $project['is_live'] ? 'status-live' : 'status-pending' }}">
-                <span class="status-dot" aria-hidden="true"></span>
-                {{ $project['is_live'] ? __('Live') : __('Design only') }}
-            </span>
+            @include('partials.project-status', ['project' => $project])
 
             <div class="project-head-grid">
                 <div>
@@ -152,7 +149,17 @@
             </section>
         @endif
 
-        @unless ($project['is_live'])
+        @if ($project['is_concept'])
+            {{-- Ez a munka ELERHETO, csak nem ugyfelmunka. A "sosem kerult ki"
+                 szoveg itt konkretan hazudna: kozvetlenul folotte ott all a
+                 mukodo "Elo oldal megnyitasa" gomb. --}}
+            <div class="shell">
+                <p class="design-notice t6" data-reveal>
+                    <strong>{{ __('This one is a concept build.') }}</strong>
+                    {{ __('The site is live and you can open it, but the brand behind it is invented and the photography is stock. I built it to prove the thing works end to end — not for a paying client.') }}
+                </p>
+            </div>
+        @elseif (! $project['is_live'])
             {{-- Egyertelmu jelzes: ez a munka sosem kerult ki nyilvanos cimre. --}}
             <div class="shell">
                 <p class="design-notice t6" data-reveal>
@@ -160,7 +167,7 @@
                     {{ __('Every screen below was designed and built, but the site was never published to a public address — so there is no live link to open.') }}
                 </p>
             </div>
-        @endunless
+        @endif
 
         {{-- ── Walkthrough ──────────────────────────────────────── --}}
         <section class="section shell" aria-labelledby="motion-title">

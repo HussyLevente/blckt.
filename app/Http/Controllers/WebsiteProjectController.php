@@ -42,6 +42,7 @@ class WebsiteProjectController extends Controller
 
         return view('websites', [
             'live' => $this->byKind('live', $locale),
+            'concepts' => $this->byKind('concept', $locale),
             'designs' => $this->byKind('design', $locale),
             'upcoming' => array_map(
                 fn (array $entry) => $this->resolveUpcomingLocale($entry, $locale),
@@ -182,6 +183,12 @@ class WebsiteProjectController extends Controller
         $project['redesign'] = $this->redesign($project, $images, $pick);
         $project['video'] = $this->video($project, $images, $pick);
         $project['is_live'] = ($project['kind'] ?? 'design') === 'live';
+
+        /* Koncepcio: valodi, megnyithato cimen fut, de kitalalt marka all
+           mogotte. Kulon jelzo kell ra, mert a ket meglevo allapot egyike
+           sem igaz ra - "elo ugyfelmunkakent" felnagyitana a cimlapi
+           szamot, "csak tervkent" pedig letagadna a mukodo linket. */
+        $project['is_concept'] = ($project['kind'] ?? 'design') === 'concept';
         $project['has_link'] = ! empty($project['url']);
 
         // A keresok kb. 155 karakter utan levagjak a leirast. A teljes
@@ -531,6 +538,90 @@ class WebsiteProjectController extends Controller
                 'video_caption' => [
                     'en' => 'Searching the library, then shuffling a pairing.',
                     'hu' => 'Keresés a könyvtárban, majd egy párosítás shuffle-ozása.',
+                ],
+            ],
+            // ── Koncepciok ────────────────────────────────────────────
+            // Valodi, megnyithato cimen futo, sajat kezzel epitett oldalak -
+            // de a marka mogottuk kitalalt, a fotok pedig keszletbol valok.
+            // Ezert NEM 'live': az elo ugyfelmunkak szama a cimlapon
+            // ellenorizheto allitas, es ket demo-marka elrontana.
+            'pacer' => [
+                'slug' => 'pacer',
+                'name' => 'PACER',
+                'kind' => 'concept',
+                'url' => 'https://hussylevente.github.io/pacer_shoes/',
+                'year' => '2026',
+                'sector' => ['en' => 'Running shoes', 'hu' => 'Futócipő'],
+                'type' => ['en' => 'Webshop', 'hu' => 'Webáruház'],
+                'tagline' => [
+                    'en' => 'A whole shop, down to the last checkout step.',
+                    'hu' => 'Teljes bolt, az utolsó fizetési lépésig.',
+                ],
+                'problem' => [
+                    'en' => 'A webshop proves itself in the places nobody puts in a demo: the size that is out of stock, the promo code that does not apply, the third step of checkout. A handsome product grid says nothing about any of them.',
+                    'hu' => 'Egy webáruház ott dől el, amit senki nem tesz be a bemutatóba: az elfogyott méretnél, a nem érvényes kuponnál, a fizetés harmadik lépésénél. Egy szép terméklistából mindebből semmi nem látszik.',
+                ],
+                'approach' => [
+                    'en' => 'A complete Hungarian running-shoe shop, built as a concept. Twelve models with colourways and a per-size stock run, so a sold-out size is struck through instead of failing quietly two screens later. Cart, saved products, an account area, promo codes, courier choice and the full checkout are all there and all clickable. Every string, price and image path lives in a single content file, so putting a real business inside is an editing job, not a rebuild.',
+                    'hu' => 'Teljes magyar futócipő-bolt, koncepcióként megépítve. Tizenkét modell színváltozatokkal és méretenkénti készlettel — így az elfogyott méret át van húzva, nem két képernyővel később hasal el csendben. Kosár, mentett termékek, fiók, kuponkódok, futárválasztás és a végigvihető fizetés mind ott van, mind kattintható. Minden szöveg, ár és képútvonal egyetlen tartalomfájlban ül, így egy valódi vállalkozás behelyezése szerkesztés, nem újraépítés.',
+                ],
+                'value' => [
+                    'en' => 'The buying path is walkable end to end — twelve models, two languages, and a checkout you can actually finish. That is what a shop has to show before anyone trusts it with a real catalogue.',
+                    'hu' => 'A vásárlási út végigjárható — tizenkét modell, két nyelv, és egy ténylegesen befejezhető fizetés. Pontosan ezt kell megmutatnia egy boltnak, mielőtt bárki rábízza a valódi kínálatát.',
+                ],
+                'highlights' => [
+                    ['en' => 'Cart, checkout and order summary', 'hu' => 'Kosár, fizetés és rendelés-összesítő'],
+                    ['en' => 'Per-size stock, sold-out sizes struck through', 'hu' => 'Méretenkénti készlet, áthúzott elfogyott méretek'],
+                    ['en' => 'Saved products and an account area', 'hu' => 'Mentett termékek és fiókfelület'],
+                    ['en' => 'Hungarian and English throughout', 'hu' => 'Végig magyarul és angolul'],
+                ],
+                'figures' => [
+                    ['label' => ['en' => 'Shoe models', 'hu' => 'Cipőmodell'], 'value' => '12'],
+                    ['label' => ['en' => 'Languages', 'hu' => 'Nyelv'], 'value' => '2'],
+                ],
+                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
+                'video_duration' => null,
+                'video_caption' => [
+                    'en' => 'Walking the shop from the catalogue to the last checkout step.',
+                    'hu' => 'A bolt végigjárása a katalógustól az utolsó fizetési lépésig.',
+                ],
+            ],
+            'kodama' => [
+                'slug' => 'kodama',
+                'name' => 'KODAMA',
+                'kind' => 'concept',
+                'url' => 'https://hussylevente.github.io/kodama/',
+                'year' => '2026',
+                'sector' => ['en' => 'Photography studio', 'hu' => 'Fotóstúdió'],
+                'type' => ['en' => 'Portfolio site', 'hu' => 'Portfólió oldal'],
+                'tagline' => [
+                    'en' => 'The motion is the argument.',
+                    'hu' => 'Maga a mozgás az érv.',
+                ],
+                'problem' => [
+                    'en' => 'A photography studio is judged on presentation before anyone reads a word. The images have to arrive the way they would in print — unhurried, uncrowded — and the site has to stay out of their way without looking like it was never designed at all.',
+                    'hu' => 'Egy fotóstúdiót a megjelenése alapján ítélik meg, mielőtt bárki egy szót is elolvasna. A képeknek úgy kell megérkezniük, ahogy nyomtatásban tennének — sietség és zsúfoltság nélkül —, az oldalnak pedig ki kell maradnia az útjukból anélkül, hogy megtervezetlennek látszana.',
+                ],
+                'approach' => [
+                    'en' => 'A dark editorial portfolio built on motion rather than decoration: inertial scrolling, a cursor that reacts to whatever it is over, a film-grain layer drawn on canvas, and headings that arrive line by line. Work, studio, services and archive each get their own chapter, and the two studio locations show their real local time.',
+                    'hu' => 'Sötét, editorial hangvételű portfólió, ami a mozgásra épül, nem a díszítésre: tehetetlenségi görgetés, a tartalomra reagáló egérmutató, vászonra rajzolt filmszemcse-réteg, és soronként érkező címsorok. A munkák, a stúdió, a szolgáltatások és az archívum külön fejezetet kap, a két stúdióhelyszín pedig a valós helyi időt mutatja.',
+                ],
+                'value' => [
+                    'en' => 'Everything moves on the compositor, so a page this heavy with imagery still scrolls clean — and the restraint reads as confidence rather than as a studio with nothing to show.',
+                    'hu' => 'Minden a kompozitoron mozog, így egy ennyire képekkel teli oldal is tisztán görget — a visszafogottság pedig magabiztosságnak hat, nem üres portfóliónak.',
+                ],
+                'highlights' => [
+                    ['en' => 'Inertial scrolling, headings that arrive line by line', 'hu' => 'Tehetetlenségi görgetés, soronként érkező címsorok'],
+                    ['en' => 'Film grain drawn on canvas over the whole page', 'hu' => 'Vászonra rajzolt filmszemcse az egész oldalon'],
+                    ['en' => 'Cursor that reacts to what it is over', 'hu' => 'A tartalomra reagáló egérmutató'],
+                    ['en' => 'Live local time for both studios', 'hu' => 'Valós helyi idő mindkét stúdióhoz'],
+                ],
+                'figures' => [],
+                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
+                'video_duration' => null,
+                'video_caption' => [
+                    'en' => 'Scrolling the work index, then opening a project.',
+                    'hu' => 'Végiggörgetés a munkákon, majd egy projekt megnyitása.',
                 ],
             ],
             'paradise' => [
