@@ -586,6 +586,47 @@ class WebsiteProjectController extends Controller
                     'hu' => 'A bolt végigjárása a katalógustól az utolsó fizetési lépésig.',
                 ],
             ],
+            'primo' => [
+                'slug' => 'primo',
+                'name' => 'Primo',
+                'kind' => 'concept',
+                'url' => 'https://hussylevente.github.io/primo/',
+                'year' => '2026',
+                'sector' => ['en' => 'Creative studio', 'hu' => 'Kreatív stúdió'],
+                'type' => ['en' => 'Portfolio site', 'hu' => 'Portfólió oldal'],
+                'tagline' => [
+                    'en' => 'The pictures set the layout.',
+                    'hu' => 'A képek szabják meg az elrendezést.',
+                ],
+                'problem' => [
+                    'en' => 'A studio portfolio has one job and a hard constraint: show the work, and do not compete with it. Most solve that with a grid — which flattens every picture to the same size and so says nothing about what the studio itself rates.',
+                    'hu' => 'Egy stúdió-portfóliónak egy dolga van, és egy kemény megkötése: mutassa a munkát, és ne versenyezzen vele. A legtöbb ezt ráccsal oldja meg — ami minden képet azonos méretre lapít, és így semmit nem mond arról, mit tart jónak maga a stúdió.',
+                ],
+                'approach' => [
+                    'en' => 'The home page is a scattered wall instead of a grid: pictures sit at different sizes and depths on white, and the wordmark runs underneath them at display size so type and image share one plane. Four screens in all — the wall, the work, the studio and contact — plus a full-screen menu that drops the navigation in at the same scale as the logo. Inertial scrolling throughout, and a cursor that answers whatever it is over.',
+                    'hu' => 'A főoldal szórt fal rács helyett: a képek eltérő méretben és mélységben ülnek a fehéren, a szóvédjegy pedig alattuk fut kijelzőméretben, így a tipográfia és a kép egy síkra kerül. Összesen négy képernyő — a fal, a munkák, a stúdió és a kapcsolat —, plusz egy teljes képernyős menü, ami a logóval azonos méretben teszi le a navigációt. Végig tehetetlenségi görgetés, és a tartalomra válaszoló egérmutató.',
+                ],
+                'value' => [
+                    'en' => 'Scale does the editing. What the studio rates gets more room, so the first screen takes a position before a single caption has been read — which is exactly what a portfolio is for.',
+                    'hu' => 'A méretezés végzi a szerkesztést. Amit a stúdió többre tart, az több helyet kap, így az első képernyő már az első képaláírás előtt állást foglal — pontosan ezért van egy portfólió.',
+                ],
+                'highlights' => [
+                    ['en' => 'Scattered image wall instead of a grid', 'hu' => 'Szórt képfal rács helyett'],
+                    ['en' => 'Wordmark set at display size behind the work', 'hu' => 'Kijelzőméretű szóvédjegy a munkák mögött'],
+                    ['en' => 'Full-screen menu at the scale of the logo', 'hu' => 'Teljes képernyős menü a logó méretében'],
+                    ['en' => 'Inertial scrolling and a reactive cursor', 'hu' => 'Tehetetlenségi görgetés és reagáló egérmutató'],
+                ],
+                'figures' => [
+                    ['label' => ['en' => 'Screens', 'hu' => 'Képernyő'], 'value' => '4'],
+                    ['label' => ['en' => 'Services listed', 'hu' => 'Szolgáltatás'], 'value' => '5'],
+                ],
+                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
+                'video_duration' => null,
+                'video_caption' => [
+                    'en' => 'Scrolling the wall, then opening a project.',
+                    'hu' => 'Végiggörgetés a falon, majd egy projekt megnyitása.',
+                ],
+            ],
             'kodama' => [
                 'slug' => 'kodama',
                 'name' => 'KODAMA',
