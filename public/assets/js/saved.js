@@ -9,7 +9,7 @@
 
        { v: 1, items: [ { type: 'template', id: 'signal', at: 1724... } ] }
 
-   Igy egy kesobbi menthető dolog (munka, ruha) csak egy uj 'type' - a
+   Igy egy kesobbi menthető dolog (pl. egy munka) csak egy uj 'type' - a
    taroloval, a fejlec-szamlaloval es a mentett lappal nem kell mit kezdeni.
    ============================================================================ */
 (function () {

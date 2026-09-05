@@ -58,7 +58,6 @@
                             '/websites' => __('Work'),
                             '/templates' => __('Templates'),
                             '/services' => __('Services'),
-                            '/clothing' => __('Clothing'),
                             '/about' => __('About'),
                             '/contact' => __('Contact'),
                         ];
@@ -128,7 +127,7 @@
             <div class="footer-top">
                 <div class="footer-pitch">
                     <a href="/" class="footer-wordmark">blckt.</a>
-                    <p class="t6 ink-muted">{{ __('A one-person studio in Budapest. Custom websites and premium streetwear — designed, built and shipped by the same pair of hands.') }}</p>
+                    <p class="t6 ink-muted">{{ __('A one-person studio in Budapest. Custom websites and ready-made templates — designed, built and shipped by the same pair of hands.') }}</p>
                 </div>
 
                 <div class="footer-cols">
@@ -150,14 +149,6 @@
                         @foreach ($websiteTemplates->navLinks(4) as $link)
                             <a href="{{ route('templates.show', $link['slug']) }}">{{ $link['name'] }}</a>
                         @endforeach
-                    </div>
-                    <div class="footer-col">
-                        <h2>{{ __('Clothing') }}</h2>
-                        <a href="{{ route('clothing.collection') }}">{{ __('The collection') }}</a>
-                        <a href="{{ route('clothing.show', 'ratio') }}">Ratio</a>
-                        <a href="{{ route('clothing.show', 'hollyweed') }}">Hollyweed</a>
-                        <a href="{{ route('clothing.show', 'agapiti') }}">Agapití Skópelos</a>
-                        <a href="{{ route('clothing.show', 'prodigy') }}">Prodigy.</a>
                     </div>
                     <div class="footer-col">
                         <h2>{{ __('Studio') }}</h2>

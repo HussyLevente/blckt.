@@ -2,7 +2,7 @@
    Cimlap.
    A felepites a referencia aranyait koveti: egy nagyon nagy, kozepre zart
    cimsor, alatta egy vekony teny-sor, majd valtakozo ritmusban a munkak, egy
-   allitas-szekcio es a ruhak. A tipografia viszi az oldalt, nem a diszites.
+   allitas-szekcio es a sablonok. A tipografia viszi az oldalt, nem a diszites.
    ============================================================================ */
 
 /* ---------------------------------------------------------------
@@ -166,12 +166,6 @@
     gap: var(--space-12);
 }
 
-/* Negy szolgaltatas. Kulon modosito, mert harom oszlopnal a negyedik
-   kartya egy majdnem ures sort hagyna maga alatt. */
-.capabilities-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-8);
-}
 
 .capability {
     padding-top: var(--space-6);
@@ -204,195 +198,9 @@
     color: var(--ink);
 }
 
-/* Negy oszlop 1100px alatt mar tul keskeny a folyoszoveghez: ket sorra
-   tor, mielott egyetlen oszloppa esne szet. */
-@media (max-width: 1100px) {
-    .capabilities-4 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-12) var(--space-10);
-    }
-}
-
 @media (max-width: 900px) {
-    .capabilities,
-    .capabilities-4 {
+    .capabilities {
         grid-template-columns: minmax(0, 1fr);
         gap: var(--space-10);
     }
 }
-
-/* ---------------------------------------------------------------
-   4. Kollekcio-vago a cimlapon
-   Az alap a bongeszo sajat gorgetese + scroll-snap, nem JS-el szamolt
-   pozicio. Igy a vago JS nelkul is teljesen hasznalhato (ujjal, gorgovel,
-   billentyuzettel), a szkript pedig csak rateszi a gombokat, a
-   folyamatjelzot es a huzast. Ez egyben a legsimabb is: a gorgetest a
-   kompozitor vegzi, nem a fo szal.
-   --------------------------------------------------------------- */
-.slider-head-side {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--space-6);
-    flex-shrink: 0;
-}
-
-.slider-nav {
-    display: flex;
-    gap: var(--space-2);
-}
-
-.slider-btn {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--line-strong);
-    border-radius: 50%;
-    background: transparent;
-    color: var(--ink);
-    cursor: pointer;
-    transition: border-color 0.3s ease, background-color 0.3s ease,
-                color 0.3s ease, opacity 0.3s ease;
-}
-
-.slider-btn:hover:not(:disabled) {
-    background-color: var(--invert-bg);
-    border-color: var(--invert-bg);
-    color: var(--invert-ink);
-}
-
-.slider-btn:active:not(:disabled) {
-    transform: scale(0.94);
-}
-
-/* A vegeken a gomb halvany es kattinthatatlan - de a helyen marad, hogy a
-   fejlec ne ugraljon lapozas kozben. */
-.slider-btn:disabled {
-    opacity: 0.3;
-    cursor: default;
-}
-
-.slider-track {
-    display: flex;
-    gap: var(--space-5);
-
-    /* A racs bal szelen kezdodik, de jobbra kifut a kepernyorol: a kovetkezo
-       darab igy mindig belelog a nezetbe, ami elarulja, hogy van tovabb. */
-    padding-inline: var(--page-gutter) var(--page-pad);
-
-    /* A snap-nek tudnia kell a bal oldali behuzasrol. Enelkul az elso elem a
-       kepernyo szelehez tapad (a gorgetes rogton 48px-rol indul), amivel
-       elveszne a racshoz igazitas - es a "vissza" gomb sem lenne tiltva a
-       legelejen. */
-    scroll-padding-inline-start: var(--page-gutter);
-
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-}
-
-.slider-track::-webkit-scrollbar {
-    display: none;
-}
-
-.slider-track:focus-visible {
-    outline: 2px solid var(--ink);
-    outline-offset: 4px;
-}
-
-.slide {
-    flex: 0 0 clamp(200px, 22vw, 300px);
-    scroll-snap-align: start;
-}
-
-.slide-frame {
-    aspect-ratio: 3 / 4;
-    border: 1px solid var(--line);
-}
-
-.slide-frame img {
-    object-fit: contain;
-    padding: var(--space-5);
-}
-
-.slide-meta {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-4);
-    margin-top: var(--space-4);
-}
-
-.slide-name {
-    color: var(--ink);
-}
-
-.slide-price {
-    color: var(--ink-faint);
-    flex-shrink: 0;
-}
-
-/* Huzas kozben a kurzor jelzi az allapotot, es a snap kikapcsol, kulonben
-   a mozgas rangatna. */
-.slider.is-dragging .slider-track {
-    scroll-snap-type: none;
-    scroll-behavior: auto;
-    cursor: grabbing;
-    user-select: none;
-}
-
-.slider-progress {
-    position: relative;
-    height: 2px;
-    margin-top: var(--space-10);
-    background-color: var(--line);
-    overflow: hidden;
-}
-
-.slider-progress span {
-    position: absolute;
-    inset: 0 auto 0 0;
-    display: block;
-    width: 100%;
-    background-color: var(--ink);
-    transform-origin: 0 50%;
-    transform: scaleX(0);
-    transition: transform 0.35s var(--ease-out-quint);
-}
-
-/* JS nelkul nincs mit vezerelni, ezert a gombok es a jelzo nem jelennek meg -
-   a vago viszont ettol meg gorgetheto marad. */
-.slider-nav,
-.slider-progress {
-    display: none;
-}
-
-.slider.is-ready .slider-progress {
-    display: block;
-}
-
-.slider-head.is-ready .slider-nav {
-    display: flex;
-}
-
-@media (max-width: 900px) {
-    .slider-head-side {
-        align-items: flex-start;
-        width: 100%;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .slider-track {
-        scroll-behavior: auto;
-    }
-
-    .slider-progress span {
-        transition: none;
-    }
-}
-

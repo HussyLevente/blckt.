@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title', __('About | blckt. — Levente Hussy, Budapest'))
-@section('meta_description', __('blckt. is Levente Hussy, a solo designer and developer in Budapest. Custom websites and premium streetwear, designed and built by one person — no agency, no templates.'))
+@section('meta_description', __('blckt. is Levente Hussy, a solo designer and developer in Budapest. Custom websites and ready-made templates, designed and built by one person — no agency, no page builders.'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ \App\Support\Asset::url('assets/css/work.css') }}">
@@ -30,8 +30,11 @@
         <h1 class="t1 page-head-title optical-left" id="about-title">
             <span class="split-line" data-split="words">{{ __('I am blckt.') }}</span>
         </h1>
-        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 2">{{ __('A solo studio from Hungary building clothes and websites that don’t apologize for existing.') }}</p>
+        <p class="t5 page-head-lede" data-reveal style="--reveal-index: 2">{{ __('A solo studio from Hungary building websites that don’t apologize for existing.') }}</p>
 
+        {{-- A sablonok szama a katalogusbol jon, nem kezzel beirt ertek -
+             egy uj terv utan sem hazudhat ez a szam. --}}
+        @inject('aboutTemplates', 'App\Http\Controllers\TemplateController')
         <div class="figures" data-reveal-group>
             <div>
                 <span class="figure-value stat-number" data-target="2026" data-suffix="">0</span>
@@ -42,8 +45,8 @@
                 <span class="figure-label">{{ __('websites designed') }}</span>
             </div>
             <div>
-                <span class="figure-value stat-number" data-target="8" data-suffix="">0</span>
-                <span class="figure-label">{{ __('clothing designs') }}</span>
+                <span class="figure-value stat-number" data-target="{{ $aboutTemplates->count() }}" data-suffix="">0</span>
+                <span class="figure-label">{{ __('templates ready to go') }}</span>
             </div>
         </div>
     </section>
@@ -52,8 +55,8 @@
         <div class="split">
             <h2 class="t3" id="origin-title" data-reveal>{{ __('Started in a bedroom. Still feels that way.') }}</h2>
             <div class="split-body" data-reveal style="--reveal-index: 1">
-                <p class="t6">{{ __('blckt. launched in 2026 as an experiment — what happens if you apply the same obsessive attention to detail to a t-shirt that you’d apply to a software product?') }}</p>
-                <p class="t6">{{ __('The answer turned out to be: something people actually want. So I kept going. The clothing led to the websites. The websites led back to better clothing. Now it’s both, permanently, by design.') }}</p>
+                <p class="t6">{{ __('blckt. launched in 2026 as an experiment — what happens if you apply the same obsessive attention to detail to a small business website that you’d apply to a software product?') }}</p>
+                <p class="t6">{{ __('The answer turned out to be: something people actually want. So I kept going. One custom build led to the next, and the patterns that kept coming back became the templates. Now it’s both, permanently, by design.') }}</p>
                 <p class="t6">{{ __('The name blckt. is intentionally stripped. No vowels, no fuss. A mark, not a word.') }}</p>
             </div>
         </div>
@@ -63,7 +66,7 @@
         <header class="section-head">
             <div>
                 <span class="t8 ink-faint">{{ __('What I do') }}</span>
-                <h2 class="t2 section-head-title" id="what-title">{{ __('Two halves of one studio.') }}</h2>
+                <h2 class="t2 section-head-title" id="what-title">{{ __('Two ways to get a website.') }}</h2>
             </div>
         </header>
 
@@ -83,15 +86,15 @@
                 </div>
             </a>
 
-            <a href="/clothing" class="about-card">
+            <a href="{{ route('templates.index') }}" class="about-card">
                 <span class="frame frame-zoom" data-unveil>
-                    <img src="{{ asset('assets/imgs/brand/blckt_coll_main.webp') }}" alt="" {!! \App\Support\Media::sizeAttrs('assets/imgs/brand/blckt_coll_main.webp') !!} loading="lazy" decoding="async">
+                    <img src="{{ asset('assets/imgs/templates/signal.webp') }}" alt="" {!! \App\Support\Media::sizeAttrs('assets/imgs/templates/signal.webp') !!} loading="lazy" decoding="async">
                 </span>
                 <div class="about-card-body">
-                    <span class="t8 ink-faint">02 — {{ __('Clothing') }}</span>
-                    <h3 class="t4" style="margin-top: var(--space-4)">{{ __('Apparel that actually says something.') }}</h3>
-                    <p class="t6">{{ __('A micro-collection of premium oversized tees. Graphic-led, culture-literate, Hungarian-made. Every piece designed in-house — no outsourced taste.') }}</p>
-                    <span class="link-arrow link-underline t8">{{ __('See the collection') }} <span class="arrow" aria-hidden="true">&#8594;</span></span>
+                    <span class="t8 ink-faint">02 — {{ __('Templates') }}</span>
+                    <h3 class="t4" style="margin-top: var(--space-4)">{{ __('Finished before you asked.') }}</h3>
+                    <p class="t6">{{ __('Websites I already designed and wrote, sold a handful of times each. The same code for a good bit less, live in days — as long as you can live with someone else having the same layout.') }}</p>
+                    <span class="link-arrow link-underline t8">{{ __('Browse the templates') }} <span class="arrow" aria-hidden="true">&#8594;</span></span>
                 </div>
             </a>
         </div>
@@ -107,8 +110,8 @@
 
         <div class="accordion" data-reveal>
             @foreach ([
-                [__('No filler.'), __('If it doesn’t earn its place on the page or on the shirt, it doesn’t ship. No stock photography, no lorem ipsum, no decoration for decoration’s sake.')],
-                [__('Built to last.'), __('Heavyweight cotton. Real code, not page-builder duct tape. I design for the fifth wash and the fifth deploy, not just the first screenshot.')],
+                [__('No filler.'), __('If it doesn’t earn its place on the page, it doesn’t ship. No stock photography, no lorem ipsum, no decoration for decoration’s sake.')],
+                [__('Built to last.'), __('Real code, not page-builder duct tape. I design for the fifth deploy and the fifth year, not just the first screenshot.')],
             ] as [$title, $body])
                 <div class="accordion-item">
                     <button type="button" class="accordion-trigger">
@@ -140,7 +143,7 @@
                 <span class="t8 ink-faint">{{ __('The founder') }}</span>
                 <h2 class="t2 founder-name" id="founder-title">Hussy Levente</h2>
 
-                <p class="t5 founder-lede">{{ __('21 years old, studying Economic Informatics at Budapest Business School (BGE). Design, code, clothing, and websites — all one person, on purpose.') }}</p>
+                <p class="t5 founder-lede">{{ __('21 years old, studying Economic Informatics at Budapest Business School (BGE). Design, code, and websites — all one person, on purpose.') }}</p>
                 <p class="t6">{{ __('I work in Figma and a code editor, and nothing in between. That means the person who designs your site is the person who builds it, so nothing gets lost in a handover that never happens.') }}</p>
 
                 <dl class="founder-facts">

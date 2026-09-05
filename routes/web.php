@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ClothingProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\SitemapController;
@@ -13,24 +12,17 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-// A cimlap a ket legutobbi weboldalt es nehany ruhat emel ki, ezert mindket
-// kontrollerbol kell hozza adat.
-// A cimlapi kollekcio-vago igazi lapozo, ezert a teljes keszletet megkapja -
-// a 8-as felso hatar csak azert van, hogy egy kesobbi nagy kollekcio se
-// terhelje agyon a cimlapot.
-Route::get('/', fn (WebsiteProjectController $websites, ClothingProductController $clothing, TemplateController $templates) => view('home', [
+// A cimlap a ket legutobbi weboldalt es a sablonokat emeli ki, ezert
+// mindket kontrollerbol kell hozza adat.
+Route::get('/', fn (WebsiteProjectController $websites, TemplateController $templates) => view('home', [
     'featured' => $websites->featured(2),
     'liveCount' => $websites->liveCount(),
-    'garments' => $clothing->featured(8),
     'templates' => $templates->featured(),
     'templateFloor' => $templates->floor(),
     'templateCount' => $templates->count(),
     'templateDays' => $templates->fastest(),
 ]));
 
-Route::view('/clothing', 'clothing');
-Route::get('/clothing/collection', [ClothingProductController::class, 'index'])->name('clothing.collection');
-Route::get('/clothing/collection/{product}', [ClothingProductController::class, 'show'])->name('clothing.show');
 Route::get('/websites', [WebsiteProjectController::class, 'index'])->name('websites.index');
 Route::get('/websites/{project}', [WebsiteProjectController::class, 'show'])->name('websites.show');
 

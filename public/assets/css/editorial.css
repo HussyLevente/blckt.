@@ -500,6 +500,15 @@
     font-weight: 600;
 }
 
+/* Gepelt nev a folyoszovegben: sutinev, adatbazisnev, utvonal. Nem
+   kodblokk, csak annyi jelzes, hogy ez szo szerint ertendo. */
+.prose code,
+.legal-table code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--ink);
+}
+
 .prose dl {
     margin-bottom: var(--space-6);
 }
@@ -559,6 +568,57 @@
 .legal-card p:last-child,
 .legal-card dd:last-child {
     margin-bottom: 0;
+}
+
+/* Jogi tablazat.
+   A jogi szovegek tablai kesztol jobbra hosszuak (dij, oldalszam, hatarido
+   egy sorban), ezert sajat gorgetheto sav viszi oket: a tablazat sose
+   tolhatja oldalra az egesz lapot egy keskeny kepernyon. */
+.legal-scroll {
+    margin: var(--space-6) 0 var(--space-8);
+    overflow-x: auto;
+}
+
+.legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-7);
+    line-height: 1.5;
+    text-align: left;
+}
+
+.legal-table th,
+.legal-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-muted);
+    vertical-align: top;
+}
+
+.legal-table th:first-child,
+.legal-table td:first-child {
+    padding-left: 0;
+}
+
+.legal-table thead th {
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-8);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+.legal-table tbody th {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.legal-table tbody tr:last-child th,
+.legal-table tbody tr:last-child td {
+    border-bottom: 0;
 }
 
 /* ---------------------------------------------------------------

@@ -929,7 +929,7 @@
     }
 
     /* Harom kartya egymas alatt tul hosszu sav lenne: itt vizszintesen
-       gorgetheto sorra valt, ugyanugy, mint a cimlapi ruha-vago. */
+       gorgetheto sorra valt. */
     .tpl-band-strip {
         display: flex;
         gap: var(--space-5);

@@ -8,7 +8,7 @@
      * tudhatja, mit mentett el valaki.
      *
      * A 'type' azert van kint, hogy kesobb mas is menthetove valjon
-     * (munkak, ruhak) anelkul, hogy a tarolot at kellene irni.
+     * (peldaul a munkak) anelkul, hogy a tarolot at kellene irni.
      *
      * @var string $type
      * @var string $id

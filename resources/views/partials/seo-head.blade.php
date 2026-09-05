@@ -11,8 +11,8 @@
     $locale = app()->getLocale();
     $isHu = $locale === 'hu';
 
-    $title = trim($__env->yieldContent('title')) ?: e(__('blckt. — Custom Websites & Clothing, Budapest'));
-    $description = trim($__env->yieldContent('meta_description')) ?: e(__('I design and build websites and premium streetwear from Budapest. Custom builds and ready-made templates, real code, one person start to finish.'));
+    $title = trim($__env->yieldContent('title')) ?: e(__('blckt. — Custom Websites & Templates, Budapest'));
+    $description = trim($__env->yieldContent('meta_description')) ?: e(__('I design and build websites from Budapest. Custom builds and ready-made templates, real code, one person start to finish.'));
     $image = trim($__env->yieldContent('meta_image')) ?: 'assets/imgs/brand/blckt_mainpage_hero_image.webp';
     $robots = trim($__env->yieldContent('robots')) ?: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
@@ -88,7 +88,7 @@
                 'url' => asset('assets/imgs/brand/blckt_logo.png'),
                 'caption' => 'blckt.',
             ],
-            'description' => __('One-person design studio in Budapest building custom websites, ready-made website templates and premium streetwear. Designed in Figma, written by hand — no page builders.'),
+            'description' => __('One-person design studio in Budapest building custom websites and ready-made website templates. Designed in Figma, written by hand — no page builders.'),
             'email' => 'hello@blckt.hu',
             'telephone' => '+36302552432',
             'founder' => ['@id' => url('/').'#levente'],
@@ -105,7 +105,6 @@
                 __('Website templates'),
                 __('Website redesign'),
                 __('E-commerce development'),
-                __('Clothing design'),
             ],
             'knowsLanguage' => ['en', 'hu'],
             ...($sameAs ? ['sameAs' => $sameAs] : []),
@@ -115,7 +114,7 @@
             '@id' => url('/').'#website',
             'url' => url('/'),
             'name' => 'blckt.',
-            'description' => __('Custom websites and premium streetwear from Budapest.'),
+            'description' => __('Custom websites and ready-made templates from Budapest.'),
             'publisher' => ['@id' => url('/').'#studio'],
             'inLanguage' => ['en', 'hu'],
         ],
@@ -126,7 +125,7 @@
             'jobTitle' => __('Designer and developer'),
             'email' => 'hello@blckt.hu',
             'worksFor' => ['@id' => url('/').'#studio'],
-            'knowsAbout' => ['Web design', 'Web development', 'Figma', 'Laravel', 'JavaScript', 'Apparel design'],
+            'knowsAbout' => ['Web design', 'Web development', 'Figma', 'Laravel', 'JavaScript', 'SEO'],
             'alumniOf' => [
                 '@type' => 'CollegeOrUniversity',
                 'name' => 'Budapest Business School (BGE)',

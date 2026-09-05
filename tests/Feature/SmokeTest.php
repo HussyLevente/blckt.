@@ -17,7 +17,7 @@ class SmokeTest extends TestCase
     {
         $paths = [
             '/', '/websites', '/websites/paradise', '/templates', '/templates/signal',
-            '/services', '/clothing', '/clothing/collection', '/about', '/contact',
+            '/services', '/about', '/contact',
             '/impresszum', '/adatvedelem', '/aszf', '/sitemap.xml',
         ];
 
