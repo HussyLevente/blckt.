@@ -405,100 +405,12 @@ class WebsiteProjectController extends Controller
     {
         return [
             /* ---------------------------------------------------------------
-               Elo, ugyfelnek atadott munkak.
+               Elo, ugyfelnek atadott munka.
                Itt csak olyan allitas szerepel, ami magan az elo oldalon
                ellenorizheto - forgalmi vagy konverzios szamot nem kozlunk,
                mert olyan adatunk nincs. Ar es atfutas sem szerepel: az az
                ugyfel uzleti adata.
                --------------------------------------------------------------- */
-            'muzsik' => [
-                'slug' => 'muzsik',
-                'name' => 'Muzsik Fodrászat',
-                'logo' => 'assets/imgs/websites/muzsik/muzsik_logo.png',
-                'kind' => 'live',
-
-                // Ideiglenesen rejtve. A teljes leiras, a kepek es a videó
-                // erintetlenul itt maradnak - a visszahozashoz ezt az egy
-                // sort kell torolni. Lasd: visible().
-                'hidden' => true,
-
-                'url' => 'https://hussylevente.github.io/muzsik_fodraszat/',
-                'year' => '2026',
-                'sector' => ['en' => 'Hair salon', 'hu' => 'Fodrászat'],
-                'type' => ['en' => 'Salon website', 'hu' => 'Szalon weboldal'],
-                'tagline' => [
-                    'en' => 'A salon you can judge before you book.',
-                    'hu' => 'Egy szalon, amit foglalás előtt meg tudsz ítélni.',
-                ],
-                'problem' => [
-                    'en' => 'A salon lives on trust: people want to see the work, meet the stylists and know what is used on their hair before they hand any of it over. All of that had to fit on one page without turning into a brochure nobody scrolls.',
-                    'hu' => 'Egy szalon bizalomból él: az emberek látni akarják a munkát, megismerni a fodrászokat, és tudni, mi kerül a hajukra, mielőtt rábíznák magukat. Mindennek el kellett férnie egy oldalon anélkül, hogy prospektussá váljon, amit senki nem görget végig.',
-                ],
-                'approach' => [
-                    'en' => 'One long, scroll-driven page: a hero where the model’s colour transforms as you scroll, a gallery of real work, the stylists introduced by name, and the Demeral product partnership given its own chapter. Booking stays anchored on screen the whole way down, and the site carries its own blog and on-site search.',
-                    'hu' => 'Egyetlen hosszú, görgetésre épülő oldal: egy hero, ahol a modell hajszíne görgetés közben alakul át, valódi munkák galériája, a fodrászok név szerint bemutatva, és a Demeral partnerség saját fejezettel. Az időpontfoglalás végig a képernyőn marad, az oldal pedig saját blogot és keresőt is visz.',
-                ],
-                'value' => [
-                    'en' => 'Everything a first-time client asks before booking — who will cut my hair, what will it look like, what goes on it — is answered on the page, with the booking button never more than one tap away.',
-                    'hu' => 'Minden, amit egy új vendég foglalás előtt megkérdez — ki vágja a hajam, hogy fog kinézni, mi kerül rá — meg van válaszolva az oldalon, a foglalás gomb pedig sosincs egy koppintásnál messzebb.',
-                ],
-                'highlights' => [
-                    ['en' => 'Scroll-driven colour transformation', 'hu' => 'Görgetésre épülő színátalakulás'],
-                    ['en' => 'Stylists introduced by name', 'hu' => 'Fodrászok név szerint bemutatva'],
-                    ['en' => 'Persistent booking call to action', 'hu' => 'Végig elérhető időpontfoglalás'],
-                    ['en' => 'Built-in blog and on-site search', 'hu' => 'Beépített blog és kereső'],
-                ],
-                'figures' => [],
-                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
-                'video_duration' => '0:58',
-                'video_caption' => [
-                    'en' => 'The full page end to end, including the scroll-driven hero.',
-                    'hu' => 'A teljes oldal elejétől a végéig, a görgetésre épülő heróval együtt.',
-                ],
-            ],
-
-            'passion' => [
-                'slug' => 'passion',
-                'name' => 'Passion Gumiszerviz',
-                'kind' => 'live',
-
-                // Ideiglenesen rejtve - lasd a muzsik bejegyzesnel.
-                'hidden' => true,
-
-                'url' => 'https://hussylevente.github.io/passion_gumiszerviz/',
-                'year' => '2026',
-                'sector' => ['en' => 'Tyre service', 'hu' => 'Gumiszerviz'],
-                'type' => ['en' => 'Local business site', 'hu' => 'Helyi vállalkozás oldala'],
-                'tagline' => [
-                    'en' => 'A tyre shop that opens with a car, not a price list.',
-                    'hu' => 'Egy gumiszerviz, ami autóval nyit, nem árlistával.',
-                ],
-                'problem' => [
-                    'en' => 'Most tyre-service sites are a phone number buried under a wall of specifications. For a workshop in Solymár the job was simpler and harder: look like somewhere you would trust your car, and make the address, the hours and the booking impossible to miss.',
-                    'hu' => 'A legtöbb gumiszerviz-oldal egy telefonszám, elásva a műszaki adatok fala alatt. Egy solymári műhelynél a feladat egyszerűbb és nehezebb volt: úgy kell kinéznie, mint ahol rábíznád az autódat, a címnek, a nyitvatartásnak és a foglalásnak pedig lehetetlen legyen nem észrevenni.',
-                ],
-                'approach' => [
-                    'en' => 'A short, confident page. Full-bleed car photography up top with the service promises annotated straight onto it, then the reasons to choose the workshop, then everything practical — address, phone, opening hours and a map — in one block at the bottom. Booking sits in a floating button that follows you down the page.',
-                    'hu' => 'Rövid, magabiztos oldal. Felül teljes szélességű autófotó, a szolgáltatási ígéretekkel közvetlenül rárajzolva, aztán az érvek a műhely mellett, végül minden gyakorlati tudnivaló — cím, telefon, nyitvatartás és térkép — egyetlen blokkban. Az időpontfoglalás egy lebegő gombban követi a görgetést.',
-                ],
-                'value' => [
-                    'en' => 'A visitor can get the address, the opening hours, the phone number and a booking from a single screen — the four things anyone actually opens a tyre-service site for.',
-                    'hu' => 'A látogató egyetlen képernyőről megkapja a címet, a nyitvatartást, a telefonszámot és a foglalást — azt a négy dolgot, amiért egy gumiszerviz oldalát egyáltalán megnyitják.',
-                ],
-                'highlights' => [
-                    ['en' => 'Annotated full-bleed hero photography', 'hu' => 'Feliratozott, teljes szélességű hero fotó'],
-                    ['en' => 'Floating booking button throughout', 'hu' => 'Végig lebegő foglalás gomb'],
-                    ['en' => 'Address, hours and map in one block', 'hu' => 'Cím, nyitvatartás és térkép egy blokkban'],
-                ],
-                'figures' => [],
-                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
-                'video_duration' => null,
-                'video_caption' => [
-                    'en' => 'A pass down the full page, from the hero to the contact block.',
-                    'hu' => 'Végigfutás a teljes oldalon a herótól a kapcsolati blokkig.',
-                ],
-            ],
-
             'layzfonts' => [
                 'slug' => 'layzfonts',
                 'name' => 'Layz',
@@ -544,7 +456,48 @@ class WebsiteProjectController extends Controller
             // Valodi, megnyithato cimen futo, sajat kezzel epitett oldalak -
             // de a marka mogottuk kitalalt, a fotok pedig keszletbol valok.
             // Ezert NEM 'live': az elo ugyfelmunkak szama a cimlapon
-            // ellenorizheto allitas, es ket demo-marka elrontana.
+            // ellenorizheto allitas, amit egy demo-marka elrontana.
+            'aurora' => [
+                'slug' => 'aurora',
+                'name' => 'Aurora Dental Studio',
+                'kind' => 'concept',
+                'url' => 'https://hussylevente.github.io/aurora_dental/',
+                'year' => '2026',
+                'sector' => ['en' => 'Dental practice', 'hu' => 'Fogászat'],
+                'type' => ['en' => 'Multi-page site', 'hu' => 'Több oldalas weboldal'],
+                'tagline' => [
+                    'en' => 'The price before the chair.',
+                    'hu' => 'Az ár előbb, mint a fogorvosi szék.',
+                ],
+                'problem' => [
+                    'en' => 'Nobody books a dentist while feeling relaxed. The two things a nervous patient wants first — what it will cost and how much of the tooth is coming off — are exactly the two a dental site tends to bury behind a contact form, so the visit is booked on hope or not at all.',
+                    'hu' => 'Fogorvost senki nem nyugodtan foglal. Amit egy szorongó páciens elsőként tudni akar — mennyibe kerül, és mennyi megy el a fogból —, azt egy fogászati oldal jellemzően épp egy kapcsolatfelvételi űrlap mögé rejti, így az időpont reményből születik, vagy sehogy.',
+                ],
+                'approach' => [
+                    'en' => 'Eight pages that answer the awkward questions on the page instead of on the phone. The treatments page is a comparison table with a column for how much of your own tooth is gone forever, and it recommends the least invasive option even where that one earns less. Pricing carries a two-slider instalment calculator that shows the monthly figure, the deposit and the interest — zero — before anything is booked. Each of the three studios lists its own hours with a live open/closed badge, its transit directions and its map. The review index is filterable by studio and by treatment, and the four-star entries are left in.',
+                    'hu' => 'Nyolc oldal, ami a kényelmetlen kérdéseket az oldalon válaszolja meg, nem telefonon. A kezelések oldala összehasonlító táblázat, külön oszloppal arra, mennyi megy el véglegesen a saját fogból — és a legkevésbé invazív megoldást ajánlja akkor is, ha azon kevesebbet keres. Az árak oldalon kétcsúszkás részletkalkulátor mutatja a havi összeget, az önrészt és a kamatot — nullát — még a foglalás előtt. Mindhárom stúdió saját nyitvatartással, élő nyitva/zárva jelzéssel, megközelítéssel és térképpel szerepel. Az értékelések szűrhetők stúdióra és kezelésre, a négycsillagosok pedig bent maradtak.',
+                ],
+                'value' => [
+                    'en' => 'A patient can reach a monthly figure and a treatment decision without speaking to anyone — which is the point, because the ones who need that most are the ones least likely to ring. Publishing the four-star reviews and the least-profitable recommendation costs the practice nothing it was going to keep anyway.',
+                    'hu' => 'A páciens úgy jut el a havi összegig és a kezelési döntésig, hogy közben senkivel nem kell beszélnie — és épp ez a lényeg: akinek erre a legnagyobb szüksége van, az telefonál a legkevésbé. A négycsillagos értékelések és a legkevésbé jövedelmező ajánlás közzététele semmit nem kerül, amit a rendelő amúgy megtartott volna.',
+                ],
+                'highlights' => [
+                    ['en' => 'Treatment table scored by how much tooth is lost', 'hu' => 'Kezelési táblázat aszerint, mennyi fog vész el'],
+                    ['en' => 'Two-slider instalment calculator, deposit and interest shown', 'hu' => 'Kétcsúszkás részletkalkulátor, önrésszel és kamattal'],
+                    ['en' => 'Live open/closed badge and hours per studio', 'hu' => 'Élő nyitva/zárva jelzés és nyitvatartás stúdiónként'],
+                    ['en' => 'Reviews filterable by studio and by treatment', 'hu' => 'Értékelések szűrése stúdióra és kezelésre'],
+                ],
+                'figures' => [
+                    ['label' => ['en' => 'Pages', 'hu' => 'Oldal'], 'value' => '8'],
+                    ['label' => ['en' => 'Studios', 'hu' => 'Stúdió'], 'value' => '3'],
+                ],
+                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
+                'video_duration' => null,
+                'video_caption' => [
+                    'en' => 'Comparing three treatments, then working out the monthly figure.',
+                    'hu' => 'Három kezelés összehasonlítása, majd a havi összeg kiszámolása.',
+                ],
+            ],
             'pacer' => [
                 'slug' => 'pacer',
                 'name' => 'PACER',
@@ -663,6 +616,82 @@ class WebsiteProjectController extends Controller
                 'video_caption' => [
                     'en' => 'Scrolling the work index, then opening a project.',
                     'hu' => 'Végiggörgetés a munkákon, majd egy projekt megnyitása.',
+                ],
+            ],
+            'muzsik' => [
+                'slug' => 'muzsik',
+                'name' => 'Muzsik Fodrászat',
+                'logo' => 'assets/imgs/websites/muzsik/muzsik_logo.png',
+                'kind' => 'concept',
+                'url' => 'https://hussylevente.github.io/muzsik_fodraszat/',
+                'year' => '2026',
+                'sector' => ['en' => 'Hair salon', 'hu' => 'Fodrászat'],
+                'type' => ['en' => 'Salon website', 'hu' => 'Szalon weboldal'],
+                'tagline' => [
+                    'en' => 'A salon you can judge before you book.',
+                    'hu' => 'Egy szalon, amit foglalás előtt meg tudsz ítélni.',
+                ],
+                'problem' => [
+                    'en' => 'A salon lives on trust: people want to see the work, meet the stylists and know what is used on their hair before they hand any of it over. All of that had to fit on one page without turning into a brochure nobody scrolls.',
+                    'hu' => 'Egy szalon bizalomból él: az emberek látni akarják a munkát, megismerni a fodrászokat, és tudni, mi kerül a hajukra, mielőtt rábíznák magukat. Mindennek el kellett férnie egy oldalon anélkül, hogy prospektussá váljon, amit senki nem görget végig.',
+                ],
+                'approach' => [
+                    'en' => 'One long, scroll-driven page: a hero where the model’s colour transforms as you scroll, a gallery of real work, the stylists introduced by name, and the Demeral product partnership given its own chapter. Booking stays anchored on screen the whole way down, and the site carries its own blog and on-site search.',
+                    'hu' => 'Egyetlen hosszú, görgetésre épülő oldal: egy hero, ahol a modell hajszíne görgetés közben alakul át, valódi munkák galériája, a fodrászok név szerint bemutatva, és a Demeral partnerség saját fejezettel. Az időpontfoglalás végig a képernyőn marad, az oldal pedig saját blogot és keresőt is visz.',
+                ],
+                'value' => [
+                    'en' => 'Everything a first-time client asks before booking — who will cut my hair, what will it look like, what goes on it — is answered on the page, with the booking button never more than one tap away.',
+                    'hu' => 'Minden, amit egy új vendég foglalás előtt megkérdez — ki vágja a hajam, hogy fog kinézni, mi kerül rá — meg van válaszolva az oldalon, a foglalás gomb pedig sosincs egy koppintásnál messzebb.',
+                ],
+                'highlights' => [
+                    ['en' => 'Scroll-driven colour transformation', 'hu' => 'Görgetésre épülő színátalakulás'],
+                    ['en' => 'Stylists introduced by name', 'hu' => 'Fodrászok név szerint bemutatva'],
+                    ['en' => 'Persistent booking call to action', 'hu' => 'Végig elérhető időpontfoglalás'],
+                    ['en' => 'Built-in blog and on-site search', 'hu' => 'Beépített blog és kereső'],
+                ],
+                'figures' => [],
+                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
+                'video_duration' => '0:58',
+                'video_caption' => [
+                    'en' => 'The full page end to end, including the scroll-driven hero.',
+                    'hu' => 'A teljes oldal elejétől a végéig, a görgetésre épülő heróval együtt.',
+                ],
+            ],
+            'passion' => [
+                'slug' => 'passion',
+                'name' => 'Passion Gumiszerviz',
+                'kind' => 'concept',
+                'url' => 'https://hussylevente.github.io/passion_gumiszerviz/',
+                'year' => '2026',
+                'sector' => ['en' => 'Tyre service', 'hu' => 'Gumiszerviz'],
+                'type' => ['en' => 'Local business site', 'hu' => 'Helyi vállalkozás oldala'],
+                'tagline' => [
+                    'en' => 'A tyre shop that opens with a car, not a price list.',
+                    'hu' => 'Egy gumiszerviz, ami autóval nyit, nem árlistával.',
+                ],
+                'problem' => [
+                    'en' => 'Most tyre-service sites are a phone number buried under a wall of specifications. For a workshop in Solymár the job was simpler and harder: look like somewhere you would trust your car, and make the address, the hours and the booking impossible to miss.',
+                    'hu' => 'A legtöbb gumiszerviz-oldal egy telefonszám, elásva a műszaki adatok fala alatt. Egy solymári műhelynél a feladat egyszerűbb és nehezebb volt: úgy kell kinéznie, mint ahol rábíznád az autódat, a címnek, a nyitvatartásnak és a foglalásnak pedig lehetetlen legyen nem észrevenni.',
+                ],
+                'approach' => [
+                    'en' => 'A short, confident page. Full-bleed car photography up top with the service promises annotated straight onto it, then the reasons to choose the workshop, then everything practical — address, phone, opening hours and a map — in one block at the bottom. Booking sits in a floating button that follows you down the page.',
+                    'hu' => 'Rövid, magabiztos oldal. Felül teljes szélességű autófotó, a szolgáltatási ígéretekkel közvetlenül rárajzolva, aztán az érvek a műhely mellett, végül minden gyakorlati tudnivaló — cím, telefon, nyitvatartás és térkép — egyetlen blokkban. Az időpontfoglalás egy lebegő gombban követi a görgetést.',
+                ],
+                'value' => [
+                    'en' => 'A visitor can get the address, the opening hours, the phone number and a booking from a single screen — the four things anyone actually opens a tyre-service site for.',
+                    'hu' => 'A látogató egyetlen képernyőről megkapja a címet, a nyitvatartást, a telefonszámot és a foglalást — azt a négy dolgot, amiért egy gumiszerviz oldalát egyáltalán megnyitják.',
+                ],
+                'highlights' => [
+                    ['en' => 'Annotated full-bleed hero photography', 'hu' => 'Feliratozott, teljes szélességű hero fotó'],
+                    ['en' => 'Floating booking button throughout', 'hu' => 'Végig lebegő foglalás gomb'],
+                    ['en' => 'Address, hours and map in one block', 'hu' => 'Cím, nyitvatartás és térkép egy blokkban'],
+                ],
+                'figures' => [],
+                'tools' => ['Figma', 'HTML', 'CSS', 'JavaScript'],
+                'video_duration' => null,
+                'video_caption' => [
+                    'en' => 'A pass down the full page, from the hero to the contact block.',
+                    'hu' => 'Végigfutás a teljes oldalon a herótól a kapcsolati blokkig.',
                 ],
             ],
             'paradise' => [
